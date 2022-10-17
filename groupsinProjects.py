@@ -5,7 +5,7 @@ import csv
 import os
 
 
-def call(ext, groupName=''):
+def call(ext, groupName='', id=''):
     url = "https://lucidmotors.atlassian.net/rest/api/3/" + ext
 
     headers = {
@@ -17,6 +17,10 @@ def call(ext, groupName=''):
         query = {
             'groupname': groupName
         }
+    if id:
+        query = {
+            'accountId': id
+        }
     response = json.loads(requests.request(
         "GET",
         url,
@@ -27,13 +31,13 @@ def call(ext, groupName=''):
     return response
 
 
-projectRoles = ['10001', '10301', '10000', '10300', '10425']
-projectType = ['Developers', 'agents', 'users', 'customers', 'suppliers']
-newFile = 'project role groups and users'
+projectRoles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
+projectType = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
+newFile = 'project role groups and users 2'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
-    writer.writerow(['Project', 'Role', 'Cost Center/emails'])
+    writer.writerow(['jira', 'Project key', 'Role', 'Cost Center'])
     projects = call('project')
     for i in projects:
         if i['name'].startswith("[dead]") or i['name'].startswith("{Archived}") or i['name'].startswith("{ARCHIVE}") \
@@ -45,16 +49,25 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') a
                 if 'actors' in groupName:
                     emails = []
                     costCenters = []
+                    users = []
                     for x in groupName['actors']:
-                        if x['displayName'].startswith('CC-') or x['displayName'].startswith('DEPT-') or \
-                                x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
-                            costCenters.append(x['displayName'])
-                        else:
-                            names = call('group/member', x['displayName'])
-                            if 'values' in names:
-                                for y in names['values']:
-                                    emails.append(y['emailAddress'])
-                    if costCenters:
-                        writer.writerow([i['name'], r, costCenters])
-                    if emails:
-                        writer.writerow([i['name'], r, emails])
+                        if x['displayName'] != 'administrators':
+                            if x['displayName'].startswith('CC-') or x['displayName'].startswith('DEPT-') or \
+                                    x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
+                                costCenters.append(x['displayName'])
+                            else:
+                                names = call('group/member', x['displayName'])
+                                if 'errorMessages' in names:
+                                    user = call('/user', '', x['actorUser']['accountId'])
+                                    try:
+                                        users.append(user['emailAddress'])
+                                    except KeyError:
+                                        print(x['actorUser']['accountId'], x['displayName'], i['key'], a)
+                                if 'values' in names:
+                                    for y in names['values']:
+                                        try:
+                                            emails.append(y['emailAddress'])
+                                        except KeyError:
+                                            print(y['accountId'], y['displayName'], i['key'], a)
+                    if costCenters or emails or users:
+                        writer.writerow(['jira', i['key'], r, costCenters + emails + users])

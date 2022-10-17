@@ -6,23 +6,25 @@ from tabulate import tabulate
 url = "https://lucidmotors.atlassian.net/rest/api/3/project?expand=lead"
 
 headers = {
-   "Accept": "application/json"
+    "Accept": "application/json"
 }
 
 response = json.loads(requests.request(
-   "GET",
-   url,
-   headers=headers,
-   auth=auth
+    "GET",
+    url,
+    headers=headers,
+    auth=auth
 ).text)
 
 list = []
 
+x = 1
 for i in response:
-    list.append([i['name'], i['key'], i['lead']['displayName']])
+    list.append([x, i['name'], i['key'], i['lead']['displayName']])
+    x += 1
 
-print(tabulate(list, headers=["Project", "key", "Owner"]))
+print(tabulate(list, headers=["total", "Project", "key", "Owner"]))
 
-#print(list)
+# print(list)
 
-#print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))

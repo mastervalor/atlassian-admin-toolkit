@@ -2,7 +2,7 @@ import requests
 import json
 from auth import auth
 
-url = "https://lucidmotors.atlassian.net/rest/api/3/user/properties/lucidmotors-userProfile?accountId=557058:b210a302-ce69-4752-94f1-fd2529a033a3"
+url = "https://lucidmotors.atlassian.net/rest/api/3/user/properties/lucidmotors-userProfile?accountId=557058:beeea11c-94e3-48e5-900a-1b92b17df45e"
 
 headers = {
    "Accept": "application/json"
