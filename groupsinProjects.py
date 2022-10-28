@@ -3,9 +3,10 @@ from auth import auth
 import json
 import csv
 import os
+from group import get_group_users
 
 
-def call(ext, groupName='', id=''):
+def call(ext, id=''):
     url = "https://lucidmotors.atlassian.net/rest/api/3/" + ext
 
     headers = {
@@ -13,10 +14,6 @@ def call(ext, groupName='', id=''):
     }
     query = ''
 
-    if groupName:
-        query = {
-            'groupname': groupName
-        }
     if id:
         query = {
             'accountId': id
@@ -33,7 +30,7 @@ def call(ext, groupName='', id=''):
 
 projectRoles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
 projectType = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
-newFile = 'project role groups and users 2'
+newFile = 'project role groups and users 3'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
@@ -56,9 +53,9 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') a
                                     x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
                                 costCenters.append(x['displayName'])
                             else:
-                                names = call('group/member', x['displayName'])
+                                names = get_group_users( x['displayName'])
                                 if 'errorMessages' in names:
-                                    user = call('/user', '', x['actorUser']['accountId'])
+                                    user = call('/user', x['actorUser']['accountId'])
                                     try:
                                         users.append(user['emailAddress'])
                                     except KeyError:

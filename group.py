@@ -41,7 +41,7 @@ def get_group_users(group):
                 min += 50
                 max += 50
                 total = response['total']
-                print(f'group {group} has is the new min {min} and max {max} and the total is {total}')
+                #print(f'group {group} has is the new min {min} and max {max} and the total is {total}')
     except KeyError:
         print(f"This group {group} doesn't exist")
 

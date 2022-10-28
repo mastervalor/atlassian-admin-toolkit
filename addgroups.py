@@ -7,7 +7,7 @@ import os
 
 
 def call(ext):
-    url = "https://lucidmotors-sandbox-693.atlassian.net/rest/api/3/" + ext
+    url = "https://lucidmotors.atlassian.net/rest/api/3/" + ext
 
     headers = {
         "Accept": "application/json"
@@ -23,7 +23,7 @@ def call(ext):
 
 
 def post(group, key, id):
-    url = f"https://lucidmotors-sandbox-693.atlassian.net/rest/api/3/project/{key}/role/{id}"
+    url = f"https://lucidmotors.atlassian.net/rest/api/3/project/{key}/role/{id}"
 
     headers = {
         "Accept": "application/json",
