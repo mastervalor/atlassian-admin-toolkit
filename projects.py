@@ -3,7 +3,7 @@ import json
 import requests
 from tabulate import tabulate
 
-url = "https://lucidmotors.atlassian.net/rest/api/3/project?expand=lead"
+url = "https://jira.robot.car/rest/api/3/project?expand=lead"
 
 headers = {
     "Accept": "application/json"

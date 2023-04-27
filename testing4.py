@@ -1,17 +1,46 @@
-array = [5,3,4,1]
+from auth import auth
+import json
+import requests
+from datetime import datetime
 
-x = 0
-y= len(array) -1
+url = f"https://jira.robot.car/rest/api/2/search?maxResults=1"
 
-for x =0 in x<array.length:
-
-    for y in y>=x:
-    {
-        if(array[x]> array[y])
-        {
-            var temp = array[y];
-            array[y] = array[x];
-            array[x] =
-        }
+headers = {
+        "Accept": "application/json"
     }
-}
+
+query = {
+        'jql': 'project = EMSTOP ORDER BY created DESC'
+    }
+
+response = json.loads(requests.request(
+        "GET",
+        url,
+        headers=headers,
+        params=query,
+        auth=auth
+    ).text)
+
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+print(response['total'])
+date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
+print(date.strftime('%B %Y'))
+print(response['issues'][0]['key'])
+
+
+query = {
+        'jql': 'project = "IT Apps" ORDER BY created ASC'
+    }
+
+response = json.loads(requests.request(
+        "GET",
+        url,
+        headers=headers,
+        params=query,
+        auth=auth
+    ).text)
+
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
+print(date.strftime('%B %Y'))
+print(response['issues'][0]['key'])

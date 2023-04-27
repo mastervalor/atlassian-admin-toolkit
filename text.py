@@ -2,7 +2,8 @@ import csv
 import os
 import requests
 import json
-from auth import auth
+from call import call, project_metric, Okta, conf_call, field_metrics
+from auth import auth, okta_token,  conf_token
 
 
 # url = f"https://lucidmotors-sandbox-693.atlassian.net/rest/api/3/issue/ATLAS-13119"
@@ -242,4 +243,127 @@ from auth import auth
 # ).text)
 
 
-#print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+#
+# url = "https://jira.robot.car/rest/api/2/project/EMSTOP"
+# headers = {
+#         "Accept": "application/json"
+#     }
+# response = requests.request(
+#         "GET",
+#         url,
+#         headers=headers,
+#         auth=auth
+#     )
+#
+# print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+
+# response = call('project?expand=lead', 'get')
+# response = call('attachment/744476', 'get')
+
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+
+# Set up variables for Okta API request
+# url = 'https://cruise.okta.com/api/v1/users'
+# email = 'trivender.dalal@getcruise.com'
+# params = {'filter': 'profile.email eq "{0}"'.format(email)}
+# headers = {
+#     'Accept': 'application/json',
+#     'Content-Type': 'application/json',
+#     'Authorization': 'SSWS 00erjLWtoLWQPT5Hppge3gnMnDSZp0mcEtBRdoAV1W'
+# }
+#
+# # Make the Okta API request
+# response = requests.get(url, headers=headers, params=params)
+# print(json.loads(response.text)[0]['profile']['manager'])
+# if response.status_code == 200:
+#     # Parse the response as JSON
+#     response_json = json.loads(response.text)
+#
+#     # If there is at least one user returned, print their profile
+#     if len(response_json) > 0:
+#         user = response_json[0]
+#         print('User found:')
+#         print(json.dumps(user, indent=4))
+#     else:
+#         print('No users found with email: ' + email)
+# else:
+#     print('Error searching for user: ' + str(response.status_code))
+
+# print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+
+# res = call('group/member?groupname=app-fira-FCI-administrator', 'get')
+# print(res)
+
+# admins = 'Jira admins copy'
+#
+# with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), admins), mode='r+') as new_csv:
+#     reader = csv.DictReader(new_csv)
+#     writer = csv.writer(new_csv)
+#
+#     for i in reader:
+#         print(i)
+
+# results = call("resolution=Fixed", 'search')
+# # print(results)
+# print(results['total'])
+
+# response = call('project/18904?expand=details', 'get')
+#
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+
+#url = 'https://cruise.okta.com/api/v1/groups?q=app-confluence-admin'
+#
+# headers = {
+#     'Accept': 'application/json',
+#     'Content-Type': 'application/json',
+#     'Authorization': okta_token
+# }
+#
+# response = requests.get(url, headers=headers)
+#
+# print(json.loads(response.text))
+
+# name = 'app-confluence-admin'
+# call = Okta.okta_groups(name)
+# print(json.dumps(call, sort_keys=True, indent=4, separators=(",", ": ")))
+# # for i in call:
+# #     print(i['profile'])
+
+# members = conf_call('group/system-administrators/member')
+#
+# for i in members['results']:
+#     print(i['username'])
+# results = field_metrics()
+#
+# print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
+
+# define a list of strings
+# strings_list = ["815 Last: 22/Mar/23 9:01 AM", "90 Last: 22/Mar/23 10:35 AM", "72331 Last: 22/Mar/23 12:16 PM"]
+#
+# # loop through each string in the list
+# for i in range(len(strings_list)):
+#     # find the index of "Last:" in the string
+#     apple = strings_list[i]
+#     last_index = strings_list[i].index("Last:")
+#     # extract the date part of the string after "Last:"
+#     print(last_index)
+#     date_string = strings_list[i][last_index + len("Last:"):].strip()
+#     # update the string in the list to only contain the date part
+#     strings_list[i] = date_string
+#
+# # print the updated list of strings
+# print(strings_list)
+
+query = 'michelle.richards'
+
+response = call("user?expand=groups", 'groups', query)
+
+
+for i in response['groups']['items']:
+    if "-agent" in i['name']:
+        print(i['name'])
+
+# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))

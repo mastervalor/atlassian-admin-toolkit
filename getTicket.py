@@ -2,7 +2,7 @@ import json
 import requests
 from auth import auth
 
-url = "https://lucidmotors.atlassian.net/rest/api/3/issue/ATLAS-8712"
+url = "https://jira.robot.car/rest/api/2/issue/NO-691"
 
 headers = {
    "Accept": "application/json"

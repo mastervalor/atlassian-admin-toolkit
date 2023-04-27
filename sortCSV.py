@@ -1,0 +1,25 @@
+import csv
+import os
+import json
+from call import field_metrics
+
+project = 'issue types'
+names = []
+word_counts = {}
+
+with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), project), mode='r') as new_file:
+    csv_reader = csv.DictReader(new_file)
+    for i in csv_reader:
+        names.append(i['Name'])
+
+for name in names:
+    words = name.split()
+    for word in words:
+        if word in word_counts:
+            word_counts[word] += 1
+        else:
+            word_counts[word] = 1
+
+for word, count in word_counts.items():
+    if count > 1:
+        print(f"{word} appears in {count} names.")
