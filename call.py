@@ -45,19 +45,19 @@ class Confluence:
 
         return page_dicts
 
-    @classmethod
-    def move_page(cls, pref, version, ancestors):
-        url = confluence + f'content/{pref}'
+    def move_page(self, pref, version, ancestors):
+        url = self.conf_url + f'content/{pref}'
 
         headers = {
-            "Authorization": conf_token,
+            "Authorization": self.token,
             "Content-Type": "application/json"}
 
         payload = json.dumps({
             "version": {
                 "number": version,
             },
-            "type": "<string>",
+            "title": "testing more page",
+            "type": "page",
             "ancestors": [
                 {
                     "id": ancestors
