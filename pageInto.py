@@ -1,21 +1,11 @@
-from auth import conf_token
-import requests
+from call import Confluence
 import json
 
-url = 'https://wiki.robot.car/rest/api/content/390260181?expand=ancestors'
-
-headers = {
-    "Authorization": conf_token,
-    "Content-Type": "application/json"}
-
-response = requests.request(
-   "GET",
-   url,
-   headers=headers
-)
+set_up = Confluence(is_staging=True)
+response = set_up.conf_call('content/493159641?expand=ancestors')
 
 
-print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
 
 
 
