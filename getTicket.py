@@ -1,8 +1,9 @@
 import json
 import requests
 from auth import auth
+from config import jira
 
-url = "https://jira.robot.car/rest/api/2/issue/NO-691"
+url = jira + "issue/SEC-42591"
 
 headers = {
    "Accept": "application/json"

@@ -1,28 +1,81 @@
 import requests
-from auth import auth, staging_auth, okta_token, conf_token
+from auth import auth, staging_auth, okta_token, conf_token, staging_conf_token
 import json
+from config import confluence, jira, jira_staging, confluence_staging
 import urllib.parse
 from datetime import datetime
 
 
-def conf_call(pref):
-    url = 'https://wiki.robot.car/rest/api/' + pref
+class Confluence:
+    def __init__(self, is_staging=False):
+        self.token = staging_conf_token if is_staging else conf_token
+        self.conf_url = confluence_staging if is_staging else confluence
 
-    headers = {
-        "Authorization": conf_token,
-        "Content-Type": "application/json"}
+    def conf_call(self, pref):
+        url = self.conf_url + pref
 
-    response = json.loads(requests.request(
-        "GET",
-        url,
-        headers=headers,
-    ).text)
+        headers = {
+            "Authorization": self.token,
+            "Content-Type": "application/json"}
 
-    return response
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+        ).text)
+
+        return response
+
+    @classmethod
+    def get_child_pages_recursive(cls, pref):
+        url = f'content/{pref}/child/page?limit=500&expand=version'
+        response = Confluence.conf_call(url)
+
+        pages = response["results"]
+        page_dicts = []
+
+        for page in pages:
+            page_dict = {
+                "id": page["id"],
+                "title": page["title"],
+                "children": cls.get_child_pages_recursive(page["id"])
+            }
+            print(page['id'])
+            page_dicts.append(page_dict)
+
+        return page_dicts
+
+    @classmethod
+    def move_page(cls, pref, version, ancestors):
+        url = confluence + f'content/{pref}'
+
+        headers = {
+            "Authorization": conf_token,
+            "Content-Type": "application/json"}
+
+        payload = json.dumps({
+            "version": {
+                "number": version,
+            },
+            "type": "<string>",
+            "ancestors": [
+                {
+                    "id": ancestors
+                }
+            ]})
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            data=payload,
+            headers=headers
+        ).text)
+
+        return response
 
 
 def call(pref, apiAction, payload=''):
-    url = "https://jira.robot.car/rest/api/2/" + pref
+    url = jira + pref
 
     if apiAction == 'get':
         headers = {"Accept": "application/json"}
