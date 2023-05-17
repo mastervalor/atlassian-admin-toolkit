@@ -57,6 +57,9 @@ class Confluence:
                 "number": version,
             },
             "title": "testing more page",
+            "space": {
+                "key": "T2"
+            },
             "type": "page",
             "ancestors": [
                 {
