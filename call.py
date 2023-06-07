@@ -26,10 +26,9 @@ class Confluence:
 
         return response
 
-    @classmethod
-    def get_child_pages_recursive(cls, pref):
+    def get_child_pages_recursive(self, pref):
         url = f'content/{pref}/child/page?limit=500&expand=version'
-        response = Confluence.conf_call(url)
+        response = self.conf_call(url)
 
         pages = response["results"]
         page_dicts = []
@@ -38,7 +37,7 @@ class Confluence:
             page_dict = {
                 "id": page["id"],
                 "title": page["title"],
-                "children": cls.get_child_pages_recursive(page["id"])
+                "children": self.get_child_pages_recursive(page["id"])
             }
             print(page['id'])
             page_dicts.append(page_dict)
