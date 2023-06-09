@@ -1,7 +1,13 @@
-from call import Confluence
+from call import Okta, call
 import json
 
+run = 0
+start = 0
+total = 50
+while start <= total:
+    group = call(f'group/member?maxResults=100&startAt={start}', 'members', 'app-jira')
+    start += 50
+    total = group['total']
 
-instance = Confluence()
-page_tree = instance.get_child_pages_recursive('465649108')
-print(json.dumps(page_tree, sort_keys=True, indent=4, separators=(",", ": ")))
+print(start)
+

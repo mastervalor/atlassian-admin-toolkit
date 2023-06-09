@@ -147,6 +147,23 @@ def call(pref, apiAction, payload=''):
             auth=auth
         ).text)
 
+    elif apiAction == 'members':
+        url = jira + pref
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'groupname': payload,
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=auth
+        ).text)
+
     return response
 
 
@@ -274,9 +291,40 @@ def staging_call(pref, apiAction, payload=''):
 
 
 class Okta:
-    def __init__(self, name, email):
+    def __init__(self, name, email, id):
         self.name = name
         self.email = email
+        self.id = id
+
+    @classmethod
+    def users_id(cls, email):
+        url = 'https://cruise.okta.com/api/v1/users'
+        email = email
+        params = {'filter': 'profile.email eq "{0}"'.format(email)}
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': okta_token
+        }
+
+        response = requests.get(url, headers=headers, params=params)
+        try:
+            return json.loads(response.text)[0]['id']
+        except IndexError:
+            return False
+
+    @classmethod
+    def get_user_groups(cls, id):
+        groups_url = f'https://cruise.okta.com/api/v1/users/{id}/groups'
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': okta_token
+        }
+        response = requests.get(groups_url, headers=headers, timeout=9000)
+        groups_json = response.json()
+        groups = [group['profile']['name'] for group in groups_json]
+        return groups
 
     @classmethod
     def okta_call(cls, email):
