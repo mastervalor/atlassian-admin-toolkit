@@ -16,7 +16,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
         for member in group['values']:
             user = Okta.users_id(member['emailAddress'])
             if user is False:
-                writer.writerow(["Failed on {member['emailAddress']} because not groups"])
+                writer.writerow([f"Failed on {member['emailAddress']} because not groups"])
                 print(f"Failed on {member['emailAddress']} because not groups")
                 continue
             groups = Okta.get_user_groups(user)

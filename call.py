@@ -1,7 +1,7 @@
 import requests
 from auth import auth, staging_auth, okta_token, conf_token, staging_conf_token
 import json
-from config import confluence, jira, jira_staging, confluence_staging
+from config import confluence, jira, jira_staging, confluence_staging, conf_base
 import urllib.parse
 from datetime import datetime
 
@@ -10,6 +10,38 @@ class Confluence:
     def __init__(self, is_staging=False):
         self.token = staging_conf_token if is_staging else conf_token
         self.conf_url = confluence_staging if is_staging else confluence
+        self.conf_base = conf_base
+
+    @classmethod
+    def user_groups(cls, pref):
+        url = confluence + f"user/memberof?username={pref}"
+
+        headers = {
+            "Authorization": conf_token,
+            "Content-Type": "application/json"}
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+        ).text)
+
+        return response
+
+    def group_members(self, pref):
+        url = self.conf_base + pref
+        print(url)
+        headers = {
+            "Authorization": self.token,
+            "Content-Type": "application/json"}
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+        ).text)
+
+        return response
 
     def conf_call(self, pref):
         url = self.conf_url + pref
@@ -23,7 +55,7 @@ class Confluence:
             url,
             headers=headers,
         ).text)
-
+        print(response)
         return response
 
     def get_child_pages_recursive(self, pref):
@@ -76,6 +108,69 @@ class Confluence:
         return response
 
 
+class Jira:
+    def __init__(self, is_staging=False):
+        self.token = staging_auth if is_staging else auth
+        self.jira = jira_staging if is_staging else jira
+
+    def jql(self, pref, payload):
+        url = self.jira + 'search' + pref
+
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'jql': payload,
+        }
+        print(url)
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
+
+    def tickets(self, query):
+        startAt = 0
+        maxResults = 1000
+        total = 1001
+        ticket_list = []
+
+        while total >= maxResults:
+            tickets = self.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+
+            for ticket in tickets['issues']:
+                key = ticket['key'].split("-")[0]
+                if key not in ticket_list:
+                    ticket_list.append(key)
+
+            print(ticket_list)
+            total = tickets['total']
+            startAt += 1000
+            maxResults += 1000
+
+        return ticket_list
+
+    def project_owners(self, keys):
+        project_owners = []
+
+        for key in keys:
+            url = self.jira + 'project/' + key
+            headers = {"Accept": "application/json"}
+            response = json.loads(requests.request(
+                "GET",
+                url,
+                headers=headers,
+                auth=self.token
+            ).text)
+            project_owners.append([key, response['lead']['name']])
+
+        return project_owners
+
+
 def call(pref, apiAction, payload=''):
     url = jira + pref
 
@@ -89,7 +184,7 @@ def call(pref, apiAction, payload=''):
         ).text)
 
     elif apiAction == 'search':
-        url = f'https://jira.robot.car/rest/api/2/search?jql={pref}'
+        url = f'https://jira.robot.car/rest/api/2/search?maxResults=20000'
         headers = {
             "Accept": "application/json"
         }
@@ -101,6 +196,7 @@ def call(pref, apiAction, payload=''):
             "GET",
             url,
             headers=headers,
+            params=query,
             auth=auth
         ).text)
 
@@ -127,7 +223,7 @@ def call(pref, apiAction, payload=''):
             url,
             data=payload,
             headers=headers,
-            auth=auth
+            auth=staging_auth
         ).text)
 
     elif apiAction == 'groups':
