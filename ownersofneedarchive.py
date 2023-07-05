@@ -1,7 +1,6 @@
 from call import call, Jira
 import csv
 import os
-import json
 
 jira = Jira()
 
