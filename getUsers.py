@@ -9,7 +9,7 @@ newfile = "Inactive project leads"
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
-    writer.writerow(['username', 'prject', 'status'])
+    writer.writerow(['username', 'project', 'status'])
     with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:

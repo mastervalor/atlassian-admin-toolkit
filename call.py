@@ -140,8 +140,7 @@ class Jira:
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
-        payload = json.dumps({
-            "fields": ticket})
+        payload = json.dumps(ticket)
 
         response = json.loads(requests.request(
             "POST",
@@ -193,6 +192,43 @@ class Jira:
             maxResults += 1000
 
         return ticket_list
+
+    def get_group(self, pref, group):
+        url = self.jira + 'group/member' + pref
+
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'groupname': group
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
+
+    def group_members(self, group):
+        startAt = 0
+        maxResults = 50
+        total = 51
+        members_list = []
+
+        while total >= maxResults:
+            members = self.get_group(f'?includeInactiveUsers=false&startAt={startAt}&maxResults={maxResults}', group)
+
+            for member in members['values']:
+                members_list.append(member['name'])
+
+            total = members['total']
+            startAt += 50
+            maxResults += 50
+            print(startAt, maxResults)
+        return members_list
 
     def project_owners(self, keys):
         project_owners = []
