@@ -481,10 +481,12 @@ class Okta:
 
         response = requests.get(url, headers=headers, params=params)
         try:
-            return json.loads(response.text)[0]['id']
+            return json.loads(response.text)[0]
         except IndexError:
             return False
 
+    # @classmethod
+    # def users_manager(cls, email):
     @classmethod
     def get_user_groups(cls, id):
         groups_url = f'https://cruise.okta.com/api/v1/users/{id}/groups'
