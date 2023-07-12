@@ -6,7 +6,7 @@ from call import Confluence
 
 newFile = "Group Match"
 openFile = "app-confluence members"
-fileName = "okta groups"
+fileName = "app-jira-group-memberships-20230712"
 
 # Get the current username
 username = getpass.getuser()

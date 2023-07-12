@@ -12,6 +12,14 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
         if user is False:
             print("couldn't find ")
         manager = Okta.users_id(user['profile']['manager'] + '@getcruise.com')
+        status = True
+        while status:
+            if manager['status'] == 'DEPROVISIONED':
+                print(manager['profile']['email'] + manager['status'])
+                manager = Okta.users_id(manager['profile']['manager'] + '@getcruise.com')
+            else:
+                status = False
+        print(row['username'] + "'s manager:" + manager['profile']['manager'] + manager['status'] + manager['profile']['title'])
         if "VP," in manager['profile']['title'] or "vice president" in manager['profile']['title'] or "chief" in manager['profile']['title']:
             print(f"{row['username']}'s manger is the vp of {manager['profile']['title']}")
             payload = {
@@ -19,17 +27,17 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                     'project': {
                         'key': 'ITAPP',
                     },
-                    'summary': f"Project key: {row['prject']} lead {row['username']} is no longer with the company",
+                    'summary': f"Project key: {row['project']} lead {row['username']} is no longer with the company",
                     "issuetype": {
                         "id": "3"
                     },
                     "reporter": {
-                        "name": user['profile']['manager']
+                        "name": 'mourad.marzouk'
                     },
                     "customfield_28001": {
                         'value': "Jira"
                     },
-                    "description": f"Project key: {row['prject']} lead {row['username']} is no longer with the company "
+                    "description": f"Project key: {row['project']} lead {row['username']} is no longer with the company "
                                    f"and we need to find out who would be the new owner of this project",
                 },
                 "update": {
@@ -50,7 +58,8 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 }
             }
 
-            jira.create_ticket(payload)
+            response = jira.create_ticket(payload)
+            print(response)
         else:
             print(f"{row['username']}'s manger is not a vp")
             payload = {
@@ -58,7 +67,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                     'project': {
                         'key': 'ITAPP',
                     },
-                    'summary': f"Project key: {row['prject']} lead {row['username']} is no longer with the company",
+                    'summary': f"Project key: {row['project']} lead {row['username']} is no longer with the company",
                     "issuetype": {
                             "id": "3"
                     },
@@ -72,7 +81,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                         {
                             "name": user['profile']['manager']
                         }],
-                    "description": f"Project key: {row['prject']} lead {row['username']} is no longer with the company "
+                    "description": f"Project key: {row['project']} lead {row['username']} is no longer with the company "
                                    f"and we need to find out who would be the new owner of this project",
                 },
                 "update": {
@@ -93,4 +102,5 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 }
             }
 
-            jira.create_ticket(payload)
+            response = jira.create_ticket(payload)
+            print(response)
