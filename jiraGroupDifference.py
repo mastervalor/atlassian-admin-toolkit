@@ -2,14 +2,15 @@ import json
 import os
 import csv
 import getpass
-from call import Confluence
+from call import Jira
 
-newFile = "Group Match"
-openFile = "app-confluence members"
+newFile = "Jira Group Match 2"
+openFile = "app-jira members"
 fileName = "app-jira-group-memberships-20230712"
 
 # Get the current username
 username = getpass.getuser()
+jira = Jira()
 
 # Specify the file path
 file_path = '/Users/{}/Desktop/{}.json'.format(username, fileName)
@@ -21,17 +22,17 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         csv_reader = csv.DictReader(csv_file)
         with open(file_path, 'r') as json_file:
             json_data = json.load(json_file)
+            json_groups = set(json_data.keys())
         for user in csv_reader:
-            response = Confluence.user_groups(user['username'])
-            # Extract group names from the API response and create a dict
+            response = jira.user_groups(user['username'])
+            filtered_groups = []
             try:
-                api_groups = {group['name'] for group in response['results']}
-                # Extract group names from the JSON file keys and create a set
-                json_groups = set(json_data.keys())
-                # Find groups in the API response but not in the JSON file
-                groups_not_in_json = api_groups - json_groups
-                # Filter the groups to only include those starting with 'app-confluence'
-                filtered_groups = [group for group in groups_not_in_json if group.startswith('app-confluence')]
+                for group in response:
+                    if group.startswith('app-jira'):
+                        okta_group_users = json_data[group]
+                        if (user['username']) not in okta_group_users:
+                            filtered_groups.append(group)
+
                 writer.writerow([user['username'], filtered_groups])
                 print([user['username'], filtered_groups])
             except KeyError:

@@ -6,7 +6,9 @@ from config import confluence
 import csv
 import os
 
-user = Okta.users_id('mo.elshenawy@getcruise.com')
+# user = Okta.users_id('mo.elshenawy@getcruise.com')
+jira = Jira()
+user = jira.get_group('?includeInactiveUsers=false', 'app-jira')
 
 # manager = Okta.users_id(user['profile']['manager'] + '@getcruise.com')
 # print(manager['profile']['title'])

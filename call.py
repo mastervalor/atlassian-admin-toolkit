@@ -113,8 +113,8 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def get_user(self, payload):
-        url = self.jira + 'user'
+    def get_user(self, payload, pref=''):
+        url = self.jira + 'user' + pref
 
         headers = {
             "Accept": "application/json"
@@ -132,6 +132,15 @@ class Jira:
         ).text)
 
         return response
+
+    def user_groups(self, user):
+        groups = self.get_user(user, '?expand=groups')
+        user_groups = []
+
+        for group in groups['groups']['items']:
+            user_groups.append(group['name'])
+
+        return user_groups
 
     def create_ticket(self, ticket):
         url = self.jira + 'issue'
