@@ -3,7 +3,7 @@ import os
 import json
 from call import field_metrics
 
-project = 'issue types'
+project = 'Projects metrics 2'
 names = []
 word_counts = {}
 

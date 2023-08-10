@@ -1,129 +1,75 @@
-from call import Jira, Okta
+from call import Jira
 import csv
 import os
 
 jira = Jira()
-openFile = 'Inactive project leads'
+openFile = 'Projects - projects to archive'
+assingees = {"mourad.marzouk": 3, "patricia.pattin": 4, "ron.erlandson": 4}
+
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
-        user = Okta.users_id((row['username'] + '@getcruise.com'))
-        if user is False:
-            print("couldn't find ")
-        manager = Okta.users_id(user['profile']['manager'] + '@getcruise.com')
-        status = True
-        while status:
-            if manager['status'] == 'DEPROVISIONED':
-                print(manager['profile']['email'] + ' ' + manager['status'])
-                manager = Okta.users_id(manager['profile']['manager'] + '@getcruise.com')
-            else:
-                status = False
-        print(row['username'] + "'s manager:" + manager['profile']['manager'] + manager['status'] + manager['profile']['title'])
-        if "Vice President" in manager['profile']['title'] or "VP," in manager['profile']['title'] or\
-                "chief" in manager['profile']['title']:
-            reports = manager['profile']['directReports']
-            name_list = reports.split("; ")
-            for report in name_list:
-                email = f"{report.lower().replace(' ', '.')}@getcruise.com"
-                looking = Okta.users_id(email)
-                if 'Executive Assistant' in looking['profile']['title'] or 'Executive Business' in looking['profile']['title']:
-                    print(f"{row['username']}'s manger is the vp of {manager['profile']['title']}")
-                    username = report.lower().replace(' ', '.')
-                    vp = manager['profile']['firstName'] + ' ' + manager['profile']['lastName']
-                    payload = {
-                        'fields': {
-                            'project': {
-                                'key': 'ITAPP',
-                            },
-                            'summary': f"Project key: {row['project']} lead {row['username']} is no longer with the company",
-                            "issuetype": {
-                                "id": "3"
-                            },
-                            "reporter": {
-                                "name": 'mourad.marzouk'
-                            },
-                            "customfield_13230": [
-                                {
-                                    "name": username
-                                }],
-                            "customfield_18672": {
-                                "value": "Strategic Work"
-                            },
-                            "customfield_28001": {
-                                'value': "Jira"
-                            },
-                            "description": f"Hello {report} Project key: {row['project']} lead {row['username']} is "
-                                           f"no longer with the company and we need to find out who would be the new"
-                                           f"owner of this project. The next manager in line is the VP {vp} as their "
-                                           f"Executive Assistant we are reaching out you for support in finding who "
-                                           f"they would like to appoint as new owner for this project. Thank you"
-                        },
-                        "update": {
-                            "issuelinks": [
-                                {
-                                    "add": {
-                                        "type": {
-                                            "name": "Problem/Incident",
-                                            "inward": "is caused by",
-                                            "outward": "causes"
-                                        },
-                                        "outwardIssue": {
-                                            "key": "ITAPP-5040"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-
-                    response = jira.create_ticket(payload)
-                    print(response)
-                    break
+        name, status = jira.project_owner(row['key'])
+        if not status:
+            assignee = 'mourad.marzouk'
+            assingees['mourad.marzouk'] += 1
+            approver = ''
         else:
-            print(f"{row['username']}'s manger is not a vp")
-            payload = {
-                'fields': {
-                    'project': {
-                        'key': 'ITAPP',
-                    },
-                    'summary': f"Project key: {row['project']} lead {row['username']} is no longer with the company",
-                    "issuetype": {
-                            "id": "3"
-                    },
-                    "reporter": {
-                        "name": 'mourad.marzouk'
-                     },
-                    "customfield_28001": {
-                        'value': "Jira"
-                    },
-                    "customfield_18672": {
-                        "value": "Strategic Work"
-                    },
-                    "customfield_13230": [
-                        {
-                            "name": manager['profile']['firstName'] + '.' + manager['profile']['lastName']
-                        }],
-                    "description": f"Project key: {row['project']} lead {row['username']} is no longer with the company "
-                                   f"and we need to find out who would be the new owner of this project",
+            lowest_assignee = min(assingees, key=assingees.get)
+            assignee = lowest_assignee
+            assingees[lowest_assignee] += 1
+            approver = name
+
+        owner = name.replace('.', ' ')
+        payload = {
+            'fields': {
+                'project': {
+                    'key': 'ITAPP',
                 },
-                "update": {
-                    "issuelinks": [
-                        {
-                            "add": {
-                                "type": {
-                                    "name": "Problem/Incident",
-                                    "inward": "is caused by",
-                                    "outward": "causes"
-                                },
-                                "outwardIssue": {
-                                    "key": "ITAPP-5040"
-                                }
+                'summary': f"This project: {row['Name']} does not meet the new requirments, and will be targeted for "
+                           f"archiving",
+                "issuetype": {
+                    "id": "3"
+                },
+                "reporter": {
+                    "name": 'mourad.marzouk'
+                },
+                "assignee": {
+                    "name": assignee
+                },
+                "customfield_13230": [
+                    {
+                        "name": approver
+                    }],
+                "customfield_18672": {
+                    "value": "Strategic Work"
+                },
+                "customfield_28001": {
+                    'value': "Jira"
+                },
+                "description": f"Hello {owner} As the owner of {row['Name']} : {row['key']} In our effort to "
+                               f"standardize the instance, we have found that your project is not used in some time "
+                               f"or doesn't have many tickets. Do to this this project will be targeted for archival. "
+                               f"We are reaching out to you to inform you about this. If you have any concerns please "
+                               f"let us know here. If no response in 5 days the project will be archived"
+            },
+            "update": {
+                "issuelinks": [
+                    {
+                        "add": {
+                            "type": {
+                                "name": "Problem/Incident",
+                                "inward": "is caused by",
+                                "outward": "causes"
+                            },
+                            "outwardIssue": {
+                                "key": "ITAPP-6215"
                             }
                         }
-                    ]
-                }
+                    }
+                ]
             }
-
-            response = jira.create_ticket(payload)
-            print(response)
+        }
+        response = jira.create_ticket(payload)
+        print(response, assignee, row['Name'], approver)

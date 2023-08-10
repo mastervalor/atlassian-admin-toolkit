@@ -1,7 +1,9 @@
 import json
 import os
 import getpass
+import requests
 from call import Confluence, Jira
+from auth import auth
 #
 # fileName = "okta groups"
 #
@@ -36,5 +38,8 @@ from call import Confluence, Jira
 
 jira = Jira()
 
-user = jira.user_groups('mourad.marzouk')
-print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+# user = jira.user_groups('mourad.marzouk')
+# print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+
+name, statues = jira.project_owner('EMSTOP')
+print(statues)

@@ -4,7 +4,7 @@ import os
 from call import Jira
 
 jira = Jira()
-newFile = "app-jira members 2"
+newFile = "app-jira members"
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)

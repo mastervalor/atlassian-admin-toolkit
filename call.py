@@ -236,7 +236,7 @@ class Jira:
             total = members['total']
             startAt += 50
             maxResults += 50
-            print(startAt, maxResults)
+            # print(startAt, maxResults)
         return members_list
 
     def project_owners(self, keys):
@@ -254,6 +254,21 @@ class Jira:
             project_owners.append([key, response['lead']['name']])
 
         return project_owners
+
+    def project_owner(self, key):
+
+        url = self.jira + 'project/' + key
+        headers = {"Accept": "application/json"}
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+        owner = response['lead']['name']
+        status = response['lead']['active']
+
+        return owner, status
 
 
 def call(pref, apiAction, payload=''):
@@ -472,10 +487,12 @@ def staging_call(pref, apiAction, payload=''):
 
 
 class Okta:
-    def __init__(self, name, email, id):
+    def __init__(self, name, email, id, user_id, group_id):
         self.name = name
         self.email = email
         self.id = id
+        self.users_id = user_id
+        self.group_id = group_id
 
     @classmethod
     def users_id(cls, email):
@@ -557,6 +574,38 @@ class Okta:
         response = requests.get(url, headers=headers)
 
         return json.loads(response.text)
+
+    @classmethod
+    def get_group_id(cls, name):
+        url = 'https://cruise.okta.com/api/v1/groups'
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': okta_token
+        }
+
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            response = json.loads(response.text)
+        for i in response:
+            if i['profile']['name'] == name:
+                return i['id']
+        else:
+            return f"Failed to retrieve group ID. Status code: {response.status_code}"
+
+        return None
+
+    @classmethod
+    def add_user_to_group(cls, user_id, group_id):
+        url = f"https://cruise.okta.com/api/v1/groups/{group_id}/users/{user_id}"
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': okta_token
+        }
+        response = requests.put(url, headers=headers)
+        return response.status_code
+
         # example
         # for j in admins:
         #     try:

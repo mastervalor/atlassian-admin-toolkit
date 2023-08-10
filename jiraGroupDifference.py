@@ -4,7 +4,7 @@ import csv
 import getpass
 from call import Jira
 
-newFile = "Jira Group Match 2"
+newFile = "Jira Group Match"
 openFile = "app-jira members"
 fileName = "app-jira-group-memberships-20230712"
 
