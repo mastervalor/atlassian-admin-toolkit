@@ -3,7 +3,7 @@ import requests
 from auth import auth
 from config import jira
 
-url = jira + "issue/ITAPP-6215"
+url = jira + "issue/TOOLS-20428"
 
 headers = {
    "Accept": "application/json"

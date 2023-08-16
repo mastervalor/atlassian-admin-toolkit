@@ -27,7 +27,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 'project': {
                     'key': 'ITAPP',
                 },
-                'summary': f"This project: {row['Name']} does not meet the new requirments, and will be targeted for "
+                'summary': f"This project: {row['Name']} does not meet the new requirements, and will be targeted for "
                            f"archiving",
                 "issuetype": {
                     "id": "3"
@@ -50,7 +50,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 },
                 "description": f"Hello {owner} As the owner of {row['Name']} : {row['key']} In our effort to "
                                f"standardize the instance, we have found that your project is not used in some time "
-                               f"or doesn't have many tickets. Do to this this project will be targeted for archival. "
+                               f"or doesn't have many tickets. Due to this project will be targeted for archival. "
                                f"We are reaching out to you to inform you about this. If you have any concerns please "
                                f"let us know here. If no response in 5 days the project will be archived"
             },

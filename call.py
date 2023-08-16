@@ -270,6 +270,35 @@ class Jira:
 
         return owner, status
 
+    def edit_ticket(self, key, payload):
+        url = self.jira + 'issue/' + key
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        response = requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            json=payload,
+            auth=auth
+        )
+
+        return response
+
+    def get_ticket(self, key):
+        url = self.jira + 'issue/' + key + '?notifyUsers=false'
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
 
 def call(pref, apiAction, payload=''):
     url = jira + pref

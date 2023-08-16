@@ -41,5 +41,16 @@ jira = Jira()
 # user = jira.user_groups('mourad.marzouk')
 # print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
 
-name, statues = jira.project_owner('EMSTOP')
-print(statues)
+# name, statues = jira.project_owner('EMSTOP')
+# print(statues)
+ticket = jira.get_ticket('ITAPP-6255')
+corrected_summary = ticket['fields']['summary'].replace("requirments", "requirements", 1)
+corrected_description = ticket['fields']['description'].replace("Do to this this", "Due to this", 1)
+payload = {
+    "fields": {
+        'summary': corrected_summary,
+        'description': corrected_description
+    }
+}
+correct = jira.edit_ticket(ticket['key'], payload)
+print(ticket['key'])
