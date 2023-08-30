@@ -133,6 +133,54 @@ class Jira:
 
         return response
 
+    def get_project(self, key):
+        url = self.jira + 'project/' + key
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
+    def assign_permission_scheme(self, key):
+        url = self.jira + 'project/' + key + '/permissionscheme'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
+    def restore_project(self, key):
+        url = self.jira + 'project/' + key + '/restore'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
     def user_groups(self, user):
         groups = self.get_user(user, '?expand=groups')
         user_groups = []
