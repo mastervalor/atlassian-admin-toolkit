@@ -336,6 +336,22 @@ class Jira:
 
     def get_ticket(self, key):
         url = self.jira + 'issue/' + key + '?notifyUsers=false'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
+
+    def plugins(self):
+        url = self.jira + 'plugins/'
+
         headers = {
             "Accept": "application/json",
         }
