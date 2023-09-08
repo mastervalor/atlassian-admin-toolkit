@@ -334,6 +334,21 @@ class Jira:
 
         return response
 
+    def get_my_permissions(self):
+        url = self.jira + 'mypermissions'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
+
     def get_ticket(self, key):
         url = self.jira + 'issue/' + key + '?notifyUsers=false'
 
