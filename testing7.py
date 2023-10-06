@@ -39,18 +39,27 @@ from auth import auth
 jira = Jira()
 
 # user = jira.user_groups('mourad.marzouk')
-# print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+# plugin = jira.plugins()
+#
+# print(json.dumps(plugin, sort_keys=True, indent=4, separators=(",", ": ")))
 
 # name, statues = jira.project_owner('EMSTOP')
 # print(statues)
-ticket = jira.get_ticket('ITAPP-6255')
-corrected_summary = ticket['fields']['summary'].replace("requirments", "requirements", 1)
-corrected_description = ticket['fields']['description'].replace("Do to this this", "Due to this", 1)
-payload = {
-    "fields": {
-        'summary': corrected_summary,
-        'description': corrected_description
-    }
-}
-correct = jira.edit_ticket(ticket['key'], payload)
-print(ticket['key'])
+# ticket = jira.get_ticket('ITAPP-6255')
+# corrected_summary = ticket['fields']['summary'].replace("requirments", "requirements", 1)
+# corrected_description = ticket['fields']['description'].replace("Do to this this", "Due to this", 1)
+# payload = {
+#     "fields": {
+#         'summary': corrected_summary,
+#         'description': corrected_description
+#     }
+# }
+# correct = jira.edit_ticket(ticket['key'], payload)
+# print(ticket['key'])
+
+query = jira.get_project('ATP')
+print(query['archived'])
+print(query['lead']['displayName'])
+print(query['lead']['name'])
+print(query['lead']['active'])
+# print(json.dumps(query, sort_keys=True, indent=4, separators=(",", ": ")))

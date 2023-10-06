@@ -1,20 +1,17 @@
 import csv
 import os
 
-mainFile = 'Emads org'
-projects = 'projects'
+mainFile = 'Projects - new_file'
+projects = 'Archiving projects plan and times'
 newFile = 'final file'
 
-with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='a') as new_file:
+with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_file:
     writer = csv.writer(new_file)
-    writer.writerow(['Owner', 'Project'])
-with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), mainFile), mode='r') as csv_file:
-    csv_reader = csv.DictReader(csv_file)
-    for i in csv_reader:
-        with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), projects), mode='r') as new_csv:
-            csv_reader = csv.DictReader(new_csv)
-            for x in csv_reader:
-                if i['Owner'].lower() == x['Project Owner'].lower():
-                    with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='a') as csv_writing:
-                        writer = csv.writer(csv_writing)
-                        writer.writerow([x['Project Owner'], x['Project Name']])
+    writer.writerow(['Name', 'Key', 'Project Type'])
+    with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), mainFile), mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for i in csv_reader:
+            with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), projects), mode='r') as new_csv:
+                csv_reader2 = csv.DictReader(new_csv)
+                if i['Name'] not in [x['Name'] for x in csv_reader2]:
+                    writer.writerow([i['Name'], i['key'], i['Project Type']])

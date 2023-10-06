@@ -110,8 +110,24 @@ class Confluence:
 
 class Jira:
     def __init__(self, is_staging=False):
-        self.token = staging_auth if is_staging else auth
+        self.token = auth
         self.jira = jira_staging if is_staging else jira
+
+    def get_customField_context(self, fieldId, contextId):
+        url = self.jira + f'customFields/{fieldId}/context/{contextId}'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
 
     def get_user(self, payload, pref=''):
         url = self.jira + 'user' + pref
@@ -226,6 +242,7 @@ class Jira:
             params=query,
             auth=self.token
         ).text)
+
 
         return response
 
@@ -378,6 +395,7 @@ class Jira:
         ).text)
 
         return response
+
 
 def call(pref, apiAction, payload=''):
     url = jira + pref

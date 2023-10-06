@@ -4,7 +4,7 @@ import os
 
 jira = Jira()
 openFile = 'Projects - projects to archive'
-assingees = {"mourad.marzouk": 3, "patricia.pattin": 4, "ron.erlandson": 4}
+assingees = {"mourad.marzouk": 0, "patricia.pattin": 0, "ron.erlandson": 0}
 
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:

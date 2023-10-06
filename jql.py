@@ -1,64 +1,30 @@
 import requests
 import json
-from auth import auth
+from auth import auth, staging_auth
+from config import jira_staging
 
 
-def call(pref):
-    url = "https://lucidmotors.atlassian.net/rest/api/3/search"
-    headers = {
-        "Accept": "application/json"
-    }
-    query = {
-        'jql': f'project = {pref} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution is EMPTY',
-        'maxResults': 100
-    }
+jql = ('project in (POL,LTSS,FINTECH,CRP,MDG,PROCURETEC,OPSTECH,PTT,CUSTTECH,DCOPS,EAI,EIAM,ENTNET,ITAPP,ITCPE,ITINF,'
+       'ITOPS,ITAM,APPSEC,SECOPS,CORPSEC,TRUST,AVSEC,PLATAUTH,SCS1,THREAT,PRIVACY) and ("Business '
+       'Justification" is not EMPTY or "Value Proposition" is not EMPTY) AND issuetype = Epic and description is EMPTY')
 
-    response = json.loads(requests.request(
-        "GET",
-        url,
-        headers=headers,
-        params=query,
-        auth=auth
-    ).text)
-
-    return response
-
-
-urlp = "https://lucidmotors.atlassian.net/rest/api/3/project"
-
-auth = auth
+url = jira_staging + 'search' + '?startAt=0&maxResults=1000'
 
 headers = {
-    "Accept": "application/json"
+       "Accept": "application/json"
 }
+query = {
+       'jql': jql
+}
+print(url)
+print()
 
 response = json.loads(requests.request(
-    "GET",
-    urlp,
-    headers=headers,
-    auth=auth
-).text)
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=staging_auth
+        ).text)
 
-list = []
-
-for i in response:
-    if "{Archived}" not in i['name']:
-        list.append(i['key'])
-
-
-for project in list:
-    keys = []
-    urls = "https://lucidmotors.atlassian.net/rest/api/3/search"
-    query = {
-        'jql': f'project = {project} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution is EMPTY',
-        'maxResults': 100
-    }
-
-    response = json.loads(requests.request("GET", urls, headers=headers, params=query, auth=auth).text)
-
-    if response['total'] == 0:
-        print(response)
-    else:
-        for i in response['issues']:
-            keys.append(i['key'])
-        print(keys)
+print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
