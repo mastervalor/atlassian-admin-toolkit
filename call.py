@@ -130,13 +130,15 @@ class Jira:
         return response
 
     def get_user(self, payload, pref=''):
-        url = self.jira + 'user' + pref
+        url = self.jira + 'user/permission/search' + pref
 
         headers = {
             "Accept": "application/json"
         }
         query = {
             'username': payload,
+            'permissions': 'CREATE_ISSUES',
+            'projectKey': 'ITAPP'
         }
 
         response = json.loads(requests.request(
@@ -383,6 +385,21 @@ class Jira:
 
     def plugins(self):
         url = self.jira + 'plugins/'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
+
+    def get_projects_with_owners(self):
+        url = self.jira + 'project?expand=lead'
 
         headers = {
             "Accept": "application/json",
