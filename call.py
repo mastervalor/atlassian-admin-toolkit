@@ -130,15 +130,13 @@ class Jira:
         return response
 
     def get_user(self, payload, pref=''):
-        url = self.jira + 'user/permission/search' + pref
+        url = self.jira + 'user' + pref
 
         headers = {
             "Accept": "application/json"
         }
         query = {
             'username': payload,
-            'permissions': 'CREATE_ISSUES',
-            'projectKey': 'ITAPP'
         }
 
         response = json.loads(requests.request(
@@ -364,6 +362,7 @@ class Jira:
             headers=headers,
             auth=self.token
         ).text)
+
         owner = response['lead']['name']
         status = response['lead']['active']
 
