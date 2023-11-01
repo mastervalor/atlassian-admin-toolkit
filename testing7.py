@@ -57,9 +57,16 @@ jira = Jira()
 # correct = jira.edit_ticket(ticket['key'], payload)
 # print(ticket['key'])
 
-query = jira.get_project('ATP')
-print(query['archived'])
-print(query['lead']['displayName'])
-print(query['lead']['name'])
-print(query['lead']['active'])
-# print(json.dumps(query, sort_keys=True, indent=4, separators=(",", ": ")))
+# query = jira.get_project('ATP')
+# print(query['archived'])
+# print(query['lead']['displayName'])
+# print(query['lead']['name'])
+# print(query['lead']['active'])
+user = jira.get_user('brian.derr', '?expand=groups')
+# project = jira.get_project_permissionscheme('ITAPP')
+for group in user['groups']['items']:
+    if 'user' in group['name'] or 'developer' in group['name']:
+        split_parts = group['name'].split('-')
+        project = split_parts[2]
+        print(project)
+# print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
