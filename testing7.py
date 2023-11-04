@@ -2,7 +2,7 @@ import json
 import os
 import getpass
 import requests
-from call import Confluence, Jira
+from call import Confluence, Jira, Okta
 from auth import auth
 #
 # fileName = "okta groups"
@@ -62,11 +62,13 @@ jira = Jira()
 # print(query['lead']['displayName'])
 # print(query['lead']['name'])
 # print(query['lead']['active'])
-user = jira.get_user('brian.derr', '?expand=groups')
+# user = jira.get_user('brian.derr', '?expand=groups')
 # project = jira.get_project_permissionscheme('ITAPP')
-for group in user['groups']['items']:
-    if 'user' in group['name'] or 'developer' in group['name']:
-        split_parts = group['name'].split('-')
-        project = split_parts[2]
-        print(project)
-# print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+# for group in user['groups']['items']:
+#     if 'user' in group['name'] or 'developer' in group['name']:
+#         split_parts = group['name'].split('-')
+#         project = split_parts[2]
+#         print(project)
+# print(user['active'])
+user = Okta.users_id('mourad.marzouk@getcruise.com')['status']
+print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
