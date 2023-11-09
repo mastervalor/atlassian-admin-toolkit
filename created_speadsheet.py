@@ -23,8 +23,8 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['Name', 'key', 'Project Type', 'Project Id', 'Total Tickets', 'Last ticket',
                      'Last ticket creation date', 'Earliest ticket', 'Earliest ticket creation date',
-                     'project Owner', 'project owner status' 'Approver', 'Owner approved', 'Project status',
-                     'Ticket number', 'Ticket status', 'Notes'])
+                     'project Owner', 'project owner status', 'Approver', 'Owner approved', 'Project status',
+                     'Ticket number', 'Ticket status', 'Ticket assignee', 'Notes'])
     with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         csv_rows = list(csv_reader)
@@ -37,6 +37,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
                     except TypeError:
                         approver = "no approver"
                     owner, owner_status = jira.project_owner(key)
+                    assignee = i['fields']['assignee']['name']
                     try:
                         status = jira.get_project(key)['archived']
                     except KeyError:
@@ -53,7 +54,8 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
 
                     if res == 'Cancelled':
                         note = 'Exception was made'
-                    elif status == 'Backlog':
+
+                    if status == 'Backlog':
                         note = 'Looking for owner'
                     elif status == 'On Hold':
                         note = 'project will me consolidated'
@@ -62,12 +64,13 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
                     elif status == 'In Progress':
                         note = 'Approved ready for archive'
                     else:
-                        note = ' '
-                    print(j['key'], i['key'], owner, approver, status, ticket_status, note)
+                        note = ''
+
+                    print(j['key'], i['key'], owner, approver, status, ticket_status, assignee, note)
                     writer.writerow([j['Name'], j['key'], j['Project Type'], j['Project Id'], j['Total Tickets'],
                                     j['Last ticket'], j['Last ticket creation date'], j['Earliest ticket'],
-                                    j['Earliest ticket creation date'], owner, owner_status, approver, ' ', status,
-                                     i['key'], ticket_status, note])
+                                    j['Earliest ticket creation date'], owner, owner_status, approver, '', status,
+                                     i['key'], ticket_status, assignee, note])
 
 
 # print(json.dumps(tickets, sort_keys=True, indent=4, separators=(",", ": ")))

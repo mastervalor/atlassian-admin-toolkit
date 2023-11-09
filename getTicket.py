@@ -7,6 +7,7 @@ response = jira.get_ticket("ITAPP-6403")
 
 owner = response['fields']['status']['name']
 res = response['fields']['resolution']['name']
+assignee = response['fields']['assignee']['name']
 
-print(owner, res)
+print(owner, res, assignee)
 # print(json.dumps(owner, sort_keys=True, indent=4, separators=(",", ": ")))
