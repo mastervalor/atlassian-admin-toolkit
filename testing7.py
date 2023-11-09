@@ -4,6 +4,7 @@ import getpass
 import requests
 from call import Confluence, Jira, Okta
 from auth import auth
+import re
 #
 # fileName = "okta groups"
 #
@@ -70,5 +71,30 @@ jira = Jira()
 #         project = split_parts[2]
 #         print(project)
 # print(user['active'])
-user = Okta.users_id('mourad.marzouk@getcruise.com')['status']
-print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+# user = Okta.users_id('mourad.marzouk@getcruise.com')['status']
+# print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+
+# def extract_section(input_string):
+#     match = re.search(r':\s(\w+)', input_string)
+#     if match:
+#         return match.group(1)
+#     else:
+#         return None
+#
+# tickets = jira.jql('?maxResults=200', 'project = "IT Apps" and "Level of Effort" = "Strategic Work" and '
+#                                       'summary ~ "does not meet the new requirements,"')
+#
+# for i in tickets['issues']:
+#     ticket = i['key']
+#     key = extract_section(i['fields']['description'])
+#     status = i['fields']['status']['name']
+#     try:
+#         res = i['fields']['resolution']['name']
+#     except TypeError:
+#         res = None
+#     print(ticket, key, status, res)
+
+owner, status = jira.project_owner('ITPROJREQ')
+print(owner, status)
+
+# print(json.dumps(tickets, sort_keys=True, indent=4, separators=(",", ": ")))

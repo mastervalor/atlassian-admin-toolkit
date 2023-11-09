@@ -1,8 +1,12 @@
 import json
 from call import Jira
 
-jira = Jira(is_staging=True)
+jira = Jira()
 
-response = jira.get_ticket("MDG-115")
+response = jira.get_ticket("ITAPP-6403")
 
-print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
+owner = response['fields']['status']['name']
+res = response['fields']['resolution']['name']
+
+print(owner, res)
+# print(json.dumps(owner, sort_keys=True, indent=4, separators=(",", ": ")))

@@ -275,7 +275,6 @@ class Jira:
             auth=self.token
         ).text)
 
-
         return response
 
     def tickets(self, query):
@@ -362,9 +361,12 @@ class Jira:
             headers=headers,
             auth=self.token
         ).text)
-
-        owner = response['lead']['name']
-        status = response['lead']['active']
+        try:
+            owner = response['lead']['name']
+            status = response['lead']['active']
+        except KeyError:
+            owner = None
+            status = None
 
         return owner, status
 
