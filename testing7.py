@@ -93,8 +93,13 @@ jira = Jira()
 #     except TypeError:
 #         res = None
 #     print(ticket, key, status, res)
+#
+# owner, status = jira.project_owner('ITPROJREQ')
+# print(owner, status)
 
-owner, status = jira.project_owner('ITPROJREQ')
-print(owner, status)
+conf = Confluence()
+user = conf.get_user('justin.che')
 
-# print(json.dumps(tickets, sort_keys=True, indent=4, separators=(",", ": ")))
+
+
+print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
