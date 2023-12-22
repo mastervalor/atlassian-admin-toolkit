@@ -182,6 +182,22 @@ class Jira:
 
         return response
 
+    def get_project_groups(self, key, role_id):
+        url = self.jira + 'project/' + key + '/role/' + role_id
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
     def get_projects(self):
         url = self.jira + 'project'
 
