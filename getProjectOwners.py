@@ -15,4 +15,3 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
             owner = jira.project_owner(i['Key'])
             writer.writerow([owner[0]])
             print(owner[0])
-            
