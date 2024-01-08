@@ -33,6 +33,6 @@ class Projects:
 
 projects = Projects()
 # projects.get_project_users_by_role('ITAPP', 'Administrators')
-list = projects.get_project_groups_by_role('ITAPP', 'Administrators')
+list = projects.get_project_users_by_role('ITAPP', 'Administrators')
 
 print(list)
