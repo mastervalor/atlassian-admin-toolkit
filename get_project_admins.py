@@ -1,8 +1,10 @@
 from logic.project_logic import Projects
+from logic.groups_users_logic import GroupsUsers
 import os
 import csv
 
 projects = Projects()
+groups = GroupsUsers()
 newFile = 'final owners'
 openFile = 'unowned projects'
 
@@ -14,6 +16,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
             admins = projects.get_project_users_by_role(i['Key'], 'Administrators')
-            admins = projects.remove_defult_admins(admins)
+            admins = groups.remove_defult_admins(admins)
             writer.writerow([admins])
             print(i['Key'], admins)

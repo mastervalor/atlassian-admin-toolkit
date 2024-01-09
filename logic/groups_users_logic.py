@@ -1,7 +1,8 @@
 from call import Jira
 import json
 
-class Groups_users:
+
+class GroupsUsers:
     def __init__(self):
         self.jira = Jira()
 
