@@ -12,11 +12,14 @@ class Projects:
         role_id = self.project_roles[role]
         groups = self.jira.get_project_groups(key, role_id)
         admins = []
-        for group in groups['actors']:
-            if group['type'] == 'atlassian-group-role-actor':
-                admins.append(group['name'])
+        try:
+            for group in groups['actors']:
+                if group['type'] == 'atlassian-group-role-actor':
+                    admins.append(group['name'])
 
-        return admins
+            return admins
+        except KeyError:
+            print(f"the project {key} doesn't have any user admins")
 
         # print(json.dumps(groups, sort_keys=True, indent=4, separators=(",", ": ")))
 
@@ -24,15 +27,11 @@ class Projects:
         role_id = self.project_roles[role]
         users = self.jira.get_project_groups(key, role_id)
         admins = []
-        for user in users['actors']:
-            if user['type'] == 'atlassian-user-role-actor':
-                admins.append(user['name'])
+        try:
+            for user in users['actors']:
+                if user['type'] == 'atlassian-user-role-actor':
+                    admins.append(user['name'])
 
-        return admins
-
-
-projects = Projects()
-# projects.get_project_users_by_role('ITAPP', 'Administrators')
-list = projects.get_project_users_by_role('ITAPP', 'Administrators')
-
-print(list)
+            return admins
+        except KeyError:
+            print(f"the project {key} doesn't have any user admins")
