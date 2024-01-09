@@ -19,7 +19,7 @@ openFile = 'unowned projects'
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for i in csv_reader:
-        admins = []
-        admins.append(projects.get_project_users_by_role(i['Key'], 'Administrators'))
-        print(admins)
+        admins = projects.get_project_users_by_role(i['Key'], 'Administrators')
+
+        print(i['Key'], admins)
 
