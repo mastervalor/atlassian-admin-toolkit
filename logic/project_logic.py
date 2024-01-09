@@ -24,13 +24,24 @@ class Projects:
         try:
             for group in groups['actors']:
                 if group['type'] == 'atlassian-group-role-actor':
-                    members = self.jira.group_members(group['name'])
-                    for member in members:
-                        if member not in admins:
-                            admins.append(member)
+                    if group['name'] == 'Cruise Engineering':
+                        print(f"There is an admins group in {key} called {group['name']}")
+                    else:
+                        members = self.jira.group_members(group['name'])
+                        for member in members:
+                            if member not in admins:
+                                admins.append(member)
 
         except KeyError:
             print(f"the project {key} doesn't have any groups in the {role} role")
 
         return admins
-    
+
+    def remove_defult_admins(self, admins):
+        sys_admins = self.jira.group_members("administrators")
+        final = []
+        for admin in admins:
+            if admin not in sys_admins and ".svc" not in admin and ".car" not in admin:
+                final.append(admin)
+
+        return final
