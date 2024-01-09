@@ -64,7 +64,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                                 "outward": "causes"
                             },
                             "outwardIssue": {
-                                "key": "ITAPP-6215"
+                                "key": "ITAPP-7856"
                             }
                         }
                     }
