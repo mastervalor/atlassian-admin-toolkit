@@ -33,8 +33,4 @@ class Projects:
             print(f"the project {key} doesn't have any groups in the {role} role")
 
         return admins
-
-
-project = Projects()
-print(project.get_project_users_by_role("ITAPP", "Administrators"))
     
