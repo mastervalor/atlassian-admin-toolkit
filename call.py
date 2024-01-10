@@ -127,7 +127,7 @@ class Confluence:
 
 class Jira:
     def __init__(self, is_staging=False):
-        self.token = auth
+        self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
     def get_customField_context(self, fieldId, contextId):
