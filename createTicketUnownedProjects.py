@@ -20,20 +20,24 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
             ticket_info['assignee'] = lowest_assignee
             assingees[lowest_assignee] += 1
 
-        if i['Project admins']:
-            admins = i['Project admins']
+        if not i['Project admins']:
+            admins = "No admins"
         else:
-            admins = None
+            admins = i['Project admins']
 
         if i['potential owner']:
-            ticket_info['approver'] = i['potential owner']
+            owner = i['potential owner']
         else:
-            ticket_info['approver'] = ''
+            owner = "none found"
 
         if 'Vice' not in i['next_active_management_title'] and 'President' not in i['next_active_management_title']:
             ticket_info['description'] = (f"The project {i['Name']}: {i['Key']} has no owner and we need to find a new "
-                                          f"owner for this project. The next next manager "
-                                          f"of the formal project lead is {i['next_active_management']}. The admins "
-                                          f"In the project are: {admins}")
+                                          f"owner for this project. If we have a potenial owner it would be: {owner}. "
+                                          f"The next next manager of the formal project lead is "
+                                          f"{i['next_active_management']}. The admins in the project are: {admins}")
+        else:
+            ticket_info['description'] = (f"The project {i['Name']}: {i['Key']} has no owner and we need to find a new "
+                                          f"owner for this project. The next next manager is a VP so need to look for "
+                                          f"approver else where. The admins in the project are: {admins}")
 
         tickets.build_ticket_payload(ticket_info)

@@ -22,15 +22,14 @@ class Tickets:
                 "assignee": {
                     "name": ticket_info["assignee"]
                 },
-                "customfield_13230": [
-                    {
-                        "name": ticket_info['approver']
-                    }],
                 "customfield_18672": {
                     "value": "Strategic Work"
                 },
                 "customfield_28001": {
-                    'value': "Jira"
+                    'value': "Jira",
+                    "child": {
+                        'value': "Other"
+                    }
                 },
                 "description": ticket_info['description'],
             },
