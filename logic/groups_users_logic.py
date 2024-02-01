@@ -42,4 +42,5 @@ class GroupsUsers:
         members = self.get_group_members_with_status(group, True)
 
         for member in members:
-
+            response = self.jira.remove_group_member(group, member)
+            print(response)
