@@ -1,8 +1,9 @@
-from logic.groups_users_logic import GroupsUsers
+from call import Jira
 
-groups = GroupsUsers()
+jira = Jira()
 
-members = groups.get_group_members_with_status("jira-new-hires", True)
+members = jira.remove_group_member("jira-new-hires", "aaron.cherian")
 
-for i in members:
-    print(i)
+print(members)
+
+# print(members, sort_keys=True, indent=4, separators=(",", ": "))
