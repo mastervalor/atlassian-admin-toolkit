@@ -14,3 +14,32 @@ class GroupsUsers:
                 final.append(admin)
 
         return final
+
+    def get_group_members_with_status(self, group, inactive=False):
+        startAt = 0
+        maxResults = 50
+        total = 51
+        members_list = []
+
+        while total >= maxResults:
+            if inactive:
+                members = self.jira.get_group(f'?includeInactiveUsers=true&startAt={startAt}'
+                                              f'&maxResults={maxResults}', group)
+            else:
+                members = self.jira.get_group(f'?includeInactiveUsers=false&startAt={startAt}'
+                                              f'&maxResults={maxResults}', group)
+
+            for member in members['values']:
+                members_list.append(member['name'])
+
+            total = members['total']
+            startAt += 50
+            maxResults += 50
+            # print(startAt, maxResults)
+        return members_list
+
+    def remove_all_group_members(self, group):
+        members = self.get_group_members_with_status(group, True)
+
+        for member in members:
+
