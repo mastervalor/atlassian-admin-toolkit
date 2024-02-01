@@ -376,12 +376,12 @@ class Jira:
             'username': user
         }
 
-        response = json.loads(requests.request(
+        response = requests.request(
             "DELETE",
             url,
             params=query,
             auth=self.token
-        ).text)
+        ).text
 
         return response
 
@@ -399,7 +399,7 @@ class Jira:
                 headers=headers,
                 auth=self.token
             ).text)
-            
+
             project_owners.append([key, response['lead']['name']])
 
         return project_owners
