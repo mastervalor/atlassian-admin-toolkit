@@ -368,18 +368,38 @@ class Jira:
             # print(startAt, maxResults)
         return members_list
 
+    def remove_group_member(self, group, user):
+        url = self.jira + 'group/user'
+
+        query = {
+            'groupname': group,
+            'username': user
+        }
+
+        response = json.loads(requests.request(
+            "DELETE",
+            url,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
+
     def project_owners(self, keys):
         project_owners = []
 
         for key in keys:
             url = self.jira + 'project/' + key
+
             headers = {"Accept": "application/json"}
+
             response = json.loads(requests.request(
                 "GET",
                 url,
                 headers=headers,
                 auth=self.token
             ).text)
+            
             project_owners.append([key, response['lead']['name']])
 
         return project_owners
