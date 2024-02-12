@@ -36,3 +36,7 @@ class Projects:
             print(f"the project {key} doesn't have any groups in the {role} role")
 
         return admins
+
+    def get_project_type(self, key):
+        project = self.jira.get_project(key)
+        return project['projectTypeKey']
