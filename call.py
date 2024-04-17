@@ -515,6 +515,22 @@ class Jira:
 
         return response
 
+    def field_metrics(self):
+        url = self.jira + "customFields?maxResults=2200"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
+
 
 def call(pref, apiAction, payload=''):
     url = jira + pref
@@ -604,23 +620,6 @@ def call(pref, apiAction, payload=''):
             params=query,
             auth=auth
         ).text)
-
-    return response
-
-
-def field_metrics():
-    url = "https://jira.robot.car/rest/api/2/customFields?maxResults=2200"
-
-    headers = {
-        "Accept": "application/json"
-    }
-
-    response = json.loads(requests.request(
-        "GET",
-        url,
-        headers=headers,
-        auth=auth
-    ).text)
 
     return response
 
