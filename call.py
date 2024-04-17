@@ -450,7 +450,7 @@ class Jira:
             url,
             headers=headers,
             json=payload,
-            auth=auth
+            auth=self.token
         )
 
         return response
@@ -465,7 +465,7 @@ class Jira:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.token
         ).text)
 
         return response
@@ -480,7 +480,7 @@ class Jira:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.token
         ).text)
 
         return response
@@ -495,7 +495,7 @@ class Jira:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.token
         ).text)
 
         return response
@@ -510,7 +510,7 @@ class Jira:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.token
         ).text)
 
         return response
@@ -526,7 +526,7 @@ class Jira:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.token
         ).text)
 
         return response
