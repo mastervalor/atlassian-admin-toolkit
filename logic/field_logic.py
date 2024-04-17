@@ -11,8 +11,15 @@ class Fields:
         field_metrics = {}
         fields = self.jira.all_fields()
         for field in fields['values']:
-            if 'issuesWithValue' in field or 'issuesWithValue' == 0:
-                field_metrics[field['name']] = field
-            else:
+            if 'issuesWithValue' not in field or 'issuesWithValue' == 0:
                 jql = '"' + field['name'] + '" is not EMPTY'
                 encoded = urllib.parse.quote(jql)
+                try:
+                    results = self.jira.jql("?maxResults=20000", encoded)
+                    field['issuesWithValue'] = results['total']
+                except KeyError:
+                    print(field['name'], results['errorMessages'])
+
+            field_metrics[field['name']] = field
+
+        return field_metrics
