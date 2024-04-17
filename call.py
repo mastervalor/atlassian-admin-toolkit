@@ -515,7 +515,7 @@ class Jira:
 
         return response
 
-    def field_metrics(self):
+    def all_fields(self):
         url = self.jira + "customFields?maxResults=2200"
 
         headers = {
