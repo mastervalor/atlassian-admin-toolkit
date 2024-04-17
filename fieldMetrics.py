@@ -1,10 +1,10 @@
 import csv
 import os
 import json
-from call import field_metrics, call
+from call import Jira, call
 import urllib.parse
 
-fields = field_metrics()
+fields = Jira()
 newFile = 'field metrics'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_file:
