@@ -1,11 +1,13 @@
-import os, csv
+import os, csv, json
 from logic.groups_users_logic import GroupsUsers
 from logic.project_logic import Projects
 from logic.field_logic import Fields
+from call import Jira
 
 groups = GroupsUsers()
 projects = Projects()
 fields = Fields()
+jira = Jira()
 
 # groups.remove_all_group_members("jira-new-hires")
 #
@@ -17,6 +19,7 @@ fields = Fields()
 #         project = projects.get_project_type(row['Project Key'])
 #         print(project)
 
+jql = '"Affected Vehicle Track(s)" is not EMPTY'
+results = jira.jql("", jql)
 
-fields.field_metrics()
-# print(json.dumps(project, sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
