@@ -8,18 +8,20 @@ class Fields:
         self.jira = Jira()
 
     def field_metrics(self):
-        field_metrics = {}
+        field_metrics = []
         fields = self.jira.all_fields()
         for field in fields['values']:
-            if 'issuesWithValue' not in field or 'issuesWithValue' == 0:
+            if 'issuesWithValue' not in field or field['issuesWithValue'] == 0:
                 jql = '"' + field['name'] + '" is not EMPTY'
                 encoded = urllib.parse.quote(jql)
+                print("encoded: " + encoded)
                 try:
                     results = self.jira.jql("?maxResults=20000", encoded)
                     field['issuesWithValue'] = results['total']
                 except KeyError:
                     print(field['name'], results['errorMessages'])
+                    field['notes'] = results['errorMessages']
 
-            field_metrics[field['name']] = field
+            field_metrics.append(field)
 
         return field_metrics
