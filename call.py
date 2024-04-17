@@ -315,7 +315,6 @@ class Jira:
         query = {
             'jql': payload,
         }
-        print(url)
         response = json.loads(requests.request(
             "GET",
             url,
