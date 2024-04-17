@@ -1,4 +1,5 @@
 from call import Jira
+import urllib.parse
 import json
 
 
@@ -7,6 +8,11 @@ class Fields:
         self.jira = Jira()
 
     def field_metrics(self):
+        field_metrics = {}
         fields = self.jira.all_fields()
-        for i in fields['values']:
-            print(i)
+        for field in fields['values']:
+            if 'issuesWithValue' in field or 'issuesWithValue' == 0:
+                field_metrics[field['name']] = field
+            else:
+                jql = '"' + field['name'] + '" is not EMPTY'
+                encoded = urllib.parse.quote(jql)
