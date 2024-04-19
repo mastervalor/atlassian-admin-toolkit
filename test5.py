@@ -19,7 +19,9 @@ jira = Jira()
 #         project = projects.get_project_type(row['Project Key'])
 #         print(project)
 
-jql = '"Affected Vehicle Track(s)" is not EMPTY'
-results = jira.jql("", jql)
+# jql = '"Affected Vehicle Track(s)" is not EMPTY'
+# results = jira.jql("", jql)
+
+results = jira.get_projects()
 
 print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
