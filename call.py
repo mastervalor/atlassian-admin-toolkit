@@ -230,7 +230,7 @@ class Jira:
 
         return response
 
-    def get_archived_projects(self):
+    def get_projects_with_archived(self):
         url = self.jira + 'project'
 
         headers = {
