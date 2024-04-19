@@ -16,7 +16,7 @@ for ticket in tickets['issues']:
     part = part.split(" ")[0]
     archive_list.append(part)
 
-projects = jira.get_projects()
+projects = jira.get_active_projects()
 
 for project in projects:
     if project['key'] not in archive_list:
