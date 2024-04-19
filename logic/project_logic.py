@@ -40,3 +40,12 @@ class Projects:
     def get_project_type(self, key):
         project = self.jira.get_project(key)
         return project['projectTypeKey']
+
+    def get_archived_projects(self):
+        archived_projects = []
+        projects = self.jira.get_projects()
+        for project in projects:
+            if project['archived'] == 'true':
+                archived_projects.append(project)
+
+        return archived_projects
