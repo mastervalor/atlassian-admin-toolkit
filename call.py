@@ -214,7 +214,7 @@ class Jira:
 
         return response
 
-    def get_projects(self):
+    def get_active_projects(self):
         url = self.jira + 'project'
 
         headers = {
@@ -225,6 +225,27 @@ class Jira:
             "GET",
             url,
             headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
+    def get_archived_projects(self):
+        url = self.jira + 'project'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        query = {
+            'includeArchived': True,
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
             auth=self.token
         ).text)
 
