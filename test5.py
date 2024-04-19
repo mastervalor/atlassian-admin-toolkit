@@ -22,6 +22,6 @@ jira = Jira()
 # jql = '"Affected Vehicle Track(s)" is not EMPTY'
 # results = jira.jql("", jql)
 
-results = jira.get_projects()
+results = projects.get_archived_projects()
 
 print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
