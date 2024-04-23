@@ -23,5 +23,6 @@ jira = Jira()
 # results = jira.jql("", jql)
 
 results = projects.get_archived_projects()
+# results = projects.get_project_users_by_role("SIMWEB", "agents")
 
 print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
