@@ -1,12 +1,21 @@
 from logic.project_logic import Projects
+from logic.groups_users_logic import GroupsUsers
 import json
 
 projects = Projects()
+groups = GroupsUsers()
 results = projects.get_archived_projects()
-jsms = []
+jsm_projects = []
+jsm_users = []
+total = 0
 
 for project in results:
     if project['projectTypeKey'] == 'service_desk':
-        jsms.append(project)
+        jsm_projects.append(project['key'])
 
-print(json.dumps(jsms, sort_keys=True, indent=4, separators=(",", ": ")))
+for project in jsm_projects:
+    group = f"app-jira-{project}-agent"
+    users = groups.get_group_members_with_status(group)
+    jsm_users.append(users)
+
+print(json.dumps(jsm_users, sort_keys=True, indent=4, separators=(",", ": ")))
