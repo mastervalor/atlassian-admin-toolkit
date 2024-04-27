@@ -16,6 +16,10 @@ for project in results:
 for project in jsm_projects:
     group = f"app-jira-{project}-agent"
     users = groups.get_group_members_with_status(group)
-    jsm_users.append(users)
+    print(f"{group} has: {users}")
 
-print(json.dumps(jsm_users, sort_keys=True, indent=4, separators=(",", ": ")))
+    for user in users:
+        if not user in jsm_users:
+            jsm_users.append(user)
+
+    print(jsm_users)
