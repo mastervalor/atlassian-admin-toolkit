@@ -29,13 +29,17 @@ class GroupsUsers:
                 members = self.jira.get_group(f'?includeInactiveUsers=false&startAt={startAt}'
                                               f'&maxResults={maxResults}', group)
 
-            for member in members['values']:
-                members_list.append(member['name'])
+            try:
+                for member in members['values']:
+                    members_list.append(member['name'])
 
-            total = members['total']
-            startAt += 50
-            maxResults += 50
-            # print(startAt, maxResults)
+                total = members['total']
+                startAt += 50
+                maxResults += 50
+                # print(startAt, maxResults)
+            except KeyError:
+                return 0
+
         return members_list
 
     def remove_all_group_members(self, group):
