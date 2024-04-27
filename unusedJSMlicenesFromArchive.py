@@ -16,7 +16,7 @@ for project in results:
 for project in jsm_projects:
     group = f"app-jira-{project}-agent"
     users = groups.get_group_members_with_status(group)
-    print(f"{group} has: {users}")
+    #print(f"{group} has: {users}")
 
     for user in users:
         if not user in jsm_users:
