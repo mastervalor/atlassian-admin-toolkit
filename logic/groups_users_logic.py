@@ -38,7 +38,7 @@ class GroupsUsers:
                 maxResults += 50
                 # print(startAt, maxResults)
             except KeyError:
-                return 0
+                return []
 
         return members_list
 
