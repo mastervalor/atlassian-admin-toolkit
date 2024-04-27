@@ -21,8 +21,12 @@ jira = Jira()
 
 # jql = '"Affected Vehicle Track(s)" is not EMPTY'
 # results = jira.jql("", jql)
-
+list = []
 results = projects.get_archived_projects()
 # results = projects.get_project_users_by_role("SIMWEB", "agents")
+for i in results:
+    list.append(i['key'])
 
-print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
+for i in list:
+    print(i)
+# print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
