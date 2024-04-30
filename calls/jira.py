@@ -5,6 +5,7 @@ from config import confluence, jira, jira_staging, confluence_staging, conf_base
 import urllib.parse
 from datetime import datetime
 
+
 class Jira:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
@@ -178,15 +179,6 @@ class Jira:
         ).text)
 
         return response
-
-    def user_groups(self, user):
-        groups = self.get_user(user, '?expand=groups')
-        user_groups = []
-
-        for group in groups['groups']['items']:
-            user_groups.append(group['name'])
-
-        return user_groups
 
     def create_ticket(self, ticket):
         url = self.jira + 'issue'
