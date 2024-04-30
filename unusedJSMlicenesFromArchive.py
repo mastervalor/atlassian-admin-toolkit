@@ -24,3 +24,6 @@ for project in jsm_projects:
 
 for user in jsm_users:
     groups = groups.user_groups(user)
+    for group in groups:
+        if group.endswith("-agent"):
+            print(f"{user}: {group}")
