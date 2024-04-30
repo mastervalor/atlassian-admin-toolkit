@@ -21,12 +21,13 @@ jira = Jira()
 
 # jql = '"Affected Vehicle Track(s)" is not EMPTY'
 # results = jira.jql("", jql)
-list = []
-results = projects.get_archived_projects()
-# results = projects.get_project_users_by_role("SIMWEB", "agents")
-for i in results:
-    list.append(i['key'])
-
-for i in list:
-    print(i)
-# print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
+# list = []
+# results = projects.get_archived_projects()
+# # results = projects.get_project_users_by_role("SIMWEB", "agents")
+# for i in results:
+#     list.append(i['key'])
+#
+# for i in list:
+#     print(i)
+groups = groups.user_groups('aaron.asbill')
+print(json.dumps(groups, sort_keys=True, indent=4, separators=(",", ": ")))
