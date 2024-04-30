@@ -31,4 +31,4 @@ for project_string in project_strings:
         agent_groups_by_user.append({member: {'archived_projects_agent_groups': archived_project_groups,
                                               'non_archived_projects_agent_groups': non_archived_project_groups}})
 
-    print(json.dumps(agent_groups_by_user, sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(agent_groups_by_user, sort_keys=True, indent=4, separators=(",", ": ")))
