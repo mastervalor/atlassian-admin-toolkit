@@ -5,11 +5,13 @@ import json
 projects = Projects()
 groups = GroupsUsers()
 results = projects.get_archived_projects()
-jsm_projects = []
+jsm_projects_keys = []
 
 for project in results:
     if project['projectTypeKey'] == 'service_desk':
-        jsm_projects.append(project['key'])
+        jsm_projects_keys.append(project['key'])
+
+project_strings = [f"app-jira-{project}-agent" for project in jsm_projects_keys]
 
 agent_groups_by_user = []
 
