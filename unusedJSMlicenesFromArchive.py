@@ -18,15 +18,14 @@ for project in jsm_projects:
     group = f"app-jira-{project}-agent"
     users = groups.get_group_members_with_status(group)
 
-    for user in users:
-        if user not in jsm_users:
-            jsm_users.append({user: group})
-            final_user_groups.append({user: ''})
+agent_groups_by_user = []
 
-for user_group in jsm_users:
-    for user, group in user_group.items():
-        looking_groups = groups.user_groups(user)
-        for looking_group in looking_groups:
-            if looking_group.endswith("-agent") and looking_group != group:
-                if looking_group not in final_user_groups[user]:
-                    final_user_groups[user].add(looking_group)
+for project_string in project_strings:
+    group_members = groups.get_group_members_with_status(project_string)
+    for member in group_members:
+        other_groups = groups.user_groups(member)
+        agent_groups = [group for group in other_groups if group.endswith("-agent") and group != project_string]
+        if agent_groups:
+            agent_groups_by_user.append({member: agent_groups})
+
+print(agent_groups_by_user)
