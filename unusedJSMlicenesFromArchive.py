@@ -7,7 +7,7 @@ groups = GroupsUsers()
 results = projects.get_archived_projects()
 jsm_projects = []
 jsm_users = []
-total = 0
+users_groups = []
 
 for project in results:
     if project['projectTypeKey'] == 'service_desk':
@@ -22,4 +22,3 @@ for project in jsm_projects:
         if not user in jsm_users:
             jsm_users.append(user)
 
-    print(jsm_users)
