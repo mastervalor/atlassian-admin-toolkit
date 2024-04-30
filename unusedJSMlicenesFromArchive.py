@@ -16,14 +16,14 @@ for project in results:
 for project in jsm_projects:
     group = f"app-jira-{project}-agent"
     users = groups.get_group_members_with_status(group)
-    #print(f"{group} has: {users}")
 
     for user in users:
-        if not user in jsm_users:
-            jsm_users.append(user)
+        if user not in jsm_users:
+            jsm_users.append({user: group})
 
-for user in jsm_users:
-    groups = groups.user_groups(user)
-    for group in groups:
-        if group.endswith("-agent"):
-            print(f"{user}: {group}")
+for user_group in jsm_users:
+    for user, group in user_group.items():
+        looking_groups = groups.user_groups(user)
+        for looking_group in looking_groups:
+            if looking_group.endswith("-agent") and looking_group != group:
+                print(f"{user}: {group}")
