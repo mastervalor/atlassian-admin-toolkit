@@ -22,3 +22,5 @@ for project in jsm_projects:
         if not user in jsm_users:
             jsm_users.append(user)
 
+for user in jsm_users:
+    groups = groups.get_group_members_with_
