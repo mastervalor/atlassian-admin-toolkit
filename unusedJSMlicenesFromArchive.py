@@ -19,8 +19,16 @@ for project_string in project_strings:
     group_members = groups.get_group_members_with_status(project_string)
     for member in group_members:
         other_groups = groups.user_groups(member)
-        agent_groups = [group for group in other_groups if group.endswith("-agent") and group != project_string]
-        if agent_groups:
-            agent_groups_by_user.append({member: agent_groups})
+        agent_groups = [group for group in other_groups if group.endswith("-agent")]
+        archived_project_groups = []
+        non_archived_project_groups = []
+        for agent_group in agent_groups:
+            if agent_group in project_strings:
+                archived_project_groups.append(agent_group)
+            else:
+                non_archived_project_groups.append(agent_group)
+        # Append user dictionary with agent groups categorized by project type
+        agent_groups_by_user.append({member: {'archived_projects_agent_groups': archived_project_groups,
+                                              'non_archived_projects_agent_groups': non_archived_project_groups}})
 
-print(agent_groups_by_user)
+    print(agent_groups_by_user)
