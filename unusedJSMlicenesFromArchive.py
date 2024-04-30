@@ -23,4 +23,4 @@ for project in jsm_projects:
             jsm_users.append(user)
 
 for user in jsm_users:
-    groups = groups.get_group_members_with_
+    groups = groups.user_groups(user)
