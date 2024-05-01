@@ -2,7 +2,7 @@ import os
 import csv
 
 
-class OS_Logic:
+class OSLogic:
     def __init__(self, open_file=None, write_file=None):
         self.open_file = open_file
         self.write_file = write_file
