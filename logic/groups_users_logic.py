@@ -57,3 +57,14 @@ class GroupsUsers:
             user_groups.append(group['name'])
 
         return user_groups
+
+    def compare_groups(self, group1, group2):
+        group_one = self.jira.group_members(group1)
+        group_two = self.jira.group_members(group2)
+        different_members = []
+
+        for member in group_two:
+            if member not in group_one:
+                different_members.append(member)
+
+        return different_members
