@@ -29,5 +29,6 @@ jira = Jira()
 #
 # for i in list:
 #     print(i)
-groups = groups.user_groups('aaron.asbill')
-print(json.dumps(groups, sort_keys=True, indent=4, separators=(",", ": ")))
+# groups = groups.user_groups('aaron.asbill')
+members = groups.compare_groups('app-jira-agent-license', 'jira-servicedesk-users')
+print(json.dumps(members, sort_keys=True, indent=4, separators=(",", ": ")))
