@@ -28,8 +28,8 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
             writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'jira_servicedesk_users', status])
         elif row['Username'] in it_Operations:
             writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'it_Operations', status])
-        elif row['Username'] in jira_servicedesk_users:
-            writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'jira_servicedesk_users', status])
+        elif row['Username'] in jira_administrators:
+            writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'jira_administrators', status])
         elif row['Username'] in servicedesk:
             writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'servicedesk', status])
         else:
