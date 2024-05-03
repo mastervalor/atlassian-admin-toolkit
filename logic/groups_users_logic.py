@@ -80,4 +80,6 @@ class GroupsUsers:
         user_profile = self.jira.get_user(user, '?expand=applicationRoles')
         roles = []
         for role in user_profile['applicationRoles']['items']:
-            print(role['name'])
+            roles.append(role['name'])
+
+        return roles
