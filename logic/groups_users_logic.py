@@ -70,8 +70,14 @@ class GroupsUsers:
         return different_members
 
     def get_user_status(self, user):
-        status = self.jira.get_user(user)
-        if status['active']:
+        user_profile = self.jira.get_user(user, '?expand=applicationRoles')
+        if user_profile['active']:
             return 'Active'
         else:
             return 'Inactive'
+
+    def get_user_applications(self, user):
+        user_profile = self.jira.get_user(user, '?expand=applicationRoles')
+        roles = []
+        for role in user_profile['applications']['items']:
+            print(role)
