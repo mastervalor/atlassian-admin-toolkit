@@ -71,7 +71,7 @@ class GroupsUsers:
 
     def get_user_status(self, user):
         status = self.jira.get_user(user)
-        if status['active'] == 'true':
+        if status['active']:
             return 'Active'
         else:
             return 'Inactive'
