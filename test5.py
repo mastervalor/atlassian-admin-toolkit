@@ -11,11 +11,13 @@ jira = Jira()
 
 # groups.remove_all_group_members("jira-new-hires")
 #
-# openFile = 'projects'
-#
-# with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
-#     csv_reader = csv.DictReader(csv_file)
-#     for row in csv_reader:
+openFile = 'jsm users'
+
+with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        member = groups.get_user_applications(row['Username'])
+        print(row['Username'], member)
 #         project = projects.get_project_type(row['Project Key'])
 #         print(project)
 
@@ -32,6 +34,6 @@ jira = Jira()
 # groups = groups.user_groups('aaron.asbill')
 # members = groups.compare_groups('app-jira-agent-license', 'jira-servicedesk-users')
 # member = groups.get_user_status('kandice.powell')
-member = groups.get_user_applications('kandice.powell')
-print(member)
+# member = groups.get_user_applications('kandice.powell')
+# print(member)
 # print(json.dumps(member, sort_keys=True, indent=4, separators=(",", ": ")))
