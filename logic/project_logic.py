@@ -49,3 +49,16 @@ class Projects:
                 archived_projects.append(project)
 
         return archived_projects
+
+    def get_project_owners_and_status(self):
+        project_owners = []
+        projects = self.jira.get_projects_with_owners()
+        for project in projects:
+            project_owners.append({
+                'Project': project['name'],
+                'Key': project['key'],
+                'Name': project['leader']['displayName'], 
+                'Active': project['leader']['active']
+            })
+
+        return project_owners
