@@ -2,7 +2,8 @@ import json
 import os
 import getpass
 import requests
-from call import Confluence, Jira, Okta
+from call import Confluence, Okta
+from calls.jira import Jira
 from auth import auth
 import re
 #
@@ -96,10 +97,11 @@ jira = Jira()
 #
 # owner, status = jira.project_owner('ITPROJREQ')
 # print(owner, status)
+#
+# conf = Confluence()
+# user = conf.get_user('justin.che')
 
-conf = Confluence()
-user = conf.get_user('justin.che')
+projects = jira.get_projects_with_owners()
 
 
-
-print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(projects, sort_keys=True, indent=4, separators=(",", ": ")))
