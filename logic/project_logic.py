@@ -57,7 +57,7 @@ class Projects:
             project_owners.append({
                 'Project': project['name'],
                 'Key': project['key'],
-                'Name': project['leader']['displayName'], 
+                'Name': project['leader']['displayName'],
                 'Active': project['leader']['active']
             })
 
