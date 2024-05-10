@@ -5,7 +5,9 @@ os_logic = OSLogic(open_file='learn agents', write_file='learn agents groups')
 groups = GroupsUsers()
 
 file = os_logic.read_file()
+os_logic.write_file("learn agents", "other groups")
 
 for name in file:
-    group = groups.user_groups(name['LEARN agents '])
-    print(group)
+    user_group = groups.user_groups(name['LEARN agents '])
+    agent_groups = [group for group in user_group if group.endswith("-agent")]
+    os_logic.write_file(name['LEARN agents '], agent_groups)
