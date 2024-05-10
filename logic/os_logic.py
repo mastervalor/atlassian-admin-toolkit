@@ -22,12 +22,13 @@ class OSLogic:
         if self.write_file:
             file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.write_file)
             try:
-                with open(file_path, mode='w', newline='') as csv_file:
+                with open(file_path, mode='a', newline='') as csv_file:
                     fieldnames = data[0].keys() if data else []
                     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-                    writer.writeheader()
+                    if os.stat(file_path).st_size == 0:
+                        writer.writeheader()
                     writer.writerows(data)
-                print(f"Data written to '{file_path}' successfully.")
+                print(f"Data appended to '{file_path}' successfully.")
             except Exception as e:
                 print(f"Error writing to file '{file_path}': {e}")
         else:
