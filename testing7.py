@@ -102,10 +102,15 @@ jira = Jira()
 # conf = Confluence()
 # user = conf.get_user('justin.che')
 
-projects_list = project.get_project_owners_and_status()
+# projects_list = project.get_project_owners_and_status()
+#
+# for owner in projects_list:
+#     if not owner['Active']:
+#         print(owner)
 
-for owner in projects_list:
-    if not owner['Active']:
-        print(owner)
+agents = project.get_project_users_by_role('LEARN', 'agents')
+
+for i in agents:
+    print(i)
 
 # print(json.dumps(projects_list, sort_keys=True, indent=4, separators=(",", ": ")))
