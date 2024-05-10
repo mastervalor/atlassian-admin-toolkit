@@ -6,6 +6,7 @@ class OSLogic:
     def __init__(self, open_file=None, write_file=None):
         self.open_file = open_file
         self.write_file = write_file
+        self.headers_written = False
 
     def read_file(self):
         file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.open_file)
@@ -31,5 +32,22 @@ class OSLogic:
                 print(f"Data appended to '{file_path}' successfully.")
             except Exception as e:
                 print(f"Error writing to file '{file_path}': {e}")
+        else:
+            print("No file specified for writing.")
+
+    def append_file(self, data):
+        if self.write_file:
+            file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.write_file)
+            try:
+                with open(file_path, mode='a', newline='') as csv_file:
+                    writer = csv.DictWriter(csv_file, fieldnames=None)
+                    if not self.headers_written:
+                        header = list(data.keys())
+                        self.write_file(header)
+                        self.headers_written = True
+                    writer.writerow(data)
+                print(f"Data appended to '{file_path}' successfully.")
+            except Exception as e:
+                print(f"Error writing data to file '{file_path}': {e}")
         else:
             print("No file specified for writing.")
