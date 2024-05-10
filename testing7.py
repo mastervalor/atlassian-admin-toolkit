@@ -4,6 +4,7 @@ import getpass
 import requests
 from call import Confluence, Okta
 from calls.jira import Jira
+from logic.project_logic import Projects
 from auth import auth
 import re
 #
@@ -37,7 +38,7 @@ import re
 # print("Groups in API response starting with 'app-confluence' but not in JSON file:")
 # for group in filtered_groups:
 #     print(group)
-
+project = Projects()
 jira = Jira()
 
 # user = jira.user_groups('mourad.marzouk')
@@ -101,7 +102,8 @@ jira = Jira()
 # conf = Confluence()
 # user = conf.get_user('justin.che')
 
-projects = jira.get_projects_with_owners()
+projects_list = project.get_project_owners_and_status()
 
 
-print(json.dumps(projects, sort_keys=True, indent=4, separators=(",", ": ")))
+
+print(json.dumps(projects_list, sort_keys=True, indent=4, separators=(",", ": ")))
