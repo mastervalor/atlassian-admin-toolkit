@@ -3,10 +3,12 @@ import csv
 
 
 class OSLogic:
-    def __init__(self, open_file=None, write_file=None):
+    def __init__(self, open_file=None, write_file=None, append_file=None, columns=None):
         self.open_file = open_file
         self.write_file = write_file
+        self.append_file = append_file
         self.headers_written = False
+        self.columns = columns
 
     def read_file(self):
         file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.open_file)
@@ -19,7 +21,7 @@ class OSLogic:
             print(f"File '{file_path}' not found.")
             return []
 
-    def write_file(self, data):
+    def write_to_file(self, data):
         if self.write_file:
             file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.write_file)
             try:
@@ -35,17 +37,17 @@ class OSLogic:
         else:
             print("No file specified for writing.")
 
-    def append_file(self, data):
-        if self.write_file:
-            file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.write_file)
+    def append_to_file(self, data):
+        if self.append_file:
+            file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.append_file)
             try:
                 with open(file_path, mode='a', newline='') as csv_file:
-                    writer = csv.DictWriter(csv_file, fieldnames=None)
+                    writer = csv.DictWriter(csv_file, fieldnames=self.columns)
                     if not self.headers_written:
-                        header = list(data.keys())
-                        self.write_file(header)
+                        header_row = {column: column for column in self.columns}
+                        writer.writerow(header_row)
                         self.headers_written = True
-                    writer.writerow(data)
+                    writer.writerow(dict(zip(self.columns, data)))
                 print(f"Data appended to '{file_path}' successfully.")
             except Exception as e:
                 print(f"Error writing data to file '{file_path}': {e}")
