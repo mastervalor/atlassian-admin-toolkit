@@ -104,6 +104,8 @@ jira = Jira()
 
 projects_list = project.get_project_owners_and_status()
 
+for owner in projects_list:
+    if not owner['Active']:
+        print(owner)
 
-
-print(json.dumps(projects_list, sort_keys=True, indent=4, separators=(",", ": ")))
+# print(json.dumps(projects_list, sort_keys=True, indent=4, separators=(",", ": ")))
