@@ -1,10 +1,10 @@
-from logic.groups_users_logic import GroupsUsers
+from logic.user_logic import Users
 from logic.os_logic import OSLogic
 from calls.jira import Jira
 import csv, os
 
 os_logic = OSLogic(open_file='jsm users')
-groups = GroupsUsers()
+user = Users()
 jira = Jira()
 newFile = 'all jsm users'
 
@@ -20,7 +20,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     writer.writerow(
         ['Directory', 'Username', 'Last Login', 'Assigbing Group', "Status"])
     for row in file:
-        status = groups.get_user_status(row['Username'])
+        status = user.get_user_status(row['Username'])
         print(f"{row['Username']}:  {status}")
         if row['Username'] in app_jira_agent_license:
             writer.writerow([row['Directory'], row['Username'], row['Last Login'], 'app_jira_agent_license', status])
