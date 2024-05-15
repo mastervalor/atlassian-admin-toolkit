@@ -65,7 +65,7 @@ jira = Jira()
 # print(query['lead']['displayName'])
 # print(query['lead']['name'])
 # print(query['lead']['active'])
-# user = jira.get_user('brian.derr', '?expand=groups')
+user = jira.get_user('mourad.marzouk')
 # project = jira.get_project_permissionscheme('ITAPP')
 # for group in user['groups']['items']:
 #     if 'user' in group['name'] or 'developer' in group['name']:
@@ -108,9 +108,9 @@ jira = Jira()
 #     if not owner['Active']:
 #         print(owner)
 
-agents = project.get_project_users_by_role('LEARN', 'agents')
+# agents = project.get_project_users_by_role('LEARN', 'agents')
+#
+# for i in agents:
+#     print(i)
 
-for i in agents:
-    print(i)
-
-# print(json.dumps(projects_list, sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
