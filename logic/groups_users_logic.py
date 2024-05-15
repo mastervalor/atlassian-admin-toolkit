@@ -49,15 +49,6 @@ class GroupsUsers:
             response = self.jira.remove_group_member(group, member)
             print(response)
 
-    def user_groups(self, user):
-        groups = self.jira.get_user(user, '?expand=groups')
-        user_groups = []
-
-        for group in groups['groups']['items']:
-            user_groups.append(group['name'])
-
-        return user_groups
-
     def compare_groups(self, group1, group2):
         group_one = self.jira.group_members(group1)
         group_two = self.jira.group_members(group2)
