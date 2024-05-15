@@ -1,5 +1,6 @@
 import os, csv, json
 from logic.groups_users_logic import GroupsUsers
+from logic.user_logic import Users
 from logic.project_logic import Projects
 from logic.field_logic import Fields
 from call import Jira
@@ -8,6 +9,8 @@ groups = GroupsUsers()
 projects = Projects()
 fields = Fields()
 jira = Jira()
+users = Users()
+
 
 # groups.remove_all_group_members("jira-new-hires")
 #
@@ -16,7 +19,7 @@ openFile = 'jsm users'
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
-        member = groups.get_user_applications(row['Username'])
+        member = users.get_user_applications(row['Username'])
         print(row['Username'], member)
 #         project = projects.get_project_type(row['Project Key'])
 #         print(project)
