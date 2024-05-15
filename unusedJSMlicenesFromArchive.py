@@ -1,10 +1,11 @@
 from logic.project_logic import Projects
 from logic.groups_users_logic import GroupsUsers
-import json
+from logic.user_logic import Users
 import csv, os
 
 projects = Projects()
 groups = GroupsUsers()
+users = Users()
 results = projects.get_archived_projects()
 jsm_projects_keys = []
 newFile = 'former jsm users'
@@ -20,7 +21,7 @@ agent_groups_by_user = []
 for project_string in project_strings:
     group_members = groups.get_group_members_with_status(project_string)
     for member in group_members:
-        other_groups = groups.user_groups(member)
+        other_groups = users.user_groups(member)
         agent_groups = [group for group in other_groups if group.endswith("-agent")]
         archived_project_groups = []
         non_archived_project_groups = []
