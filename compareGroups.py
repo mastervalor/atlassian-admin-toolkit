@@ -2,11 +2,13 @@ import csv
 import os
 from logic.groups_users_logic import GroupsUsers
 from logic.user_logic import Users
+from logic.os_logic import OSLogic
 
 groups = GroupsUsers()
 users = Users()
 
 newFile = 'members not in app-jira'
+os_logic = OSLogic(write_file=newFile)
 
 main_group = 'app-jira'
 groups_list = ['administrators', 'app-jira-access', 'app-jira-contractor-users', 'Cruise Employees', 'Drives Services',
@@ -20,12 +22,17 @@ for group in groups_list:
         if member not in missing_members:
             missing_members.append({'member': member, 'group': group})
 
-with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
-    writer = csv.writer(new_csv)
-    writer.writerow(['usename', 'group', 'status'])
-    for member in missing_members:
-        member_status = users.get_user_status(member)
-        writer.writerow([member['member'], member['group'], member_status])
-        print(member)
+data_to_write = [{'usename': member['member'], 'group': member['group'], 'status': users.get_user_status(member)}
+                 for member in missing_members]
+
+os_logic.write_to_file(data_to_write)
+
+# with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
+#     writer = csv.writer(new_csv)
+#     writer.writerow(['usename', 'group', 'status'])
+#     for member in missing_members:
+#         member_status = users.get_user_status(member)
+#         writer.writerow([member['member'], member['group'], member_status])
+#         print(member)
 
 
