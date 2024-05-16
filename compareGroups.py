@@ -22,7 +22,9 @@ for group in groups_list:
         if member not in missing_members:
             missing_members.append({'member': member, 'group': group})
 
-data_to_write = [{'usename': member['member'], 'group': member['group'], 'status': users.get_user_status(member)} for member in missing_members]
+print(missing_members)
+data_to_write = [{'usename': member['member'], 'group': member['group'],
+                  'status': users.get_user_status(member['member'])} for member in missing_members]
 
 os_logic.write_to_file(data_to_write)
 
