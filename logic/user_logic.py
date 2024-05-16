@@ -16,7 +16,6 @@ class Users:
 
     def get_user_status(self, user):
         user_profile = self.jira.get_user(user)
-        print(user_profile)
         if user_profile['active']:
             return 'Active'
         else:
