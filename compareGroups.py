@@ -27,13 +27,3 @@ data_to_write = [{'usename': member['member'], 'group': member['group'],
                   'status': users.get_user_status(member['member'])} for member in missing_members]
 
 os_logic.write_to_file(data_to_write)
-
-# with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
-#     writer = csv.writer(new_csv)
-#     writer.writerow(['usename', 'group', 'status'])
-#     for member in missing_members:
-#         member_status = users.get_user_status(member)
-#         writer.writerow([member['member'], member['group'], member_status])
-#         print(member)
-
-
