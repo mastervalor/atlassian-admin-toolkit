@@ -439,14 +439,14 @@ class Jira:
 
         return response
 
-    def post_issue_type_scheme(self, scheme, key):
+    def post_issue_type_scheme(self, scheme, keys):
         url = self.jira + 'issuetypescheme/' + scheme + '/associations'
 
         headers = {
             'Content-Type': 'application/json'
         }
         payload = {
-            'idsOrKeys': key if isinstance(key, list) else [key]
+            'idsOrKeys': keys
         }
 
         response = json.loads(requests.request(
