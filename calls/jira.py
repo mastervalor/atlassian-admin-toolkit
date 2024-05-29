@@ -446,7 +446,7 @@ class Jira:
             'Content-Type': 'application/json'
         }
         payload = {
-            'idsOrKeys': key
+            'idsOrKeys': key if isinstance(key, list) else [key]
         }
 
         response = json.loads(requests.request(
