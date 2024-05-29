@@ -438,3 +438,23 @@ class Jira:
         ).text)
 
         return response
+
+    def post_issue_type_scheme(self, scheme, key):
+        url = self.jira + 'issuetypescheme/' + scheme + '/associations'
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        payload = {
+            'idsOrKeys': key
+        }
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            headers=headers,
+            json=payload,
+            auth=self.token
+        ).text)
+
+        return response
