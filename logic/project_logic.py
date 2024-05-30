@@ -69,3 +69,11 @@ class Projects:
         response = self.jira.post_issue_type_scheme(scheme, keys)
 
         return response
+
+    def unarchive_projects_list(self, keys):
+
+        responses = {}
+        for key in keys:
+            responses[key] = self.jira.unarchive_project(key)
+
+        return responses
