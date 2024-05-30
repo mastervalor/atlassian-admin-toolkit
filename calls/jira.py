@@ -458,3 +458,19 @@ class Jira:
         ).text)
 
         return response
+
+    def unarchive_project(self, key):
+        url = self.jira + 'project/' + key + '/restore'
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
