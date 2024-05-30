@@ -71,16 +71,16 @@ class Projects:
         return response
 
     def unarchive_projects_list(self, keys):
-
         responses = {}
+
         for key in keys:
             responses[key] = self.jira.unarchive_project(key)
 
         return responses
 
     def archive_projects_list(self, keys):
-
         responses = {}
+
         for key in keys:
             responses[key] = self.jira.archive_project(key)
 
