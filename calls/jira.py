@@ -474,3 +474,19 @@ class Jira:
         ).text)
 
         return response
+
+    def archive_project(self, key):
+        url = self.jira + 'project/' + key + '/archive'
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
