@@ -12,6 +12,6 @@ for row in file:
                    'description': (f"Project {row['project_key']} needs to be rolled over to new archived project "
                                    f"standards, the project will need to be unarchived, then follow these steps to roll"
                                    f" over to new standards: https://wiki.robot.car/display/IT/%5BInternal%5D+Jira+Clean+up+Phase+1+Archiving+Projects+Runbook"
-                                   f" . then re-archive the project")}
+                                   f". Then re-archive the project")}
 
     tickets.build_ticket_payload(ticket_info)
