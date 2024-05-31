@@ -25,9 +25,9 @@ class Tickets:
                 "customfield_18672": {
                     "value": "Strategic Work"
                 },
-                "customfield_16774": {
+                "customfield_16774": [{
                     "value": "RTB"
-                },
+                }],
                 "customfield_28001": {
                     'value': "Jira",
                     "child": {
