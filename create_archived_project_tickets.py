@@ -1,6 +1,7 @@
 from logic.os_logic import OSLogic
 from logic.ticket_logic import Tickets
 
+tickets = Tickets()
 os_logic = OSLogic(open_file='Archived projects')
 file = os_logic.read_file()
 
@@ -13,6 +14,4 @@ for row in file:
                                    f" over to new standards: https://wiki.robot.car/display/IT/%5BInternal%5D+Jira+Clean+up+Phase+1+Archiving+Projects+Runbook"
                                    f" . then re-archive the project")}
 
-    tic
-
-    print(row)
+    tickets.build_ticket_payload(ticket_info)
