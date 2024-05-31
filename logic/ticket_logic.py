@@ -10,7 +10,7 @@ class Tickets:
         payload = {
             'fields': {
                 'project': {
-                    'key': 'ITAPP',
+                    'key': 'CORPENG',
                 },
                 'summary': ticket_info['summary'],
                 "issuetype": {
