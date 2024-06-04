@@ -11,5 +11,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['username', 'project', 'key', 'status'])
     for project in projects:
-        if not project['lead']['active']:
-            writer.writerow([project['lead']['name'], project['name'], project['key'], project['lead']['active']])
+        print(project)
+        if not project['Active']:
+            writer.writerow([project['Name'], project['Project'], project['Key'], project['Active']])
