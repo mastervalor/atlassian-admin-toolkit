@@ -118,3 +118,30 @@ class Confluence:
         ).text)
 
         return response
+
+    def create_content(self, page_type, space_key, title, content):
+        url = self.conf_url + 'rest/content'
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': self.token
+        }
+
+        payload = {
+            'type': page_type,
+            'title': title,
+            'space': {'key': space_key},
+            'body': {
+                'storage': {
+                    'value': content,
+                    'representation': 'storage'
+                }
+            }
+        }
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers
+        ).text)
+
