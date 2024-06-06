@@ -126,7 +126,7 @@ class Confluence:
             'Authorization': self.token
         }
 
-        payload = {
+        payload = json.dumps({
             'type': page_type,
             'title': title,
             'space': {'key': space_key},
@@ -136,7 +136,7 @@ class Confluence:
                     'representation': 'storage'
                 }
             }
-        }
+        })
 
         response = json.loads(requests.request(
             "POST",
