@@ -1,4 +1,9 @@
 from calls.confluence import Confluence
 
-confluence = Confluence()
 
+class Spaces:
+
+    def __init__(self):
+        self.conf = Confluence()
+
+    def create_page(self):
