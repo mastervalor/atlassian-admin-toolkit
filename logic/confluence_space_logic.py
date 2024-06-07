@@ -8,4 +8,4 @@ class Spaces:
 
     def create_page(self, space_key, title, content):
         page_type = 'page'
-        
+        result = self.conf.create_content(page_type, space_key, title, content)
