@@ -147,3 +147,33 @@ class Confluence:
 
         return response
 
+    def update_content(self, page_id, page_type, title, content, version):
+        url = self.conf_url + f'rest/content/{page_id}'
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': self.token
+        }
+
+        payload = json.dumps({
+            'id': page_id,
+            'type': page_type,
+            'title': title,
+            'version': {
+                'number': version + 1
+            },
+            'body': {
+                'storage': {
+                    'value': content,
+                    'representation': 'storage'
+                }
+            }
+        })
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers
+        ).text)
+
+        return response
