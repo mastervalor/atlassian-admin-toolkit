@@ -145,3 +145,5 @@ class Confluence:
             headers=headers
         ).text)
 
+        return response
+
