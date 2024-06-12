@@ -119,7 +119,7 @@ class Confluence:
 
         return response
 
-    def create_content(self, page_type, space_key, title, content):
+    def create_content(self, page_type, space_key, title, content, ancestors):
         url = self.conf_url + 'rest/content'
         headers = {
             'Content-Type': 'application/json',
@@ -130,6 +130,11 @@ class Confluence:
             'type': page_type,
             'title': title,
             'space': {'key': space_key},
+            "ancestors": [
+                {
+                    "id": ancestors
+                }
+            ],
             'body': {
                 'storage': {
                     'value': content,
@@ -177,3 +182,5 @@ class Confluence:
         ).text)
 
         return response
+
+    
