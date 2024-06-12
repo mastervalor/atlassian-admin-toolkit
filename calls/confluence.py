@@ -183,4 +183,18 @@ class Confluence:
 
         return response
 
-    
+    def get_page(self, page_id):
+        url = self.conf_url + f'rest/content/{page_id}?expand=body.storage,version'
+        headers = {
+            'Authorization': self.token,
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print('Failed to retrieve page.')
+            print('Response:', response.text)
+            return None
