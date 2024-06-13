@@ -24,3 +24,8 @@ print(soup.find_all('a'))
 print(soup.find(id='link3'))
 
 print(soup.select('p.story'))
+
+
+new_tag = soup.new_tag('a', href="http://example.com/newlink")
+new_tag.string = "New Link"
+soup.p.append(new_tag)
