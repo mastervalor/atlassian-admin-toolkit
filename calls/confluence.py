@@ -120,7 +120,7 @@ class Confluence:
         return response
 
     def create_content(self, page_type, space_key, title, content, ancestors):
-        url = self.conf_url + 'rest/content'
+        url = self.conf_url + 'content'
         headers = {
             'Content-Type': 'application/json',
             'Authorization': self.token
@@ -153,7 +153,7 @@ class Confluence:
         return response
 
     def update_content(self, page_id, page_type, title, content, version):
-        url = self.conf_url + f'rest/content/{page_id}'
+        url = self.conf_url + f'content/{page_id}'
         headers = {
             'Content-Type': 'application/json',
             'Authorization': self.token
@@ -184,7 +184,7 @@ class Confluence:
         return response
 
     def get_page(self, page_id):
-        url = self.conf_url + f'rest/content/{page_id}?expand=body.storage,version'
+        url = self.conf_url + f'content/{page_id}?expand=body.storage,version'
         headers = {
             'Authorization': self.token,
             'Content-Type': 'application/json'
