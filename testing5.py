@@ -29,3 +29,5 @@ print(soup.select('p.story'))
 new_tag = soup.new_tag('a', href="http://example.com/newlink")
 new_tag.string = "New Link"
 soup.p.append(new_tag)
+
+soup.a.decompose()
