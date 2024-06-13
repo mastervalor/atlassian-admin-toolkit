@@ -31,3 +31,5 @@ new_tag.string = "New Link"
 soup.p.append(new_tag)
 
 soup.a.decompose()
+
+soup.p['class'] = 'new-class'
