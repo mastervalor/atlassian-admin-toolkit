@@ -11,3 +11,8 @@ class Spaces:
         result = self.conf.create_content(page_type, space_key, title, content, ancestors)
 
         return result
+
+    def find_content_in_page(self, page_id, content):
+        page = self.conf.get_page(page_id)
+
+
