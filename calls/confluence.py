@@ -1,7 +1,7 @@
 import requests
-from auth import auth, staging_auth, okta_token, conf_token, staging_conf_token
+from auth import conf_token, staging_conf_token
 import json
-from config import confluence, jira, jira_staging, confluence_staging, conf_base
+from config import confluence, confluence_staging, conf_base
 
 
 class Confluence:
@@ -193,7 +193,8 @@ class Confluence:
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
-            return response.json()
+            return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+
         else:
             print('Failed to retrieve page.')
             print('Response:', response.text)
