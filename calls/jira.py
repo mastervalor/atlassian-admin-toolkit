@@ -1,9 +1,7 @@
 import requests
-from auth import auth, staging_auth, okta_token, conf_token, staging_conf_token
+from auth import auth, staging_auth
 import json
-from config import confluence, jira, jira_staging, confluence_staging, conf_base
-import urllib.parse
-from datetime import datetime
+from config import jira, jira_staging
 
 
 class Jira:
