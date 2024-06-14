@@ -485,11 +485,16 @@ class Jira:
             'Content-Type': 'application/json'
         }
 
-        response = json.loads(requests.request(
+        response = requests.request(
             "PUT",
             url,
             headers=headers,
             auth=self.token
-        ).text)
+        )
 
-        return response
+        if response.status_code == 200:
+            return response.json()  # Use response.json() for automatic parsing
+        elif response.status_code == 202:
+            return {"message": "Request accepted and processed successfully, but no immediate response."}
+        else:
+            return {"error": f"Request failed with status code: {response.status_code}", "content": response.text}
