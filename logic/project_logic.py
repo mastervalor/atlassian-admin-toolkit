@@ -3,8 +3,8 @@ import json
 
 
 class Projects:
-    def __init__(self):
-        self.jira = Jira()
+    def __init__(self, is_staging=False):
+        self.jira = Jira(is_staging)
         self.project_roles = {'Administrators': '10002', 'Developers': '10001', 'users': '10000', 'agents': '10301',
                               'customers': '10300'}
 
