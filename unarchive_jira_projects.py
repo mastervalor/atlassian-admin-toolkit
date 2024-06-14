@@ -1,5 +1,6 @@
 from logic.project_logic import Projects
 from logic.os_logic import OSLogic
+import json
 
 projects = Projects()
 os_logic = OSLogic(open_file='Archived projects')
@@ -11,4 +12,6 @@ for project in file:
 
 responses = projects.unarchive_projects_list(project_list)
 
-print(responses)
+responses_json = json.dumps(responses, indent=4)
+
+print(responses_json)
