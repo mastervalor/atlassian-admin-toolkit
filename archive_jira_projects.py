@@ -12,3 +12,7 @@ for project in file:
 
 
 responses = projects.archive_projects_list(project_list)
+
+responses_json = json.dumps(responses, indent=4)
+
+print(responses_json)
