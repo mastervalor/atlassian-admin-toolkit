@@ -9,3 +9,6 @@ project_list = []
 
 for project in file:
     project_list.append(project['project_key'])
+
+
+responses = projects.archive_projects_list(project_list)
