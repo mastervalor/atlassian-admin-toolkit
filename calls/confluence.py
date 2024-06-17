@@ -184,7 +184,7 @@ class Confluence:
         return response
 
     def get_page(self, page_id):
-        url = self.conf_url + f'content/{page_id}?expand=body.storage,version'
+        url = self.conf_url + f'content/{page_id}?expand=body.storage,version,ancestors'
         headers = {
             'Authorization': self.token,
             'Content-Type': 'application/json'
