@@ -1,9 +1,6 @@
 from logic.confluence_space_logic import Spaces
-from calls.confluence import Confluence
 
 spaces = Spaces()
-
-conf = Confluence()
 
 parent_page = '421062700'
 test_page = '588288664'
@@ -51,7 +48,7 @@ table_content = """
 """
 
 
-response = conf.create_page(space_key, title, table_content, parent_page)
+response = spaces.create_page(space_key, title, table_content, parent_page)
 
 if response:
     print('Page created successfully:', response)
