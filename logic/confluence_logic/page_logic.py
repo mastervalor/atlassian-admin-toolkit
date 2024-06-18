@@ -20,5 +20,21 @@ class Pages:
         table_header += "    </tr>\n  </thead>\n  <tbody>\n"
         return table_header
 
+    def generate_table_content(self, projects, headers):
+        # Generate the table header
+        table_content = self.generate_table_header(headers)
+
+        # Loop through the project data and create table rows
+        for project in projects:
+            table_content += "    <tr>\n"
+            for header in headers:
+                table_content += f"      <td>{project.get(header.lower().replace(' ', '_'), '')}</td>\n"
+            table_content += "    </tr>\n"
+
+        # Close the table
+        table_content += "  </tbody>\n</table>\n"
+
+        return table_content
+    
     def find_content_in_page(self, page_id):
         page = self.conf.get_page(page_id)
