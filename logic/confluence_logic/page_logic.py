@@ -35,6 +35,6 @@ class Pages:
         table_content += "  </tbody>\n</table>\n"
 
         return table_content
-    
+
     def find_content_in_page(self, page_id):
         page = self.conf.get_page(page_id)
