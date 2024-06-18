@@ -12,5 +12,5 @@ class Pages:
 
         return result
 
-    def find_content_in_page(self, page_id, content):
+    def find_content_in_page(self, page_id):
         page = self.conf.get_page(page_id)
