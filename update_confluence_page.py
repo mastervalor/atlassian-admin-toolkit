@@ -1,4 +1,4 @@
-from logic.confluence_logic.confluence_space_logic import Spaces
+from logic.confluence_logic.space_logic import Spaces
 
 spaces = Spaces()
 
