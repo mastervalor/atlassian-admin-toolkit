@@ -1,6 +1,6 @@
-from logic.confluence_logic.space_logic import Spaces
+from logic.confluence_logic.page_logic import Pages
 
-spaces = Spaces()
+spaces = Pages()
 
 parent_page = '421062700'
 main_page = '588290377'
