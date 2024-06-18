@@ -7,45 +7,35 @@ test_page = '588288664'
 title = 'table create test from script'
 space_key = 'IT'
 
-table_content = """
-<table>
-  <thead>
-    <tr>
-      <th>Project Name</th>
-      <th>Project Key</th>
-      <th>Approver</th>
-      <th>Admin Group</th>
-      <th>Developer Group</th>
-      <th>User Group</th>
-      <th>Agent Group</th>
-      <th>Project Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Project Apple</td>
-      <td>APP</td>
-      <td>Tim</td>
-      <td>Admins</td>
-      <td>Devs</td>
-      <td>Users</td>
-      <td>Agents</td>
-      <td>Software</td>
-    </tr>
-    <tr>
-      <td>Project Banana</td>
-      <td>BAN</td>
-      <td>Bob</td>
-      <td>Admins</td>
-      <td>Devs</td>
-      <td>Users</td>
-      <td>Agents</td>
-      <td>Service</td>
-    </tr>
-    <!-- Add more rows as needed -->
-  </tbody>
-</table>
-"""
+projects_dict = [
+    {
+        "project_name": "Project Apple",
+        "project_key": "APP",
+        "approver": "Tim",
+        "admin_group": "Admins",
+        "developer_group": "Devs",
+        "user_group": "Users",
+        "agent_group": "Agents",
+        "project_type": "Software"
+    },
+    {
+        "project_name": "Project Banana",
+        "project_key": "BAN",
+        "approver": "Bob",
+        "admin_group": "Admins",
+        "developer_group": "Devs",
+        "user_group": "Users",
+        "agent_group": "Agents",
+        "project_type": "Service"
+    }
+    # Add more projects as needed
+]
+
+# Define the table headers
+table_headers = ["Project Name", "Project Key", "Approver", "Admin Group", "Developer Group", "User Group",
+                 "Agent Group", "Project Type"]
+
+table_content = page.generate_table_content(projects_dict, table_headers)
 
 
 response = page.create_page(space_key, title, table_content, parent_page)
