@@ -54,3 +54,30 @@ class Pages:
                         return True
         return False
 
+    def update_approver_in_page(self, page_id, project_key_to_find, new_approver):
+        # Get the page content
+        page_data = self.conf.get_page(page_id)
+
+        if not page_data:
+            return
+
+        # Extract page content and version
+        page_content = page_data['body']['storage']['value']
+        version = page_data['version']['number']
+        title = page_data['title']
+        page_type = 'page'
+
+        # Parse the table
+        table, soup = self.parse_table(page_content)
+
+        # Update the table row if necessary
+        if table:
+            updated = self.update_table_row(table, project_key_to_find, new_approver)
+            if updated:
+                updated_page_content = str(soup)
+                self.conf.update_content(page_id, page_type, title, updated_page_content, version)
+            else:
+                print("No update needed; approver already correct.")
+        else:
+            print("Table not found in the page content.")
+
