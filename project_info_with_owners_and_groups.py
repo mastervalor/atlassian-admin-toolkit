@@ -11,6 +11,7 @@ projects_table = []
 for project in file:
     archived_projects.append(project['project_key'])
 
+
 def project_info():
     projects_table = []
     projects = project_logic.get_project_owners_and_status()
@@ -21,4 +22,3 @@ def project_info():
                                                                     project['Active']))
 
     return projects_table
-
