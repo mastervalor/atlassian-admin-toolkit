@@ -11,4 +11,3 @@ projects_table = []
 
 print(project.get_project_admins_group('CORPENG'))
 
-print(json.dumps(member, sort_keys=True, indent=4, separators=(",", ": ")))
