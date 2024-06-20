@@ -1,6 +1,7 @@
 from calls.confluence import Confluence
 from bs4 import BeautifulSoup
 
+
 class Pages:
 
     def __init__(self):
@@ -87,4 +88,3 @@ class Pages:
                 print("No update needed; approver already correct.")
         else:
             print("Table not found in the page content.")
-
