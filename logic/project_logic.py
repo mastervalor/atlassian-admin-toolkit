@@ -55,6 +55,15 @@ class Projects:
 
         return "None found"
 
+    def get_project_agents_group(self, key):
+        role_id = self.project_roles['agents']
+        groups = self.jira.get_project_groups(key, role_id)
+        for group in groups['actors']:
+            if '-agents' in group['displayName']:
+                return group['displayName']
+
+        return "None found"
+
     def get_project_developer_group(self, key):
         role_id = self.project_roles['Developers']
         groups = self.jira.get_project_groups(key, role_id)
