@@ -40,3 +40,16 @@ class Pages:
         soup = BeautifulSoup(page_content, 'html.parser')
         table = soup.find('table')
         return table, soup
+
+    def update_table_row(self, table, project_key_to_find, new_approver):
+        rows = table.find_all('tr')
+        for row in rows:
+            cols = row.find_all('td')
+            if cols and len(cols) > 1:
+                project_key = cols[1].text.strip()
+                if project_key == project_key_to_find:
+                    approver = cols[2].text.strip()
+                    if approver != new_approver:
+                        cols[2].string.replace_with(new_approver)
+                        return True
+        return False
