@@ -50,7 +50,7 @@ class Projects:
         role_id = self.project_roles['users']
         groups = self.jira.get_project_groups(key, role_id)
         for group in groups['actors']:
-            if '-users' in group['displayName']:
+            if '-users' in group['displayName'] and group['displayName'] != '':
                 return group['displayName']
 
         return f"No users found in {key}"
@@ -59,7 +59,7 @@ class Projects:
         role_id = self.project_roles['agents']
         groups = self.jira.get_project_groups(key, role_id)
         for group in groups['actors']:
-            if '-agents' in group['displayName']:
+            if '-agent' in group['displayName']:
                 return group['displayName']
 
         return f"No agents found in {key}"
@@ -76,6 +76,24 @@ class Projects:
     def get_project_type(self, key):
         project = self.jira.get_project(key)
         return project['projectTypeKey']
+
+    def build_project_table(self, name, key, approver, approver_status):
+        project = {
+            'Name': name,
+            'Key': key,
+            'Approver': approver,
+            'Approver status': approver_status,
+            'Admin group': self.get_project_admins_group(key),
+            'Developer group': self.get_project_developer_group(key),
+            'User group': self.get_project_users_group(key),
+            'Agent group': self.get_project_agents_group(key),
+            'Project type': self.get_project_type(key)
+        }
+
+        print(project)
+        return project
+
+
 
     def get_archived_projects(self):
         archived_projects = []
