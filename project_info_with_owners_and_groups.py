@@ -11,11 +11,14 @@ projects_table = []
 for project in file:
     archived_projects.append(project['project_key'])
 
-projects = project_logic.get_project_owners_and_status()
+def project_info():
+    projects_table = []
+    projects = project_logic.get_project_owners_and_status()
 
-for project in projects:
-    if project['Key'] not in archived_projects:
-        projects_table.append(project_logic.build_project_table(project['Project'], project['Key'], project['Name'],
-                                                                project['Active']))
+    for project in projects:
+        if project['Key'] not in archived_projects:
+            projects_table.append(project_logic.build_project_table(project['Project'], project['Key'], project['Name'],
+                                                                    project['Active']))
 
-JSONFormating.pretty_json(projects_table)
+    return projects_table
+
