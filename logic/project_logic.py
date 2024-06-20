@@ -40,8 +40,11 @@ class Projects:
     def get_project_admins_group(self, key):
         role_id = self.project_roles['Administrators']
         groups = self.jira.get_project_groups(key, role_id)
+        for group in groups['actors']:
+            if '-administrator' in group['displayName']:
+                return group['displayName']
 
-        return groups
+        return "None found"
 
     def get_project_developer_group(self, key):
         role_id = self.project_roles['Developers']
