@@ -160,7 +160,6 @@ class Confluence:
         }
 
         payload = json.dumps({
-            'id': page_id,
             'type': page_type,
             'title': title,
             'version': {
@@ -175,7 +174,7 @@ class Confluence:
         })
 
         response = json.loads(requests.request(
-            "POST",
+            "PUT",
             url,
             data=payload,
             headers=headers
