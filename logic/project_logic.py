@@ -44,7 +44,7 @@ class Projects:
             if '-administrator' in group['displayName']:
                 return group['displayName']
 
-        return "None found"
+        return f"No {role_id} found in {key}"
 
     def get_project_users_group(self, key):
         role_id = self.project_roles['users']
@@ -53,7 +53,7 @@ class Projects:
             if '-users' in group['displayName']:
                 return group['displayName']
 
-        return "None found"
+        return f"No {role_id} found in {key}"
 
     def get_project_agents_group(self, key):
         role_id = self.project_roles['agents']
@@ -62,7 +62,7 @@ class Projects:
             if '-agents' in group['displayName']:
                 return group['displayName']
 
-        return "None found"
+        return f"No {role_id} found in {key}"
 
     def get_project_developer_group(self, key):
         role_id = self.project_roles['Developers']
@@ -71,8 +71,7 @@ class Projects:
             if '-developer' in group['displayName']:
                 return group['displayName']
 
-        return "None found"
-
+        return f"No {role_id} found in {key}"
 
     def get_project_type(self, key):
         project = self.jira.get_project(key)
