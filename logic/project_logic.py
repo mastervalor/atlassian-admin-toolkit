@@ -37,6 +37,13 @@ class Projects:
 
         return admins
 
+    def get_project_admins_group(self, key):
+        role_id = self.project_roles['Administrators']
+        groups = self.jira.get_project_groups(key, role_id)
+
+        return groups
+
+
     def get_project_type(self, key):
         project = self.jira.get_project(key)
         return project['projectTypeKey']
