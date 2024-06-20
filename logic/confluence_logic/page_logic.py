@@ -39,7 +39,14 @@ class Pages:
     def parse_table(self, page_content):
         soup = BeautifulSoup(page_content, 'html.parser')
         table = soup.find('table')
-        return table, soup
+        rows = table.find_all('tr')
+        table_data = []
+        for row in rows:
+            cols = row.find_all('td')
+            cols = [ele.text.strip() for ele in cols]
+            if cols:
+                table_data.append(cols)
+        return table_data, soup, table
 
     def update_table_row(self, table, project_key_to_find, new_approver):
         rows = table.find_all('tr')
