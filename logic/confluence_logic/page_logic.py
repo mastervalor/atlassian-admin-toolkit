@@ -1,5 +1,5 @@
 from calls.confluence import Confluence
-
+from bs4 import BeautifulSoup
 
 class Pages:
 
@@ -36,5 +36,7 @@ class Pages:
 
         return table_content
 
-    def find_content_in_page(self, page_id):
-        page = self.conf.get_page(page_id)
+    def parse_table(self, page_content):
+        soup = BeautifulSoup(page_content, 'html.parser')
+        table = soup.find('table')
+        return table, soup
