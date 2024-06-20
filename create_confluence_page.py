@@ -9,26 +9,29 @@ page = Pages()
 projects = project_info()
 parent_page = '421062700'
 # test_page = '588288664'
-title = 'table create test from script three'
+title = 'table create test from script four'
 space_key = 'IT'
 projects_dict = []
 
 for row in projects:
-    approver = row['username']
+    approver = row['Approver']
     if '[C]' in approver:
         approver = approver.replace('[C]', '')
-    row['project'] = html.escape(row['project'])
-    row['key'] = html.escape(row['key'])
+    if '[GM]' in approver:
+        approver = approver.replace('[GM]', '')
+
+    row['Name'] = html.escape(row['Name'])
+    row['key'] = html.escape(row['Key'])
     row['username'] = html.escape(approver)
     projects_dict.append({
-        "project_name": row['project'],
+        "project_name": row['Name'],
         "project_key": row['key'],
         "approver": row['username'],
-        "admin_group": "Admins",
-        "developer_group": "Devs",
-        "user_group": "Users",
-        "agent_group": "Agents",
-        "project_type": "Software"
+        "admin_group": row['Admin group'],
+        "developer_group": row['Developer group'],
+        "user_group": row['User group'],
+        "agent_group": row['Agent group'],
+        "project_type": row['Project type']
     })
 
 # Define the table headers
