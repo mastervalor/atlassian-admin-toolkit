@@ -180,7 +180,13 @@ class Confluence:
             headers=headers
         ).text)
 
-        return response
+        if response.status_code == 200:
+            print(f"Page '{title}' updated successfully!")
+        else:
+            print(f"Failed to update page. Status code: {response.status_code}")
+            print(response.text)
+            return False
+        return True
 
     def get_page(self, page_id):
         url = self.conf_url + f'content/{page_id}?expand=body.storage,version,ancestors'
