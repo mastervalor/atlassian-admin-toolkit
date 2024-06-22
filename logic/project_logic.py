@@ -51,7 +51,7 @@ class Projects:
         groups = self.jira.get_project_groups(key, role_id)
         standard_group = ''
         for group in groups['actors']:
-            if '-users' in group['displayName'] and group['displayName'] != '':
+            if '-users' in group['displayName']:
                 if group['displayName'] == 'jira-users':
                     standard_group = group['displayName']
                 else:
@@ -59,7 +59,7 @@ class Projects:
 
         if standard_group == 'jira-users':
             return standard_group
-        
+
         return f"No users found in {key}"
 
     def get_project_agents_group(self, key):
@@ -74,6 +74,7 @@ class Projects:
     def get_project_developer_group(self, key):
         role_id = self.project_roles['Developers']
         groups = self.jira.get_project_groups(key, role_id)
+        standard_group = ''
         for group in groups['actors']:
             if '-developer' in group['displayName']:
                 return group['displayName']
