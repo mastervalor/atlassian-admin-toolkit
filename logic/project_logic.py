@@ -77,7 +77,10 @@ class Projects:
         standard_group = ''
         for group in groups['actors']:
             if '-developer' in group['displayName']:
-                return group['displayName']
+                if group['displayName'] == 'jira-developers':
+                    standard_group = group['displayName']
+                else:
+                    return group['displayName']
 
         return f"No developer found in {key}"
 
