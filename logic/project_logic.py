@@ -57,6 +57,9 @@ class Projects:
                 else:
                     return group['displayName']
 
+        if standard_group == 'jira-users':
+            return standard_group
+        
         return f"No users found in {key}"
 
     def get_project_agents_group(self, key):
