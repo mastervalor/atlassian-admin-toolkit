@@ -84,7 +84,7 @@ class Projects:
     
         if standard_group == 'jira-developers':
             return standard_group
-
+        
         return f"No developer found in {key}"
 
     def get_project_type(self, key):
