@@ -88,3 +88,19 @@ class Pages:
                 print("No update needed; approver already correct.")
         else:
             print("Table not found in the page content.")
+
+    def clear_page_content(self, page_id):
+        page_data = self.conf.get_page(page_id)
+        if not page_data:
+            return False
+
+        current_version = page_data['version']['number']
+        page_title = page_data['title']
+        page_type = page_data['type']
+
+        if self.conf.update_content(page_id, page_type, page_title, "", current_version):
+            print(f"Content of page '{page_id}' cleared successfully!")
+            return True
+        else:
+            print(f"Failed to clear content of page '{page_id}'.")
+            return False
