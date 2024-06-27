@@ -220,9 +220,9 @@ class Confluence:
         ).text)
 
         if response.status_code == 200:
-            print(f"Page '{page_id}' updated successfully!")
+            print(f"Page '{page_id}' deleted successfully!")
         else:
-            print(f"Failed to update page. Status code: {response.status_code}")
+            print(f"Failed to delete page. Status code: {response.status_code}")
             print(response.text)
             return False
         return True
