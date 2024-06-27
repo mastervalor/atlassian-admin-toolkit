@@ -104,3 +104,7 @@ class Pages:
         else:
             print(f"Failed to clear content of page '{page_id}'.")
             return False
+
+    def delete_page(self, page_id):
+        response = self.conf.delete_page(page_id)
+        return response
