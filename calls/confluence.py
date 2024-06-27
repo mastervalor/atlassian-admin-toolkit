@@ -218,3 +218,11 @@ class Confluence:
             url,
             headers=headers
         ).text)
+
+        if response.status_code == 200:
+            print(f"Page '{page_id}' updated successfully!")
+        else:
+            print(f"Failed to update page. Status code: {response.status_code}")
+            print(response.text)
+            return False
+        return True
