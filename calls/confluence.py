@@ -204,3 +204,17 @@ class Confluence:
             print('Failed to retrieve page.')
             print('Response:', response.text)
             return None
+
+    def delete_page(self, page_id):
+        url = self.conf_url + f"content/{page_id}"
+
+        headers = {
+            'Authorization': self.token,
+            'Content-Type': 'application/json'
+        }
+
+        response = json.loads(requests.request(
+            "DELETE",
+            url,
+            headers=headers
+        ).text)
