@@ -10,3 +10,6 @@ target_page = '355776435'
 title = 'table create test from script four'
 space_key = 'IT'
 projects_dict = []
+
+clear_page = page.clear_page_content(target_page)
+
