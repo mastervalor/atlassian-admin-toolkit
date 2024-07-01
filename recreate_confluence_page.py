@@ -40,6 +40,8 @@ table_headers = ["Project Name", "Project Key", "Approver", "Admin Group", "Deve
 
 table_content = page.generate_table_content(projects_dict, table_headers)
 
+page_version = page.get_page_version(target_page)
+
 # Create the Confluence page
 response = page.create_page(space_key, title, table_content, parent_page)
 
