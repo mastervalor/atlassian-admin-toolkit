@@ -109,6 +109,10 @@ class Pages:
         page_data = self.conf.get_page(page_id)
         return page_data['version']['number']
 
+    def get_page_type(self, page_id):
+        page_type = self.conf.get_page()
+        return
+
     def update_page(self, page_id, page_title, content):
         page_version = self.get_page_version(page_id)
         page_type = self.get_page_type(page_id)
