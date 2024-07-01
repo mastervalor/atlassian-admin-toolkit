@@ -195,10 +195,14 @@ class Confluence:
             'Content-Type': 'application/json'
         }
 
-        response = requests.get(url, headers=headers)
+        response = requests.request(
+            "GET",
+            url,
+            headers=headers
+        )
 
         if response.status_code == 200:
-            return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+            return json.loads(response.text)
 
         else:
             print('Failed to retrieve page.')
