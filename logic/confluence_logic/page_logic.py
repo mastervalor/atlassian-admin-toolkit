@@ -110,8 +110,8 @@ class Pages:
         return page_data['version']['number']
 
     def get_page_type(self, page_id):
-        page_type = self.conf.get_page()
-        return
+        page_type = self.conf.get_page(page_id)
+        return page_type
 
     def update_page(self, page_id, page_title, content):
         page_version = self.get_page_version(page_id)
