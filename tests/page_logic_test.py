@@ -7,7 +7,6 @@ formating = JSONFormating()
 
 def test_get_page_type(page_id):
     page_type = page.get_page_type(page_id)
-    formating.pretty_json(page_type)
+    print(page_type)
 
-
-test_get_page_type('355776435')
+test_get_page_type('588291586')
