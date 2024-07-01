@@ -13,3 +13,23 @@ projects_dict = []
 
 clear_page = page.clear_page_content(target_page)
 
+for row in projects:
+    approver = row['Approver']
+    if '[C]' in approver:
+        approver = approver.replace('[C]', '')
+    if '[GM]' in approver:
+        approver = approver.replace('[GM]', '')
+
+    row['Name'] = html.escape(row['Name'])
+    row['key'] = html.escape(row['Key'])
+    row['username'] = html.escape(approver)
+    projects_dict.append({
+        "project_name": row['Name'],
+        "project_key": row['key'],
+        "approver": row['username'],
+        "admin_group": row['Admin group'],
+        "developer_group": row['Developer group'],
+        "user_group": row['User group'],
+        "agent_group": row['Agent group'],
+        "project_type": row['Project type']
+    })
