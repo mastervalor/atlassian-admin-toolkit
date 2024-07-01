@@ -109,8 +109,12 @@ class Pages:
         page_data = self.conf.get_page(page_id)
         return page_data['version']['number']
 
-    def update_page(self, page_type, page_title, content, current_version):
-        response = self.conf.update_content(page_id, page_type, title, updated_page_content, version)
+    def update_page(self, page_id, page_title, content):
+        page_version = self.get_page_version(page_id)
+        page_type = self.get_page_type(page_id)
+
+        response = self.conf.update_content(page_id, page_type, page_title, content, page_version)
+        return response
 
     def delete_page(self, page_id):
         response = self.conf.delete_page(page_id)
