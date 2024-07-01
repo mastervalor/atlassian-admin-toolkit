@@ -105,6 +105,10 @@ class Pages:
             print(f"Failed to clear content of page '{page_id}'.")
             return False
 
+    def get_page_version(self, page_id):
+        page_data = self.conf.get_page(page_id)
+        return page_data['version']['number']
+
     def delete_page(self, page_id):
         response = self.conf.delete_page(page_id)
         return response
