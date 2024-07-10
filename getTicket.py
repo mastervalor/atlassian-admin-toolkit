@@ -3,7 +3,7 @@ from call import Jira
 
 jira = Jira()
 
-response = jira.get_ticket("CORPENG-9636")
+response = jira.get_ticket("CWP-6766")
 
 # owner = response['fields']['status']['name']
 # res = response['fields']['resolution']['name']
