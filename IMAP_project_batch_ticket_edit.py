@@ -72,12 +72,16 @@ payload = {
         "customfield_30301": {
             "value": "Not Referenced in Report"
         },
-        "customfield_30403": {
-            "value": "Handling lane change"
-        },
-        "customfield_30404": {
+        "customfield_30403": [
+            {
+            "value": "[Lane Changes] - Handling lane change"
+            }
+        ],
+        "customfield_30404": [
+            {
             "value": "Not Referenced in Report"
-        },
+            }
+        ],
         "customfield_30400": {
             "value": "Overtaking"
         },
