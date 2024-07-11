@@ -41,7 +41,22 @@ payload = {
     "fields": {
         "customfield_30300": {
             "value": "Lane Wandering"
-        }
+        },
+        "customfield_30301": {
+            "value": "Not Referenced in Report"
+        },
+        "customfield_30403": {
+            "value": "Handling lane change"
+        },
+        "customfield_30404": {
+            "value": "Not Referenced in Report"
+        },
+        "customfield_30400": {
+            "value": "Overtaking"
+        },
+        "customfield_30400": {
+            "value": "Extreme"
+        },
     }
 }
 edit_ticket(ticket, payload)
