@@ -10,6 +10,7 @@ auth_token = ('', '')
 # fill in target csv file name in string below
 tickets_file = ''
 
+
 def edit_ticket(key, payload):
     url = jira_dev_url + 'issue/' + key
     headers = {
@@ -27,7 +28,6 @@ def edit_ticket(key, payload):
     return response
 
 
-
 #
 # with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file), mode='r') as csv_file:
 #     csv_reader = csv.DictReader(csv_file)
@@ -37,7 +37,11 @@ def edit_ticket(key, payload):
 #         }
 
 ticket = 'IMAP-1517'
-fields = {
-
+payload = {
+    "fields": {
+        "customfield_30300": {
+            "value": "Lane Wandering"
+        }
+    }
 }
-edit_ticket(ticket, fields)
+edit_ticket(ticket, payload)
