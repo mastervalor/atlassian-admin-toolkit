@@ -27,6 +27,7 @@ def edit_ticket(key, payload):
 
     return response
 
+
 def add_issue_link(inward_issue_key, outward_issue_key, link_type):
     url = jira_dev_url + 'issueLink'
     headers = {
@@ -44,7 +45,8 @@ def add_issue_link(inward_issue_key, outward_issue_key, link_type):
             "key": outward_issue_key
         }
     }
-    response = requests.post(
+    response = requests.request(
+        "POST",
         url,
         headers=headers,
         json=payload,
@@ -81,19 +83,13 @@ payload = {
         },
         "customfield_26200": {
             "value": "Extreme"
-        },
-        "issuelinks": [
-            {
-                "outwardIssue": {
-                    "key": "IMAP-109",
-                },
-                "type": {
-                    "outward": "relates to",
-                }
-            }
-        ]
+        }
     }
 }
 response = edit_ticket(ticket, payload)
 print(response.status_code)
 print(response.text)
+
+link_response = add_issue_link(ticket, 'IMAP-109', 'Relates')
+print(link_response.status_code)
+print(link_response.text)
