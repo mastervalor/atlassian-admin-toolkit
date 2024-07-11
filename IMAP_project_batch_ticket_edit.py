@@ -6,7 +6,7 @@ import csv
 jira_base_url = "https://jira.robot.car/rest/api/2/"
 jira_dev_url = "https://jira-dev.robot.car/rest/api/2/"
 # fill in first string with username, and second string with token.
-auth_token = ('', '')
+auth_token = ('mourad.marzouk', 'nKWvwHYaGgB4nD3Ao1MBwJoIwD138kqqGmiWVe')
 # fill in target csv file name in string below
 tickets_file = ''
 
@@ -25,6 +25,31 @@ def edit_ticket(key, payload):
         auth=auth_token
     )
 
+    return response
+
+def add_issue_link(inward_issue_key, outward_issue_key, link_type):
+    url = jira_dev_url + 'issueLink'
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "type": {
+            "name": link_type
+        },
+        "inwardIssue": {
+            "key": inward_issue_key
+        },
+        "outwardIssue": {
+            "key": outward_issue_key
+        }
+    }
+    response = requests.post(
+        url,
+        headers=headers,
+        json=payload,
+        auth=auth_token
+    )
     return response
 
 
@@ -54,9 +79,21 @@ payload = {
         "customfield_30400": {
             "value": "Overtaking"
         },
-        "customfield_30400": {
+        "customfield_26200": {
             "value": "Extreme"
         },
+        "issuelinks": [
+            {
+                "outwardIssue": {
+                    "key": "IMAP-109",
+                },
+                "type": {
+                    "outward": "relates to",
+                }
+            }
+        ]
     }
 }
-edit_ticket(ticket, payload)
+response = edit_ticket(ticket, payload)
+print(response.status_code)
+print(response.text)
