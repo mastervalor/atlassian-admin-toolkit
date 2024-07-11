@@ -11,7 +11,7 @@ auth_token = ('mourad.marzouk', 'nKWvwHYaGgB4nD3Ao1MBwJoIwD138kqqGmiWVe')
 tickets_file = ''
 
 
-def edit_ticket(key, payload):
+def edit_ticket(key, fields_edited):
     url = jira_dev_url + 'issue/' + key
     headers = {
         "Accept": "application/json",
@@ -21,7 +21,7 @@ def edit_ticket(key, payload):
         "PUT",
         url,
         headers=headers,
-        json=payload,
+        json=fields_edited,
         auth=auth_token
     )
 
@@ -64,7 +64,7 @@ def add_issue_link(inward_issue_key, outward_issue_key, link_type):
 #         }
 
 ticket = 'IMAP-1517'
-payload = {
+fields_edited = {
     "fields": {
         "customfield_30300": {
             "value": "Lane Wandering"
@@ -90,7 +90,7 @@ payload = {
         }
     }
 }
-response = edit_ticket(ticket, payload)
+response = edit_ticket(ticket, fields_edited)
 print(response.status_code)
 print(response.text)
 
