@@ -9,3 +9,19 @@ jira_dev_url = "https://jira-dev.robot.car/rest/api/2/"
 auth_token = ('', '')
 # fill in target csv file name in string below
 tickets_file = ''
+
+def edit_ticket(key, payload):
+    url = jira_dev_url + 'issue/' + key
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+    response = requests.request(
+        "PUT",
+        url,
+        headers=headers,
+        json=payload,
+        auth=auth_token
+    )
+
+    return response
