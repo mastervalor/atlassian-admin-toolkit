@@ -5,3 +5,7 @@ import csv
 
 jira_base_url = "https://jira.robot.car/rest/api/2/"
 jira_dev_url = "https://jira-dev.robot.car/rest/api/2/"
+# fill in first string with username, and second string with token.
+auth_token = ('', '')
+# fill in target csv file name in string below
+tickets_file = ''
