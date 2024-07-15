@@ -24,26 +24,29 @@ def build_values_list(values):
 
 
 def build_fields_template(row):
-    fields_edited = {
-        "fields": {
-            "customfield_30300": {
-                "value": row['Hazardous Behavior']
-            },
-            "customfield_30301": {
-                "value": row['Environmental Conditions-related Behaviors']
-            },
-            "customfield_30403": build_values_list(row['Static (Scenery) Elements-related Behaviors']),
-            "customfield_30404": build_values_list(row['Dynamic Object-related Behaviors']),
-            "customfield_30400": {
-                "value": row['Road User Actions']
-            },
-            "customfield_26200": {
-                "value": row['ERC Enterprise Risk Level']
-            }
+    fields = {}
+    if row['Hazardous Behavior']:
+        fields["customfield_30300"] = {
+            "value": row['Hazardous Behavior']
         }
-    }
+    if row['Environmental Conditions-related Behaviors']:
+        fields["customfield_30301"] = {
+            "value": row['Environmental Conditions-related Behaviors']
+        }
+    if row['Static (Scenery) Elements-related Behaviors']:
+        fields["customfield_30403"] = build_values_list(row['Static (Scenery) Elements-related Behaviors'])
+    if row['Dynamic Object-related Behaviors']:
+        fields["customfield_30404"] = build_values_list(row['Dynamic Object-related Behaviors'])
+    if row['Road User Actions']:
+        fields["customfield_30400"] = {
+            "value": row['Road User Actions']
+        }
+    if row['ERC Enterprise Risk Level']:
+        fields["customfield_26200"] = {
+            "value": row['ERC Enterprise Risk Level']
+        }
 
-    return fields_edited
+    return {"fields": fields}
 
 
 def edit_ticket(key, fields_edited):
