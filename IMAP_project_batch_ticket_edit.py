@@ -99,5 +99,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
         fields = build_fields_template(ticket)
         response = edit_ticket(ticket['Key'], fields)
         print(f"Ticket: {ticket['Key']}, edit response code: {response.status_code} and response: {response.text}")
-        link_response = add_issue_link(ticket['Key'], ticket['Linked Issue'], ticket['Linked Issue Relation'])
-        print(f"Ticket: {ticket['Key']}, edit response code: {link_response.status_code} and response: {link_response.text}")
+        if ticket['Linked Issue'] and ticket['Linked Issue Relation']:
+            link_response = add_issue_link(ticket['Key'], ticket['Linked Issue'], ticket['Linked Issue Relation'])
+            print(
+                f"Ticket: {ticket['Key']}, link response code: {link_response.status_code} and response: {link_response.text}")
