@@ -93,9 +93,7 @@ def add_issue_link(inward_issue_key, outward_issue_key, link_type):
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for ticket in csv_reader:
-        fields = {
-
-        }
+        fields = build_fields_template(ticket)
 
 ticket = 'IMAP-1517'
 fields_edited = {
