@@ -10,6 +10,16 @@ auth_token = ('mourad.marzouk', 'nKWvwHYaGgB4nD3Ao1MBwJoIwD138kqqGmiWVe')
 # fill in target csv file name in string below
 tickets_file = ''
 
+def build_values_list(values):
+    values_list = []
+    for value in values:
+        values_list.append(
+            {
+                "value": value
+            },
+        )
+
+    return values_list
 
 def edit_ticket(key, fields_edited):
     url = jira_dev_url + 'issue/' + key
