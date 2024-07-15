@@ -27,26 +27,18 @@ def build_fields_template(row):
     fields_edited = {
         "fields": {
             "customfield_30300": {
-                "value": "Lane Wandering"
+                "value": row['Hazardous Behavior']
             },
             "customfield_30301": {
-                "value": "Not Referenced in Report"
+                "value": row['Environmental Conditions-related Behaviors']
             },
-            "customfield_30403": [
-                {
-                    "value": "[Lane Changes] - Handling lane change"
-                }
-            ],
-            "customfield_30404": [
-                {
-                    "value": "Not Referenced in Report"
-                }
-            ],
+            "customfield_30403": build_values_list(row['Static (Scenery) Elements-related Behaviors']),
+            "customfield_30404": build_values_list(row['Dynamic Object-related Behaviors']),
             "customfield_30400": {
-                "value": "Overtaking"
+                "value": row['Road User Actions']
             },
             "customfield_26200": {
-                "value": "Extreme"
+                "value": row['ERC Enterprise Risk Level']
             }
         }
     }
