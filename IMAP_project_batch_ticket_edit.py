@@ -10,6 +10,7 @@ auth_token = ('mourad.marzouk', 'nKWvwHYaGgB4nD3Ao1MBwJoIwD138kqqGmiWVe')
 # fill in target csv file name in string below
 tickets_file = ''
 
+
 def build_values_list(values):
     values_list = []
     for value in values:
@@ -20,6 +21,7 @@ def build_values_list(values):
         )
 
     return values_list
+
 
 def build_fields_template(row):
     fields_edited = {
@@ -50,6 +52,7 @@ def build_fields_template(row):
     }
 
     return fields_edited
+
 
 def edit_ticket(key, fields_edited):
     url = jira_dev_url + 'issue/' + key
@@ -114,12 +117,12 @@ fields_edited = {
         },
         "customfield_30403": [
             {
-            "value": "[Lane Changes] - Handling lane change"
+                "value": "[Lane Changes] - Handling lane change"
             }
         ],
         "customfield_30404": [
             {
-            "value": "Not Referenced in Report"
+                "value": "Not Referenced in Report"
             }
         ],
         "customfield_30400": {
