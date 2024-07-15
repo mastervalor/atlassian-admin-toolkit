@@ -94,6 +94,10 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
     csv_reader = csv.DictReader(csv_file)
     for ticket in csv_reader:
         fields = build_fields_template(ticket)
+        response = edit_ticket(ticket['key'], fields)
+        print(f"Ticket: {ticket['key']}, edit response code: {response.status_code} and response: {response.text}")
+        link_response = add_issue_link(ticket, 'IMAP-109', 'Relates')
+
 
 ticket = 'IMAP-1517'
 fields_edited = {
