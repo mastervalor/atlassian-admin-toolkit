@@ -21,6 +21,36 @@ def build_values_list(values):
 
     return values_list
 
+def build_fields_template(row):
+    fields_edited = {
+        "fields": {
+            "customfield_30300": {
+                "value": "Lane Wandering"
+            },
+            "customfield_30301": {
+                "value": "Not Referenced in Report"
+            },
+            "customfield_30403": [
+                {
+                    "value": "[Lane Changes] - Handling lane change"
+                }
+            ],
+            "customfield_30404": [
+                {
+                    "value": "Not Referenced in Report"
+                }
+            ],
+            "customfield_30400": {
+                "value": "Overtaking"
+            },
+            "customfield_26200": {
+                "value": "Extreme"
+            }
+        }
+    }
+
+    return fields_edited
+
 def edit_ticket(key, fields_edited):
     url = jira_dev_url + 'issue/' + key
     headers = {
