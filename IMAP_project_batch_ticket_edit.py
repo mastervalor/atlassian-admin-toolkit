@@ -97,39 +97,4 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
         response = edit_ticket(ticket['Key'], fields)
         print(f"Ticket: {ticket['Key']}, edit response code: {response.status_code} and response: {response.text}")
         link_response = add_issue_link(ticket['Key'], ticket['Linked Issue'], ticket['linked Issue Relation'])
-
-
-ticket = 'IMAP-1517'
-fields_edited = {
-    "fields": {
-        "customfield_30300": {
-            "value": "Lane Wandering"
-        },
-        "customfield_30301": {
-            "value": "Not Referenced in Report"
-        },
-        "customfield_30403": [
-            {
-                "value": "[Lane Changes] - Handling lane change"
-            }
-        ],
-        "customfield_30404": [
-            {
-                "value": "Not Referenced in Report"
-            }
-        ],
-        "customfield_30400": {
-            "value": "Overtaking"
-        },
-        "customfield_26200": {
-            "value": "Extreme"
-        }
-    }
-}
-response = edit_ticket(ticket, fields_edited)
-print(response.status_code)
-print(response.text)
-
-link_response = add_issue_link(ticket, 'IMAP-109', 'Relates')
-print(link_response.status_code)
-print(link_response.text)
+        print(f"Ticket: {ticket['Key']}, edit response code: {link_response.status_code} and response: {link_response.text}")
