@@ -56,3 +56,15 @@ class Tickets:
 
         response = self.jira.create_ticket(payload)
         print(response)
+
+    def build_values_list(self, values):
+        if not values:
+            return []
+        values_list = []
+        for value in values.split(', '):
+            values_list.append(
+                {
+                    "value": value.strip()
+                },
+            )
+        return values_list
