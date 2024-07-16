@@ -94,6 +94,19 @@ def add_issue_link(inward_issue_key, outward_issue_key, link_type):
     return response
 
 
+def process_linked_issues(ticket_key, linked_issues_str, link_types_str):
+    if not linked_issues_str or not link_types_str:
+        return
+
+    linked_issues = linked_issues_str.split(', ')
+    link_types = link_types_str.split(', ')
+
+    for issue, link_type in zip(linked_issues, link_types):
+        link_response = add_issue_link(ticket_key, issue, link_type)
+        print(
+            f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
+
+
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for ticket in csv_reader:
@@ -102,5 +115,3 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
         print(f"Ticket: {ticket['Key']}, edit response code: {response.status_code} and response: {response.text}")
         if ticket['Linked Issue'] and ticket['Linked Issue Relation']:
             link_response = add_issue_link(ticket['Key'], ticket['Linked Issue'], ticket['Linked Issue Relation'])
-            print(
-                f"Ticket: {ticket['Key']}, link response code: {link_response.status_code} and response: {link_response.text}")
