@@ -68,3 +68,15 @@ class Tickets:
                 },
             )
         return values_list
+
+    def process_linked_issues(self, ticket_key, linked_issues_str, link_types_str):
+        if not linked_issues_str or not link_types_str:
+            return
+
+        linked_issues = linked_issues_str.split(', ')
+        link_types = link_types_str.split(', ')
+
+        for issue, link_type in zip(linked_issues, link_types):
+            link_response = self.add_issue_link(ticket_key, issue, link_type)
+            print(
+                f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
