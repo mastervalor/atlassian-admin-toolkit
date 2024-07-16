@@ -15,7 +15,7 @@ def build_values_list(values):
     if not values:
         return []
     values_list = []
-    for value in values.split(','):
+    for value in values.split(', '):
         values_list.append(
             {
                 "value": value.strip()
