@@ -111,7 +111,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
     csv_reader = csv.DictReader(csv_file)
     for ticket in csv_reader:
         fields = build_fields_template(ticket)
-        response = edit_ticket(ticket['Key'], fields)
-        print(f"Ticket: {ticket['Key']}, edit response code: {response.status_code} and response: {response.text}")
+        response = edit_ticket(ticket['Issue key'], fields)
+        print(f"Ticket: {ticket['Issue key']}, edit response code: {response.status_code} and response: {response.text}")
         if ticket['Linked Issue'] and ticket['Linked Issue Relation']:
-            process_linked_issues(ticket['Key'], ticket['Linked Issues'], ticket['Linked Issue Relations'])
+            process_linked_issues(ticket['Issue key'], ticket['Linked Issues'], ticket['Linked Issue Relations'])
