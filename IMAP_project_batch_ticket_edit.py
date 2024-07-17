@@ -8,7 +8,7 @@ jira_dev_url = "https://jira-dev.robot.car/rest/api/2/"
 # fill in first string with username, and second string with token.
 auth_token = ('mourad.marzouk', 'nKWvwHYaGgB4nD3Ao1MBwJoIwD138kqqGmiWVe')
 # fill in target csv file name in string below
-tickets_file = ''
+tickets_file = 'IMAP Diagnosis Spreadsheet Test'
 
 
 def build_values_list(values):
@@ -26,9 +26,9 @@ def build_values_list(values):
 
 def build_fields_template(row):
     fields = {}
-    if row['Hazardous Behavior']:
+    if row['Hazardous Behaviors']:
         fields["customfield_30300"] = {
-            "value": row['Hazardous Behavior']
+            "value": row['Hazardous Behaviors']
         }
     if row['Environmental Conditions-related Behaviors']:
         fields["customfield_30301"] = {
@@ -114,4 +114,4 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), tickets_file
         response = edit_ticket(ticket['Issue key'], fields)
         print(f"Ticket: {ticket['Issue key']}, edit response code: {response.status_code} and response: {response.text}")
         if ticket['Linked Issue'] and ticket['Linked Issue Relation']:
-            process_linked_issues(ticket['Issue key'], ticket['Linked Issues'], ticket['Linked Issue Relations'])
+            process_linked_issues(ticket['Issue key'], ticket['Linked Issue'], ticket['Linked Issue Relation'])
