@@ -1,8 +1,6 @@
 import csv
 import os
-import json
-from logic.field_logic import Fields
-import urllib.parse
+from logic.jira_logic.field_logic import Fields
 
 fields = Fields()
 newFile = 'field metrics'
