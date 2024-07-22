@@ -42,9 +42,9 @@ def build_fields_template(row):
         fields["customfield_30400"] = {
             "value": row['Road User Actions']
         }
-    if row['ERC Enterprise Risk Level']:
-        fields["customfield_26200"] = {
-            "value": row['ERC Enterprise Risk Level']
+    if row['ERC Enterprise Severity Level']:
+        fields["customfield_21203"] = {
+            "value": row['ERC Enterprise Severity Level']
         }
 
     return {"fields": fields}
