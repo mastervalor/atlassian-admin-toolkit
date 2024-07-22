@@ -1,8 +1,8 @@
-import os, csv, json
+import os, csv
 from logic.groups_users_logic import GroupsUsers
 from logic.user_logic import Users
 from logic.project_logic import Projects
-from logic.field_logic import Fields
+from logic.jira_logic.field_logic import Fields
 from call import Jira
 
 groups = GroupsUsers()
