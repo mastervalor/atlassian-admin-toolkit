@@ -1,4 +1,4 @@
-from call import Jira
+from calls.jira import Jira
 import urllib.parse
 import json
 
@@ -22,3 +22,8 @@ class Fields:
             field_metrics.append(field)
             print(field)
         return field_metrics
+
+    def field_options(self, field_id, context_id):
+        field_options = self.jira.get_custom_field_context(field_id, context_id)
+
+        return field_options
