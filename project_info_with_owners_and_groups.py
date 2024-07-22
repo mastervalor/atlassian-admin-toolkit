@@ -1,6 +1,5 @@
-from logic.project_logic import Projects
+from logic.jira_logic.project_logic import Projects
 from logic.os_logic import OSLogic
-from dataformating.json_formating import JSONFormating
 
 project_logic = Projects()
 os_logic = OSLogic(open_file='Archived projects - projects to standerdize', write_file='all projects')
