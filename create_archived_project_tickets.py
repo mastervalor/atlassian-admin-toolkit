@@ -1,4 +1,4 @@
-from logic.jira_logic.os_logic.os_logic import OSLogic
+from logic.os_logic import OSLogic
 from logic.ticket_logic import Tickets
 
 tickets = Tickets()

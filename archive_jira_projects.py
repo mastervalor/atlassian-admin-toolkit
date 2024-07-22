@@ -1,5 +1,5 @@
 from logic.jira_logic.project_logic import Projects
-from logic.jira_logic.os_logic.os_logic import OSLogic
+from logic.os_logic import OSLogic
 import json
 
 projects = Projects()
