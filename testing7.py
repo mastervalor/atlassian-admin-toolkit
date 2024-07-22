@@ -1,12 +1,7 @@
 import json
-import os
-import getpass
-import requests
-from call import Confluence, Okta
 from calls.jira import Jira
-from logic.project_logic import Projects
-from auth import auth
-import re
+from logic.jira_logic.project_logic import Projects
+
 #
 # fileName = "okta groups"
 #
