@@ -25,7 +25,7 @@ class Jira:
 
         return response
 
-    def get_customField_context(self, fieldId, contextId):
+    def get_custom_field_context(self, fieldId, contextId):
         url = self.jira + f'customFields/{fieldId}/context/{contextId}'
 
         headers = {
