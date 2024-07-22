@@ -1,4 +1,4 @@
-from logic.user_logic import Users
+from logic.jira_logic.user_logic import Users
 from logic.os_logic import OSLogic
 from calls.jira import Jira
 import csv, os

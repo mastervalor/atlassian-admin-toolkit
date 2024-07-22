@@ -1,5 +1,5 @@
 from logic.jira_logic.groups_users_logic import GroupsUsers
-from logic.user_logic import Users
+from logic.jira_logic.user_logic import Users
 from logic.os_logic import OSLogic
 
 groups = GroupsUsers()
