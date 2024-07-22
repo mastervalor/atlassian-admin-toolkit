@@ -1,4 +1,4 @@
-from logic.project_logic import Projects
+from logic.jira_logic.project_logic import Projects
 import csv
 import os
 
