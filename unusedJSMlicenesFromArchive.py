@@ -1,4 +1,4 @@
-from logic.project_logic import Projects
+from logic.jira_logic.project_logic import Projects
 from logic.jira_logic.groups_users_logic import GroupsUsers
 from logic.user_logic import Users
 import csv, os
