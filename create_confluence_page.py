@@ -1,8 +1,6 @@
 from logic.confluence_logic.page_logic import Pages
-from logic.os_logic import OSLogic
 from project_info_with_owners_and_groups import project_info
 import html
-import logging
 
 page = Pages()
 
