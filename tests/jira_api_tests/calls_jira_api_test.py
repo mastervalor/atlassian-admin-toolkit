@@ -18,7 +18,6 @@ def test_get_ticket(key):
     formating.pretty_json(ticket)
 
 
-
 payload = {
     "fields": {
         "customfield_26200": {
@@ -28,6 +27,5 @@ payload = {
 }
 
 test_edit_ticket('IMAP-1524', payload)
-
 
 # test_get_ticket('IMAP-1637')
