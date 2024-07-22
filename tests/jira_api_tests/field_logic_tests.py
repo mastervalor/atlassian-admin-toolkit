@@ -12,3 +12,6 @@ def test_field_options(field_id, context_id):
         formating.pretty_json(field_options)
     else:
         print(field_options.status_code, field_options.text)
+
+
+test_field_options()
