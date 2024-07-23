@@ -23,6 +23,11 @@ def test_get_ticket(key):
     else:
         formating.pretty_json(ticket)
 
+        
+def test_add_issue_link(inward_issue_key, outward_issue_key, link_type):
+    issue_link = jira.add_issue_link(inward_issue_key, outward_issue_key, link_type)
+    print(issue_link)
+
 #
 # payload = {
 #     "fields": {
@@ -34,4 +39,4 @@ def test_get_ticket(key):
 #
 # test_edit_ticket('IMAP-1524', payload)
 
-test_get_ticket('IMAP-15dd24')
+# test_get_ticket('IMAP-1524')
