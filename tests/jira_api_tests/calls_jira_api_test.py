@@ -23,10 +23,13 @@ def test_get_ticket(key):
     else:
         formating.pretty_json(ticket)
 
-        
+
 def test_add_issue_link(inward_issue_key, outward_issue_key, link_type):
     issue_link = jira.add_issue_link(inward_issue_key, outward_issue_key, link_type)
-    print(issue_link)
+    if issue_link.status_code == 200:
+        print(issue_link)
+    else:
+        print(issue_link.status_code, issue_link.text)
 
 #
 # payload = {
@@ -40,3 +43,5 @@ def test_add_issue_link(inward_issue_key, outward_issue_key, link_type):
 # test_edit_ticket('IMAP-1524', payload)
 
 # test_get_ticket('IMAP-1524')
+
+test_add_issue_link('IMAP-1525', "IMAP-1524", 'Relates')
