@@ -17,10 +17,11 @@ def test_edit_ticket(key, payload):
 
 def test_get_ticket(key):
     ticket = jira.get_ticket(key)
-    if ticket.status_code == 200 or ticket.status_code == 204:
-        formating.pretty_json(ticket)
+    if 'errorMessages' in ticket:
+        print(ticket['errorMessages'])
+        print(ticket['errors'])
     else:
-        print(ticket.status_code, ticket.text)
+        formating.pretty_json(ticket)
 
 #
 # payload = {
@@ -33,4 +34,4 @@ def test_get_ticket(key):
 #
 # test_edit_ticket('IMAP-1524', payload)
 
-test_get_ticket('IMAP-1524')
+test_get_ticket('IMAP-15dd24')
