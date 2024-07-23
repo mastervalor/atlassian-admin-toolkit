@@ -18,8 +18,8 @@ def test_edit_ticket(key, payload):
 def test_get_ticket(key):
     ticket = jira.get_ticket(key)
     if 'errorMessages' in ticket:
-        print(ticket['errorMessages'])
-        print(ticket['errors'])
+        print("Returned error message: " + ticket['errorMessages'])
+        print("with these errors if any found: " + ticket['errors'])
     else:
         formating.pretty_json(ticket)
 
