@@ -102,7 +102,7 @@ def process_linked_issues(ticket_key, linked_issues_str, link_types_str):
     link_types = link_types_str.split(', ')
 
     for issue, link_type in zip(linked_issues, link_types):
-        link_response = add_issue_link(ticket_key, issue, link_type)
+        link_response = add_issue_link(issue, ticket_key, link_type)
         print(
             f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
 
