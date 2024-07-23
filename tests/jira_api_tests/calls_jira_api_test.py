@@ -12,11 +12,15 @@ def test_edit_ticket(key, payload):
     else:
         print(edit_ticket.status_code, edit_ticket.text)
 
+# def test_add_issue_link(inward_issue_key, outward_issue_key, link_type)
 
-def test_get_ticket(key):
+
+def text_get_ticket(key):
     ticket = jira.get_ticket(key)
-    formating.pretty_json(ticket)
-
+    if ticket.status_code == 200 or ticket.status_code == 204:
+        formating.pretty_json(ticket)
+    else:
+        print(ticket.status_code, ticket.text)
 
 
 payload = {
