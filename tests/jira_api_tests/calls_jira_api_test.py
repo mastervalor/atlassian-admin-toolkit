@@ -15,23 +15,22 @@ def test_edit_ticket(key, payload):
 # def test_add_issue_link(inward_issue_key, outward_issue_key, link_type)
 
 
-def text_get_ticket(key):
+def test_get_ticket(key):
     ticket = jira.get_ticket(key)
     if ticket.status_code == 200 or ticket.status_code == 204:
         formating.pretty_json(ticket)
     else:
         print(ticket.status_code, ticket.text)
 
+#
+# payload = {
+#     "fields": {
+#         "customfield_26200": {
+#             "value": "E3"
+#         }
+#     }
+# }
+#
+# test_edit_ticket('IMAP-1524', payload)
 
-payload = {
-    "fields": {
-        "customfield_26200": {
-            "value": "E3"
-        }
-    }
-}
-
-test_edit_ticket('IMAP-1524', payload)
-
-
-# test_get_ticket('IMAP-1637')
+test_get_ticket('IMAP-1524')
