@@ -95,9 +95,11 @@ class Tickets:
                 if key not in ticket_list:
                     ticket_list.append(key)
 
-            print(ticket_list)
             total = tickets['total']
             startAt += 1000
             maxResults += 1000
 
         return ticket_list
+
+    def assign_ticket(self, ticket, assignee):
+        self.jira.assign_ticket(ticket, assignee)
