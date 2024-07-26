@@ -81,14 +81,14 @@ class Tickets:
             print(
                 f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
 
-    def tickets(self, query):
+    def get_ticket_keys_from_jql(self, query):
         startAt = 0
         maxResults = 1000
         total = 1001
         ticket_list = []
 
         while total >= maxResults:
-            tickets = self.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+            tickets = self.jira.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
 
             for ticket in tickets['issues']:
                 key = ticket['key']
