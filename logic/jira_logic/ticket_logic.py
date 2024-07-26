@@ -80,3 +80,6 @@ class Tickets:
             link_response = self.jira.add_issue_link(ticket_key, issue, link_type)
             print(
                 f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
+
+    def assign_tickets(self, jql):
+        jql = self.jira.tickets(jql)
