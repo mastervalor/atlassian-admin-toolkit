@@ -523,14 +523,5 @@ class Jira:
             auth=self.token
         )
 
-        if response.status_code == 204:
-            print(f"Issue {key} successfully assigned to {username}.")
-        elif response.status_code == 400:
-            print("Error: Problem with the received user representation.")
-        elif response.status_code == 401:
-            print("Error: Calling user does not have permission to assign the issue.")
-        elif response.status_code == 404:
-            print("Error: Either the issue or the user does not exist.")
-        else:
-            print(f"Error: Unexpected response code {response.status_code}. Response: {response.text}")
+        return response
 
