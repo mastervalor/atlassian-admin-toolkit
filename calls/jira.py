@@ -216,27 +216,6 @@ class Jira:
 
         return response
 
-    def tickets(self, query):
-        startAt = 0
-        maxResults = 1000
-        total = 1001
-        ticket_list = []
-
-        while total >= maxResults:
-            tickets = self.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
-
-            for ticket in tickets['issues']:
-                key = ticket['key'].split("-")[0]
-                if key not in ticket_list:
-                    ticket_list.append(key)
-
-            print(ticket_list)
-            total = tickets['total']
-            startAt += 1000
-            maxResults += 1000
-
-        return ticket_list
-
     def get_group(self, pref, group):
         url = self.jira + 'group/member' + pref
 
