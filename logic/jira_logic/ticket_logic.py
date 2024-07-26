@@ -81,5 +81,23 @@ class Tickets:
             print(
                 f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
 
-    def assign_tickets(self, jql):
-        jql = self.jira.tickets(jql)
+    def tickets(self, query):
+        startAt = 0
+        maxResults = 1000
+        total = 1001
+        ticket_list = []
+
+        while total >= maxResults:
+            tickets = self.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+
+            for ticket in tickets['issues']:
+                key = ticket['key']
+                if key not in ticket_list:
+                    ticket_list.append(key)
+
+            print(ticket_list)
+            total = tickets['total']
+            startAt += 1000
+            maxResults += 1000
+
+        return ticket_list
