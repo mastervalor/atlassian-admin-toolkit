@@ -6,6 +6,10 @@ jql = ('project = "Corporate Engineering" and summary ~"needs to be rolled over 
        '"archived" and assignee is EMPTY')
 keys = tickets.get_ticket_keys_from_jql(jql)
 
-assignes = {"swaroop": 0, "srik": 0, "anand": 0}
+assignes = {"swaroop.vimalkumar": 0, "satchidanand.challapalli": 0, "srikanth.racharla": 0}
 
 for key in keys:
+    lowest_assignee = min(assignes, key=assignes.get)
+    assignee = lowest_assignee
+    assignes[lowest_assignee] += 1
+    tickets.assign_ticket(key, assignee)
