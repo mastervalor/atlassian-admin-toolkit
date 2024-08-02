@@ -4,13 +4,6 @@ import json
 
 
 class Okta:
-    def __init__(self, name, email, id, user_id, group_id):
-        self.name = name
-        self.email = email
-        self.id = id
-        self.users_id = user_id
-        self.group_id = group_id
-
     @classmethod
     def users_id(cls, email):
         url = 'https://cruise.okta.com/api/v1/users'
@@ -28,8 +21,7 @@ class Okta:
         except IndexError:
             return False
 
-    # @classmethod
-    # def users_manager(cls, email):
+
     @classmethod
     def get_user_groups(cls, id):
         groups_url = f'https://cruise.okta.com/api/v1/users/{id}/groups'
