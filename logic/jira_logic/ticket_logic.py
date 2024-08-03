@@ -101,6 +101,26 @@ class Tickets:
 
         return ticket_list
 
+    def get_assignee_from_jql(self, query):
+        startAt = 0
+        maxResults = 1000
+        total = 1001
+        ticket_list = []
+
+        while total >= maxResults:
+            tickets = self.jira.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+
+            for ticket in tickets['issues']:
+                key = ticket['fields']['assignee']['emailAddress']
+                if key not in ticket_list:
+                    ticket_list.append(key)
+
+            total = tickets['total']
+            startAt += 1000
+            maxResults += 1000
+
+        return ticket_list
+
     def assign_ticket(self, ticket, assignee):
         response = self.jira.assign_ticket(ticket, assignee)
 
