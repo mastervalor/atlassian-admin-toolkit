@@ -7,5 +7,5 @@ assignee_jql = 'project = "Enterprise CAPA" and assignee in inactiveUsers() and 
 
 reporter_jql = 'project = "Enterprise CAPA" and reporter in inactiveUsers() and statusCategory != Done'
 
-
-
+jql_results = tickets.get_assignee_from_jql(assignee_jql)
+print(jql_results)
