@@ -8,5 +8,4 @@ assignee_jql = 'project = "Enterprise CAPA" and assignee in inactiveUsers() and 
 reporter_jql = 'project = "Enterprise CAPA" and reporter in inactiveUsers() and statusCategory != Done'
 
 
-print(OktaUsers.get_user_manager('mourad.marzouk@getcruise.com'))
-print(OktaUsers.get_user_status('mourad.marzouk@getcruise.com'))
+
