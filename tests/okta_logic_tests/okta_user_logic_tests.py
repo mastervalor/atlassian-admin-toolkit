@@ -11,5 +11,9 @@ class TestOktaUserLogic(unittest.TestCase):
 
     def test_okta_user_logic_get_user_status(self):
         test_param = 'ACTIVE'
-        result = OktaUsers.get_user_manager('mourad.marzouk@getcruise.com')
+        result = OktaUsers.get_user_status('mourad.marzouk@getcruise.com')  # Corrected method name
         self.assertEqual(result, test_param)
+
+
+if __name__ == '__main__':
+    unittest.main()
