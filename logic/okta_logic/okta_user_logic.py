@@ -14,3 +14,9 @@ class OktaUsers:
         user_profile = Okta.users_id(email)
         user_status = user_profile['status']
         return user_status
+
+    @classmethod
+    def get_user_title(cls, email):
+        user_profile = Okta.users_id(email)
+        user_title = user_profile['title']
+        return user_title
