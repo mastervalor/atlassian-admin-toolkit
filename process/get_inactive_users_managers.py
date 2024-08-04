@@ -9,13 +9,13 @@ reporter_jql = 'project = "Enterprise CAPA" and reporter in inactiveUsers() and 
 
 assignee_results = tickets.get_assignee_from_jql(assignee_jql)
 for assignee in assignee_results:
-    manger = OktaUsers.get_user_manager(assignee)
-    print(manger)
+    manager, manager_title, manager_status = OktaUsers.get_manager_info(assignee)
+    print(f"User: {assignee}, manager: {manager}, manager status: {manager_status}, manager title: {manager_title}")
 
 
 reporter_results = tickets.get_reporter_from_jql(reporter_jql)
 for reporter in reporter_results:
-    manger = OktaUsers.get_user_manager(reporter)
-    print(manger)
+    manager, manager_title, manager_status = OktaUsers.get_manager_info(reporter)
+    print(f"User: {reporter}, manager: {manager}, manager status: {manager_status}, manager title: {manager_title}")
 
 
