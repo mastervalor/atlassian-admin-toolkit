@@ -26,3 +26,13 @@ class OktaUsers:
         user_profile = Okta.users_id(email)
         user_title = user_profile['profile']['title']
         return user_title
+
+    @classmethod
+    def get_manager_info(cls, email):
+        if "@getcruise.com" not in email:
+            email = email + '@getcruise.com'
+        manager = cls.get_user_manager(email)
+        manage_title = cls.get_user_title(manager)
+        manager_status = cls.get_user_status(manager)
+
+        return manager, manage_title, manager_status
