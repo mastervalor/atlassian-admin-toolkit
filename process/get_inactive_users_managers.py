@@ -7,5 +7,15 @@ assignee_jql = 'project = "Enterprise CAPA" and assignee in inactiveUsers() and 
 
 reporter_jql = 'project = "Enterprise CAPA" and reporter in inactiveUsers() and statusCategory != Done'
 
-jql_results = tickets.get_assignee_from_jql(assignee_jql)
-print(jql_results)
+assignee_results = tickets.get_assignee_from_jql(assignee_jql)
+for assignee in assignee_results:
+    manger = OktaUsers.get_user_manager(assignee)
+    print(manger)
+
+
+reporter_results = tickets.get_reporter_from_jql(reporter_jql)
+for reporter in reporter_results:
+    manger = OktaUsers.get_user_manager(reporter)
+    print(manger)
+
+
