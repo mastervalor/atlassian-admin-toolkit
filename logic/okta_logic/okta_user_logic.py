@@ -32,7 +32,7 @@ class OktaUsers:
         if "@getcruise.com" not in email:
             email = email + '@getcruise.com'
         manager = cls.get_user_manager(email)
-        manage_title = cls.get_user_title(manager)
+        manager_title = cls.get_user_title(manager)
         manager_status = cls.get_user_status(manager)
 
-        return manager, manage_title, manager_status
+        return manager, manager_title, manager_status
