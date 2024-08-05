@@ -36,6 +36,4 @@ for reporter in reporter_results:
         "Manager title": manager_title
     })
 
-
-
-
+os_logic.write_to_file(inactive_employees)
