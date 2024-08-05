@@ -13,7 +13,7 @@ class OktaUsers:
             return manager
         except KeyError:
             print(f'no manager found for: {email}')
-            return "None"
+            return None
 
     @classmethod
     def get_user_status(cls, email):
@@ -36,6 +36,8 @@ class OktaUsers:
         if "@getcruise.com" not in email:
             email = email + '@getcruise.com'
         manager = cls.get_user_manager(email)
+        if manager is None:
+            return "None", "None", "None"
         manager_title = cls.get_user_title(manager)
         manager_status = cls.get_user_status(manager)
 
