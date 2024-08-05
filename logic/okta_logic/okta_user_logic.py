@@ -8,8 +8,12 @@ class OktaUsers:
         if "@getcruise.com" not in email:
             email = email + '@getcruise.com'
         user_profile = Okta.users_id(email)
-        manager = user_profile['profile']['manager']
-        return manager
+        try:
+            manager = user_profile['profile']['manager']
+            return manager
+        except KeyError:
+            print(f'no manager found for: {email}')
+            return "None"
 
     @classmethod
     def get_user_status(cls, email):
