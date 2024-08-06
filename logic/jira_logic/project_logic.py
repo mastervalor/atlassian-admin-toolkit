@@ -151,3 +151,8 @@ class Projects:
             responses[key] = self.jira.archive_project(key)
 
         return responses
+
+    def get_active_projects_total(self):
+        projects = self.jira.get_active_projects()
+        number_of_projects = len(projects)
+        return number_of_projects
