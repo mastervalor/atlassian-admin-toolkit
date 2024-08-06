@@ -81,10 +81,10 @@ class Projects:
                     standard_group = group['displayName']
                 else:
                     return group['displayName']
-    
+
         if standard_group == 'jira-developers':
             return standard_group
-        
+
         return f"No developer found in {key}"
 
     def get_project_type(self, key):
@@ -106,8 +106,6 @@ class Projects:
 
         print(project)
         return project
-
-
 
     def get_archived_projects(self):
         archived_projects = []
