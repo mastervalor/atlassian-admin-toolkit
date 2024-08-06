@@ -1,13 +1,6 @@
-from call import call, project_metric
+from logic.jira_logic.project_logic import Projects
 
-response = call('project', 'get')
-projects = {}
+projects = Projects()
 
-for i in response:
-    projects[i['key']] = [i['name'], i['projectTypeKey'], i['id']]
+print(projects.get_active_projects_total())
 
-for key in projects:
-    project = project_metric(key)
-    for l in project:
-        projects[key].append(l)
-    print(projects[key])
