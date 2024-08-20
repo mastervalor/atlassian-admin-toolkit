@@ -2,7 +2,6 @@ from calls.okta import Okta
 from logic.okta_logic.okta_user_logic import OktaUsers
 
 
-
 class OktaGroups:
 
     @classmethod
