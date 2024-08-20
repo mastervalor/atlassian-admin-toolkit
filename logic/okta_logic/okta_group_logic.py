@@ -9,3 +9,5 @@ class OktaGroups:
         user1_groups = set(Okta.get_user_groups(user1_id))
         user2_groups = set(Okta.get_user_groups(user2_id))
 
+        return user1_groups.difference(user2_groups)
+
