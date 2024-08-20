@@ -1,12 +1,14 @@
 from calls.okta import Okta
+from logic.okta_logic.okta_user_logic import OktaUsers
+
 
 
 class OktaGroups:
 
     @classmethod
     def compare_users_groups(cls, user1, user2):
-        user1_id = Okta.users_id(user1)
-        user2_id = Okta.users_id(user2)
+        user1_id = OktaUsers.get_user_id(user1)
+        user2_id = OktaUsers.get_user_id(user2)
         user1_groups = set(Okta.get_user_groups(user1_id))
         user2_groups = set(Okta.get_user_groups(user2_id))
 
