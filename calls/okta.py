@@ -21,7 +21,6 @@ class Okta:
         except IndexError:
             return False
 
-
     @classmethod
     def get_user_groups(cls, id):
         groups_url = f'https://cruise.okta.com/api/v1/users/{id}/groups'
