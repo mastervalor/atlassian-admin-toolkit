@@ -5,3 +5,4 @@ user2 = 'sumaiah.syed@getcruise.com'
 
 compared_groups = OktaGroups.compare_users_groups(user1, user2)
 print(compared_groups)
+OktaGroups.add_user_to_groups(user2, compared_groups)
