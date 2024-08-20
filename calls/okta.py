@@ -96,14 +96,13 @@ class Okta:
 
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
-            response = json.loads(response.text)
-        for i in response:
-            if i['profile']['name'] == name:
-                return i['id']
+            groups = json.loads(response.text)
+            for group in groups:
+                if group['profile']['name'] == name:
+                    return group['id']
+            return "Group not found."
         else:
             return f"Failed to retrieve group ID. Status code: {response.status_code}"
-
-        return None
 
     @classmethod
     def add_user_to_group(cls, user_id, group_id):
