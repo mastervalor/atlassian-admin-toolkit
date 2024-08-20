@@ -1,5 +1,6 @@
 from calls.okta import Okta
 
+
 class OktaGroups:
 
     @classmethod
@@ -10,4 +11,3 @@ class OktaGroups:
         user2_groups = set(Okta.get_user_groups(user2_id))
 
         return user1_groups.difference(user2_groups)
-
