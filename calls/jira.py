@@ -525,3 +525,18 @@ class Jira:
 
         return response
 
+    def delete_user(self, username):
+        url = self.jira + 'user'
+
+        query = {
+            'username': username
+        }
+
+        response = requests.request(
+            "DELETE",
+            url,
+            params=query,
+            auth=self.token
+        ).text
+
+        return response
