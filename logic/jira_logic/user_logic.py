@@ -43,7 +43,7 @@ class Users:
             users = self.jira.find_users_by_string('', max_results, start_at)
             for user in users:
                 if users_search_string in user['emailAddress']:
-                    
+                    users_found.append(user['userName'])
 
         print(JSONFormating.pretty_json(users))
 
