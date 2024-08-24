@@ -35,7 +35,15 @@ class Users:
             response = self.jira.delete_user(user)
             print(response)
 
-    def get_usernames_by_search_string(self, users_search_string):
-        users = self.jira.find_users_by_string(users_search_string)
+    def get_usernames_by_domain_string(self, users_search_string):
+        start_at = 0
+        max_results = 1000
+        users_found = []
+        while True:
+            users = self.jira.find_users_by_string('', max_results, start_at)
+            for user in users:
+                if users_search_string in user['emailAddress']:
+                    
+
         print(JSONFormating.pretty_json(users))
 
