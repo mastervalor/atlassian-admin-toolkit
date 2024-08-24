@@ -540,3 +540,21 @@ class Jira:
         ).text
 
         return response
+
+    def find_users_by_string(self, string):
+        url = self.jira + 'user/search'
+
+        query = {
+            'username': string,
+            'maxResults': 1000
+        }
+
+        users = requests.request(
+            "GET",
+            url,
+            params=query,
+            auth=self.token
+        ).text
+
+        return users
+    
