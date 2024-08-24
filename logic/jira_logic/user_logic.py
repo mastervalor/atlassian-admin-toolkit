@@ -37,13 +37,20 @@ class Users:
 
     def get_usernames_by_domain_string(self, users_search_string):
         start_at = 0
-        max_results = 1000
+        max_results = 50
+        total = 51
         users_found = []
-        while True:
-            users = self.jira.find_users_by_string('', max_results, start_at)
-            for user in users:
+        while total >= max_results:
+            users = self.jira.get_group(f'?includeInactiveUsers=false&startAt={start_at}&maxResults={max_results}&includeInactive=True',
+                                        'app-jira')
+            for user in users['values']:
                 if users_search_string in user['emailAddress']:
-                    users_found.append(user['userName'])
+                    users_found.append(user['name'])
 
-        print(JSONFormating.pretty_json(users))
+            print(users_found)
+            print(total, start_at, max_results)
+            total = users['total']
+            start_at += 50
+            max_results += 50
 
+        return users_found
