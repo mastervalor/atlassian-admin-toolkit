@@ -1,13 +1,13 @@
 from logic.jira_logic.user_logic import Users
-from calls.jira import Jira
-import json
+from logic.os_logic.os_logic import OSLogic
 
-# user = Users(is_staging=True)
-#
-# user.get_usernames_by_search_string('')
+user = Users(is_staging=True)
+os_logic = OSLogic(open_file='username')
+file = os_logic.read_file()
+users = []
 
-jira = Jira(is_staging=True)
+for username in file:
+    users.append(username['Full name'])
 
-user = jira.find_users_by_string('mourad.marzouk',50, 0)
+user.delete_list_of_users(users)
 
-print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
