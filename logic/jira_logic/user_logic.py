@@ -1,4 +1,5 @@
 from calls.jira import Jira
+from dataformating.json_formating import JSONFormating
 
 
 class Users:
@@ -35,3 +36,6 @@ class Users:
             print(response)
 
     def get_usernames_by_search_string(self, users_search_string):
+        users = self.jira.find_users_by_string(users_search_string)
+        print(JSONFormating.pretty_json(users))
+
