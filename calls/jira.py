@@ -544,6 +544,11 @@ class Jira:
     def find_users_by_string(self, string, max_result, start_at):
         url = self.jira + 'user/search'
 
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
         query = {
             'username': string,
             "startAt": start_at,
@@ -553,6 +558,7 @@ class Jira:
         users = json.loads(requests.request(
             "GET",
             url,
+            headers=headers,
             params=query,
             auth=self.token
         ).text)
