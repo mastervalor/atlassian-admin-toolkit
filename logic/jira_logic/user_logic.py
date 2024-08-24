@@ -29,4 +29,9 @@ class Users:
 
         return roles
 
-    def delete_list_of_users(self, user):
+    def delete_list_of_users(self, users):
+        for user in users:
+            response = self.jira.delete_user(user)
+            print(response)
+
+    def get_usernames_by_search_string(self, users_search_string):
