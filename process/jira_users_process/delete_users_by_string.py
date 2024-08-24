@@ -8,6 +8,6 @@ import json
 
 jira = Jira(is_staging=True)
 
-user = jira.find_users_by_string('mourad.marzouk', 50, 0)
+user = jira.find_users_by_string('mourad.marzouk',50, 0)
 
-print(user[0]['emailAddress'])
+print(json.dumps(user, sort_keys=True, indent=4, separators=(",", ": ")))
