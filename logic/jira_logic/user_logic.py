@@ -2,8 +2,8 @@ from calls.jira import Jira
 
 
 class Users:
-    def __init__(self):
-        self.jira = Jira()
+    def __init__(self, is_staging=False):
+        self.jira = Jira(is_staging=True) if is_staging else Jira()
 
     def user_groups(self, user):
         groups = self.jira.get_user(user, '?expand=groups')
@@ -28,3 +28,5 @@ class Users:
             roles.append(role['name'])
 
         return roles
+
+    def delete_list_of_users(self, user):
