@@ -10,4 +10,3 @@ for username in file:
     users.append(username['Full name'])
 
 user.delete_list_of_users(users)
-
