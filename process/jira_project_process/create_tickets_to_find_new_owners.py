@@ -7,7 +7,7 @@ projects = project.get_project_owners_and_status()
 
 for project in projects:
     if not project['Active']:
-        manager = OktaUsers.get_manager_info()
+        manager, manager_title, manager_status  = OktaUsers.get_manager_info(project['Username'])
         payload = {
             'fields': {
                 'project': {
@@ -27,7 +27,8 @@ for project in projects:
                     'value': "Jira"
                 },
                 "description": f"project: {project['project']}, Key: {project['Key']} no longer has and active owner."
-                               f"Last owner is {project['Name']}, their lister manager is "
+                               f"Last owner is {project['Name']} and we need to find a replacement."
+                               f"Their listed manager is {manager}, Title{manager_title}, Status{manager_status}"
             },
             "update": {
                 "issuelinks": [
