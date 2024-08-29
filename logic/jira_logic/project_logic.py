@@ -124,6 +124,7 @@ class Projects:
                 'Project': project['name'],
                 'Key': project['key'],
                 'Name': project['lead']['displayName'],
+                'Username': project['lead']['name'],
                 'Active': project['lead']['active']
             })
 
