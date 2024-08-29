@@ -22,11 +22,8 @@ class Tickets:
                 "assignee": {
                     "name": ticket_info["assignee"]
                 },
-                "customfield_18672": {
-                    "value": "Strategic Work"
-                },
                 "customfield_16774": [{
-                    "value": "RTB"
+                    "value": "Project"
                 }],
                 "customfield_28001": {
                     'value': "Jira",
