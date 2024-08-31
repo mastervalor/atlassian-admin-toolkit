@@ -3,7 +3,6 @@ from dataformating.json_formating import JSONFormating
 import unittest
 from unittest.mock import MagicMock, patch
 
-
 tickets = Tickets()
 formating = JSONFormating()
 
@@ -135,3 +134,5 @@ class TestTickets(unittest.TestCase):
                     self.assertIn(f"Error: Unexpected response code {status_code}", captured.output[0])
 
 
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
