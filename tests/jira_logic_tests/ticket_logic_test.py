@@ -48,3 +48,18 @@ class TestTickets(unittest.TestCase):
             # Test empty values
             result = self.tickets.build_values_list("")
             self.assertEqual(result, [])
+
+        def test_process_linked_issues(self):
+            # Arrange
+            ticket_key = 'TEST-123'
+            linked_issues_str = 'ISSUE-1, ISSUE-2'
+            link_types_str = 'Blocks, Clones'
+
+            # Act
+            self.tickets.process_linked_issues(ticket_key, linked_issues_str, link_types_str)
+
+            # Assert
+            self.assertEqual(self.mock_jira.add_issue_link.call_count, 2)
+            self.mock_jira.add_issue_link.assert_any_call('TEST-123', 'ISSUE-1', 'Blocks')
+            self.mock_jira.add_issue_link.assert_any_call('TEST-123', 'ISSUE-2', 'Clones')
+
