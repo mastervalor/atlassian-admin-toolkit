@@ -109,3 +109,29 @@ class TestTickets(unittest.TestCase):
             # Assert
             self.assertEqual(result, ['reporter1@test.com', 'reporter2@test.com'])
             self.mock_jira.jql.assert_called()
+
+        def test_assign_ticket(self):
+            # Arrange
+            ticket = 'TEST-123'
+            assignee = 'user@test.com'
+            mock_response = MagicMock()
+            mock_response.status_code = 204
+            self.mock_jira.assign_ticket.return_value = mock_response
+
+            # Act
+            self.tickets.assign_ticket(ticket, assignee)
+
+            # Assert
+            self.mock_jira.assign_ticket.assert_called_once_with(ticket, assignee)
+
+            # Test error cases
+            for status_code in [400, 401, 404, 500]:
+                mock_response.status_code = status_code
+                mock_response.text = "Error message"
+                self.mock_jira.assign_ticket.return_value = mock_response
+
+                with self.assertLogs() as captured:
+                    self.tickets.assign_ticket(ticket, assignee)
+                    self.assertIn(f"Error: Unexpected response code {status_code}", captured.output[0])
+
+
