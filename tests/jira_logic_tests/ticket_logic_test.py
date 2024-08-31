@@ -15,3 +15,24 @@ class TestTickets(unittest.TestCase):
         # Initialize the Tickets instance with the mocked Jira
         self.tickets = Tickets()
         self.tickets.jira = self.mock_jira
+
+        def test_build_ticket_payload(self):
+            # Arrange
+            ticket_info = {
+                'summary': 'Test Summary',
+                'assignee': 'test.assignee',
+                'description': 'Test Description',
+                'parent ticket': 'TEST-123'
+            }
+
+            # Act
+            self.tickets.build_ticket_payload(ticket_info)
+
+            # Assert
+            self.mock_jira.create_ticket.assert_called_once()
+            payload_arg = self.mock_jira.create_ticket.call_args[0][0]
+            self.assertEqual(payload_arg['fields']['summary'], 'Test Summary')
+            self.assertEqual(payload_arg['fields']['assignee']['name'], 'test.assignee')
+            self.assertEqual(payload_arg['update']['issuelinks'][0]['add']['outwardIssue']['key'], 'TEST-123')
+
+        def test_build_values_list(self):
