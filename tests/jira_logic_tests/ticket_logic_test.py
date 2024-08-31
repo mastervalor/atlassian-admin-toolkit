@@ -77,3 +77,19 @@ class TestTickets(unittest.TestCase):
             # Assert
             self.assertEqual(result, ['TEST-1', 'TEST-2'])
             self.mock_jira.jql.assert_called()
+
+        def test_get_assignee_from_jql(self):
+            # Arrange
+            query = 'project = TEST'
+            self.mock_jira.jql.return_value = {
+                'issues': [{'fields': {'assignee': {'emailAddress': 'user1@test.com'}}},
+                           {'fields': {'assignee': {'emailAddress': 'user2@test.com'}}}],
+                'total': 2
+            }
+
+            # Act
+            result = self.tickets.get_assignee_from_jql(query)
+
+            # Assert
+            self.assertEqual(result, ['user1@test.com', 'user2@test.com'])
+            self.mock_jira.jql.assert_called()
