@@ -36,3 +36,15 @@ class TestTickets(unittest.TestCase):
             self.assertEqual(payload_arg['update']['issuelinks'][0]['add']['outwardIssue']['key'], 'TEST-123')
 
         def test_build_values_list(self):
+            # Arrange
+            values = "Value1, Value2, Value3"
+
+            # Act
+            result = self.tickets.build_values_list(values)
+
+            # Assert
+            self.assertEqual(result, [{"value": "Value1"}, {"value": "Value2"}, {"value": "Value3"}])
+
+            # Test empty values
+            result = self.tickets.build_values_list("")
+            self.assertEqual(result, [])
