@@ -63,3 +63,17 @@ class TestTickets(unittest.TestCase):
             self.mock_jira.add_issue_link.assert_any_call('TEST-123', 'ISSUE-1', 'Blocks')
             self.mock_jira.add_issue_link.assert_any_call('TEST-123', 'ISSUE-2', 'Clones')
 
+        def test_get_ticket_keys_from_jql(self):
+            # Arrange
+            query = 'project = TEST'
+            self.mock_jira.jql.return_value = {
+                'issues': [{'key': 'TEST-1'}, {'key': 'TEST-2'}],
+                'total': 2
+            }
+
+            # Act
+            result = self.tickets.get_ticket_keys_from_jql(query)
+
+            # Assert
+            self.assertEqual(result, ['TEST-1', 'TEST-2'])
+            self.mock_jira.jql.assert_called()
