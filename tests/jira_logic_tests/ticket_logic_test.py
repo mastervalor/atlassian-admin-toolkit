@@ -93,3 +93,19 @@ class TestTickets(unittest.TestCase):
             # Assert
             self.assertEqual(result, ['user1@test.com', 'user2@test.com'])
             self.mock_jira.jql.assert_called()
+
+        def test_get_reporter_from_jql(self):
+            # Arrange
+            query = 'project = TEST'
+            self.mock_jira.jql.return_value = {
+                'issues': [{'fields': {'reporter': {'emailAddress': 'reporter1@test.com'}}},
+                           {'fields': {'reporter': {'emailAddress': 'reporter2@test.com'}}}],
+                'total': 2
+            }
+
+            # Act
+            result = self.tickets.get_reporter_from_jql(query)
+
+            # Assert
+            self.assertEqual(result, ['reporter1@test.com', 'reporter2@test.com'])
+            self.mock_jira.jql.assert_called()
