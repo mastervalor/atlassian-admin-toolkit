@@ -38,3 +38,18 @@ class TestGroupsUsers(unittest.TestCase):
         # Assert
         self.assertEqual(result, ['user1', 'user2'])
         self.mock_jira.get_group.assert_called()
+
+    def test_get_group_members_with_status_inactive(self):
+        # Arrange
+        group = 'test-group'
+        self.mock_jira.get_group.return_value = {
+            'values': [{'name': 'user1'}, {'name': 'user2'}],
+            'total': 2
+        }
+
+        # Act
+        result = self.groups_users.get_group_members_with_status(group, inactive=True)
+
+        # Assert
+        self.assertEqual(result, ['user1', 'user2'])
+        self.mock_jira.get_group.assert_called()
