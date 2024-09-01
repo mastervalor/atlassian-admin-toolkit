@@ -65,3 +65,19 @@ class TestGroupsUsers(unittest.TestCase):
         # Assert
         self.assertEqual(result, [])
         self.mock_jira.get_group.assert_called()
+
+    def test_remove_all_group_members(self):
+        # Arrange
+        group = 'test-group'
+        self.groups_users.get_group_members_with_status = MagicMock(return_value=['user1', 'user2'])
+        mock_response = MagicMock()
+        mock_response.text = "Removed"
+        self.mock_jira.remove_group_member.return_value = mock_response
+
+        # Act
+        self.groups_users.remove_all_group_members(group)
+
+        # Assert
+        self.groups_users.get_group_members_with_status.assert_called_once_with(group, True)
+        self.mock_jira.remove_group_member.assert_any_call(group, 'user1')
+        self.mock_jira.remove_group_member.assert_any_call(group, 'user2')
