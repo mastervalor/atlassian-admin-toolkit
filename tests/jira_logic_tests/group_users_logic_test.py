@@ -98,3 +98,7 @@ class TestGroupsUsers(unittest.TestCase):
         self.assertEqual(result, ['user3'])
         self.mock_jira.group_members.assert_any_call(group1)
         self.mock_jira.group_members.assert_any_call(group2)
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
