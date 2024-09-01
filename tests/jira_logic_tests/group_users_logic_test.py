@@ -81,3 +81,20 @@ class TestGroupsUsers(unittest.TestCase):
         self.groups_users.get_group_members_with_status.assert_called_once_with(group, True)
         self.mock_jira.remove_group_member.assert_any_call(group, 'user1')
         self.mock_jira.remove_group_member.assert_any_call(group, 'user2')
+
+    def test_compare_groups(self):
+        # Arrange
+        group1 = 'group1'
+        group2 = 'group2'
+        self.mock_jira.group_members.side_effect = [
+            ['user1', 'user2'],
+            ['user2', 'user3']
+        ]
+
+        # Act
+        result = self.groups_users.compare_groups(group1, group2)
+
+        # Assert
+        self.assertEqual(result, ['user3'])
+        self.mock_jira.group_members.assert_any_call(group1)
+        self.mock_jira.group_members.assert_any_call(group2)
