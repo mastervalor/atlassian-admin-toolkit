@@ -12,9 +12,9 @@ for project in projects:
         ticket_info = {
             'summary': f"project: {project['Project']}, Key: {project['Key']} no longer has and active owner.",
             'assignee': 'mourad.marzouk',
-            'description': f"project: {project['Project']}, Key: {project['Key']} no longer has and active owner."
-                           f"Last owner is {project['Name']} and we need to find a replacement."
-                           f"Their listed manager is {manager}, Title{manager_title}, Status{manager_status}",
+            'description': f"project: {project['Project']}, Key: {project['Key']} no longer has and active owner. "
+                           f"Last owner is {project['Name']} and we need to find a replacement. "
+                           f"Their listed manager is {manager}, Title: {manager_title}, Status: {manager_status}",
             'parent ticket': "CORPENG-12665"
         }
 
