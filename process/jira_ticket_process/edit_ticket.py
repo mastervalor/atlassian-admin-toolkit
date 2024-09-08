@@ -10,6 +10,7 @@ for ticket in file:
     summary = ticket['Summary']
     jql = f'summary ~"{summary}" and project = "Behavior Requirements & Monitoring"'
     key = tickets.get_ticket_keys_from_jql(jql)[0]
+    clear_label = tickets.clear_field(key, "labels")
     print(key)
 
 # tickets = jira.jql('?startAt=0&maxResults=1000', 'project = "IT Apps" and "Level of Effort" = "Strategic Work" and '
