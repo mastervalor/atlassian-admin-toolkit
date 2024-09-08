@@ -5,6 +5,7 @@ import os
 import urllib.parse
 
 projects = Projects()
+os_logic = OSLogic()
 res = 'Priorities copy'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='r+') as new_csv:
