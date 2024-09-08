@@ -7,6 +7,7 @@ import urllib.parse
 
 projects = Projects()
 os_logic = OSLogic()
+jira = Jira()
 res = 'Priorities copy'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='r+') as new_csv:
@@ -16,7 +17,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='
 
     for i in reader:
         encoded = urllib.parse.quote(i['Name'])
-        results = call(f'priority="{encoded}"', 'search')
+        results = jira.jql(f'priority="{encoded}"', 'search')
         try:
             i['Tickets'] = results['total']
             rows.append(i)
