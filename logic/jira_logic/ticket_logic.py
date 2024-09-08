@@ -153,6 +153,16 @@ class Tickets:
             print(f"Error: Unexpected response code {response.status_code}. Response: {response.text}")
 
     def clear_field(self, key, field):
+        """
+            Clears the values from a field of a Jira issue.
+
+            Args:
+            - key (str): The key of the Jira issue to update.
+            - field (str): The field of the Jira issue to be cleared.
+
+            Returns:
+            - response (dict): The response from the Jira API call.
+        """
         payload = {
             "fields": {
                 field: []
