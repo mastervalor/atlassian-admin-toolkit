@@ -1,3 +1,4 @@
+from logic.jira_logic.project_logic import Projects
 import csv
 import os
 import urllib.parse
