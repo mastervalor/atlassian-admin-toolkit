@@ -12,15 +12,6 @@ for ticket in file:
     key = tickets.get_ticket_keys_from_jql(jql)[0]
     print(key)
 
-
-
-
-
-
-
-
-
-
 # tickets = jira.jql('?startAt=0&maxResults=1000', 'project = "IT Apps" and "Level of Effort" = "Strategic Work" and '
 #                                                  'summary ~ "Project does not meet the new requirments"')
 # for ticket in tickets['issues']:
