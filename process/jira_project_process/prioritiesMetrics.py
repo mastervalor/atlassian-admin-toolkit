@@ -1,4 +1,5 @@
 from logic.jira_logic.project_logic import Projects
+from calls.jira import Jira
 from logic.os_logic.os_logic import OSLogic
 import csv
 import os
