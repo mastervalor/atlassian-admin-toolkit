@@ -158,7 +158,7 @@ class Tickets:
                 field: []
             }
         }
-        
+
         response = self.jira.edit_ticket(key, payload)
 
         return response
