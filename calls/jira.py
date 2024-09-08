@@ -564,3 +564,6 @@ class Jira:
         ).text)
 
         return users
+
+    def update_ticket(self, key, payload):
+        url = self.jira + 'issue/' + key
