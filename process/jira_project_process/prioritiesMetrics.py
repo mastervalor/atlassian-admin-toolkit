@@ -1,4 +1,3 @@
-from call import call
 import csv
 import os
 import urllib.parse
