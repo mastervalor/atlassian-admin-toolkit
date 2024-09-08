@@ -1,4 +1,4 @@
-from call import Jira
+from calls.jira import Jira
 import json
 import csv
 import os
