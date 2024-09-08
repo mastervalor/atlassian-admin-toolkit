@@ -151,3 +151,14 @@ class Tickets:
             print("Error: Either the issue or the user does not exist.")
         else:
             print(f"Error: Unexpected response code {response.status_code}. Response: {response.text}")
+
+    def clear_field(self, key, field):
+        payload = {
+            "fields": {
+                field: []
+            }
+        }
+        
+        response = self.jira.edit_ticket(key, payload)
+
+        return response
