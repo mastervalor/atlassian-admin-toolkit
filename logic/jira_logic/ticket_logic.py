@@ -172,3 +172,15 @@ class Tickets:
         response = self.jira.edit_ticket(key, payload)
 
         return response
+
+    def set_fields(self, key, fields):
+        payload = {
+            "fields": {}
+        }
+
+        for key, values in fields.items():
+            payload["fields"][key] = values
+
+        response = self.jira.edit_ticket(key, payload)
+
+        return response
