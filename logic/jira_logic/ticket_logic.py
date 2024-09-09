@@ -173,7 +173,7 @@ class Tickets:
 
         return response
 
-    def set_fields(self, key, fields):
+    def set_fields(self, issue, fields):
         payload = {
             "fields": {}
         }
@@ -181,6 +181,7 @@ class Tickets:
         for key, values in fields.items():
             payload["fields"][key] = values
 
-        response = self.jira.edit_ticket(key, payload)
+        response = self.jira.edit_ticket(issue, payload)
 
+        print(response.text)
         return response
