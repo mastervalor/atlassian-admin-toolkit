@@ -11,11 +11,18 @@ for ticket in file:
     jql = f'summary ~"{summary}" and project = "Behavior Requirements & Monitoring"'
     key = tickets.get_ticket_keys_from_jql(jql)[0]
     labels = ticket['Label'].split(", ")
+    formatted_labels = [label.strip().replace(" ", "_") for label in labels]
     fields = {
-        "labels": labels
+        "labels": formatted_labels,
+        "customfield_10007": "BRM-1",
+        "reporter": {
+            "name": 'tristan.morris'
+        }
     }
     clear_label = tickets.clear_field(key, "labels")
-    print(key)
+    print(f'Clearing Label status code response: {clear_label}')
+    field_response = tickets.set_fields(key, fields)
+    print(f"Ticket: {key}, has the field set response of: {field_response}")
 
 # tickets = jira.jql('?startAt=0&maxResults=1000', 'project = "IT Apps" and "Level of Effort" = "Strategic Work" and '
 #                                                  'summary ~ "Project does not meet the new requirments"')
