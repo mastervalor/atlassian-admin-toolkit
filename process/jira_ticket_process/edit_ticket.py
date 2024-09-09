@@ -10,6 +10,10 @@ for ticket in file:
     summary = ticket['Summary']
     jql = f'summary ~"{summary}" and project = "Behavior Requirements & Monitoring"'
     key = tickets.get_ticket_keys_from_jql(jql)[0]
+    labels = ticket['Label'].split(", ")
+    fields = {
+        "labels": labels
+    }
     clear_label = tickets.clear_field(key, "labels")
     print(key)
 
