@@ -59,3 +59,7 @@ class GroupsUsers:
                 different_members.append(member)
 
         return different_members
+
+    def get_user_status(self, user):
+        user = self.jira.get_user(user)
+        return user['active']
