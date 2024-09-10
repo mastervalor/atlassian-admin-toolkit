@@ -18,7 +18,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
             status = group_users.get_user_status(i['Username'])
-            okta = Okta.users_id(f"{i['Username']}@getcruise.com")
+            okta = OktaUsers.get_user_id(f"{i['Username']}@getcruise.com")
             if okta:
                 okta = okta['status']
             writer.writerow([i['Username'], i['access group'], status, okta])
