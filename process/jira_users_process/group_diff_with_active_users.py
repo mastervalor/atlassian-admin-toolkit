@@ -1,7 +1,7 @@
 import json
 import os
 import csv
-import getpass
+from logic.os_logic.os_logic import OSLogic
 from call import Jira, Okta
 
 jira = Jira()
