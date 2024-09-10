@@ -2,9 +2,12 @@ import json
 import os
 import csv
 from logic.os_logic.os_logic import OSLogic
+from logic.jira_logic.groups_users_logic import GroupsUsers
+from logic.okta_logic.okta_user_logic import OktaUsers
 from call import Jira, Okta
 
-jira = Jira()
+group_users = GroupsUsers()
+
 newFile = 'not in app-jira with status'
 openFile = 'not in app-jira'
 
