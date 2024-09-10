@@ -4,7 +4,7 @@ import csv
 from logic.os_logic.os_logic import OSLogic
 from logic.jira_logic.groups_users_logic import GroupsUsers
 from logic.okta_logic.okta_user_logic import OktaUsers
-from call import Jira, Okta
+from call import Okta
 
 group_users = GroupsUsers()
 
