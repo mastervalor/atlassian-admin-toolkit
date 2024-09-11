@@ -7,7 +7,7 @@ class GroupsUsers:
     def __init__(self, is_staging=False):
         self.jira = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
 
-    def remove_defult_admins(self, admins):
+    def remove_default_admins(self, admins):
         sys_admins = self.jira.group_members("administrators")
         final = []
         for admin in admins:
