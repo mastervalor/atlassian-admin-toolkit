@@ -197,23 +197,6 @@ class Jira:
 
         return response
 
-    def remove_group_member(self, group, user):
-        url = self.jira + 'group/user'
-
-        query = {
-            'groupname': group,
-            'username': user
-        }
-
-        response = requests.request(
-            "DELETE",
-            url,
-            params=query,
-            auth=self.token
-        ).text
-
-        return response
-
     def project_owners(self, keys):
         project_owners = []
 
