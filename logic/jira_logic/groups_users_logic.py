@@ -47,12 +47,12 @@ class GroupsUsers:
         members = self.get_group_members_with_status(group, True)
 
         for member in members:
-            response = self.jira.remove_group_member(group, member)
+            response = self.jira_groups.remove_group_member(group, member)
             print(response)
 
     def compare_groups(self, group1, group2):
-        group_one = self.jira.group_members(group1)
-        group_two = self.jira.group_members(group2)
+        group_one = self.jira_groups.group_members(group1)
+        group_two = self.jira_groups.group_members(group2)
         different_members = []
 
         for member in group_two:
