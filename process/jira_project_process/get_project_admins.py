@@ -16,6 +16,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
             admins = projects.get_project_users_by_role(i['Key'], 'Administrators')
-            admins = groups.remove_defult_admins(admins)
+            admins = groups.remove_default_admins(admins)
             writer.writerow([admins])
             print(i['Key'], admins)
