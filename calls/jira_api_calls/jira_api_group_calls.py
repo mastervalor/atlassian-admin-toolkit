@@ -29,4 +29,3 @@ class GroupJiraCalls:
             maxResults += 50
             # print(startAt, maxResults)
         return members_list
-    
