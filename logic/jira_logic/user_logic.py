@@ -1,10 +1,10 @@
-from calls.jira import Jira
+from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
 from dataformating.json_formating import JSONFormating
 
 
 class Users:
     def __init__(self, is_staging=False):
-        self.jira = Jira(is_staging=True) if is_staging else Jira()
+        self.jira = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
 
     def user_groups(self, user):
         groups = self.jira.get_user(user, '?expand=groups')
@@ -41,7 +41,8 @@ class Users:
         total = 51
         users_found = []
         while total >= max_results:
-            users = self.jira.get_group(f'?includeInactiveUsers=false&startAt={start_at}&maxResults={max_results}&includeInactive=True',
+            users = self.jira.get_group(f'?includeInactiveUsers=false&startAt={start_at}&maxResults={max_results}'
+                                        f'&includeInactive=True',
                                         'app-jira')
             for user in users['values']:
                 if users_search_string in user['emailAddress']:
