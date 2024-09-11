@@ -1,10 +1,11 @@
 from calls.jira import Jira
+from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
 import json
 
 
 class GroupsUsers:
     def __init__(self):
-        self.jira = Jira()
+        self.jira = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
 
     def remove_defult_admins(self, admins):
         sys_admins = self.jira.group_members("administrators")
