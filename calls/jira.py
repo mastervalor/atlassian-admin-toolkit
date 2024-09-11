@@ -41,25 +41,6 @@ class Jira:
 
         return response
 
-    def get_user(self, payload, pref=''):
-        url = self.jira + 'user' + pref
-
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'username': payload,
-        }
-
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return response
 
     def get_project(self, key):
         url = self.jira + 'project/' + key
@@ -216,24 +197,6 @@ class Jira:
 
         return response
 
-    def get_group(self, pref, group):
-        url = self.jira + 'group/member' + pref
-
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'groupname': group
-        }
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return response
 
     def group_members(self, group):
         startAt = 0
@@ -525,21 +488,6 @@ class Jira:
 
         return response
 
-    def delete_user(self, username):
-        url = self.jira + 'user'
-
-        query = {
-            'username': username
-        }
-
-        response = requests.request(
-            "DELETE",
-            url,
-            params=query,
-            auth=self.token
-        ).text
-
-        return response
 
     def find_users_by_string(self, string, max_result, start_at):
         url = self.jira + 'user/search'
