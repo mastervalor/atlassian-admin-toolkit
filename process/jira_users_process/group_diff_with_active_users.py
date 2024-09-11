@@ -1,11 +1,12 @@
 import os
 import csv
 from logic.os_logic.os_logic import OSLogic
+from logic.jira_logic.user_logic import Users
 from logic.jira_logic.groups_users_logic import GroupsUsers
 from logic.okta_logic.okta_user_logic import OktaUsers
 
 # Initialize necessary classes
-group_users = GroupsUsers()
+jira_users = Users()
 okta_users = OktaUsers()
 new_file = 'not in app-jira with status'
 open_file = 'not in app-jira'
@@ -22,7 +23,7 @@ data_to_write = []
 
 for row in csv_data:
     # Get the status of the user from GroupsUsers
-    status = group_users.get_user_status(row['Username'])
+    status = jira_users.get_user_status(row['Username'])
 
     # Get the user ID from OktaUsers
     okta = okta_users.get_user_id(f"{row['Username']}@getcruise.com")
