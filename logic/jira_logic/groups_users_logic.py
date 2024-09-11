@@ -4,7 +4,7 @@ import json
 
 
 class GroupsUsers:
-    def __init__(self):
+    def __init__(self, is_staging=False):
         self.jira = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
 
     def remove_defult_admins(self, admins):
