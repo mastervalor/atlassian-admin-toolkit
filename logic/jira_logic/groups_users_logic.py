@@ -1,11 +1,13 @@
 from calls.jira import Jira
 from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
+from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 import json
 
 
 class GroupsUsers:
     def __init__(self, is_staging=False):
-        self.jira = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
+        self.jira_users = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
+        self.jira_groups = GroupJiraCalls(is_staging=True) if is_staging else GroupJiraCalls()
 
     def remove_default_admins(self, admins):
         sys_admins = self.jira.group_members("administrators")
@@ -60,7 +62,3 @@ class GroupsUsers:
                 different_members.append(member)
 
         return different_members
-
-    def get_user_status(self, user):
-        user = self.jira.get_user(user)
-        return user['active']
