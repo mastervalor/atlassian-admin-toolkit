@@ -29,3 +29,20 @@ class GroupJiraCalls:
             maxResults += 50
             # print(startAt, maxResults)
         return members_list
+
+    def remove_group_member(self, group, user):
+        url = self.jira + 'group/user'
+
+        query = {
+            'groupname': group,
+            'username': user
+        }
+
+        response = requests.request(
+            "DELETE",
+            url,
+            params=query,
+            auth=self.token
+        ).text
+
+        return response
