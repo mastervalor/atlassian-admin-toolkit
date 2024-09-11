@@ -197,25 +197,6 @@ class Jira:
 
         return response
 
-
-    def group_members(self, group):
-        startAt = 0
-        maxResults = 50
-        total = 51
-        members_list = []
-
-        while total >= maxResults:
-            members = self.get_group(f'?includeInactiveUsers=false&startAt={startAt}&maxResults={maxResults}', group)
-
-            for member in members['values']:
-                members_list.append(member['name'])
-
-            total = members['total']
-            startAt += 50
-            maxResults += 50
-            # print(startAt, maxResults)
-        return members_list
-
     def remove_group_member(self, group, user):
         url = self.jira + 'group/user'
 
