@@ -12,13 +12,13 @@ class TestGroupsUsers(unittest.TestCase):
         self.groups_users = GroupsUsers()
         self.groups_users.jira = self.mock_jira
 
-    def test_remove_defult_admins(self):
+    def test_remove_default_admins(self):
         # Arrange
         admins = ['user1', 'user2.svc', 'admin1', 'user3.car']
         self.mock_jira.group_members.return_value = ['admin1', 'admin2']
 
         # Act
-        result = self.groups_users.remove_defult_admins(admins)
+        result = self.groups_users.remove_default_admins(admins)
 
         # Assert
         self.assertEqual(result, ['user1'])
