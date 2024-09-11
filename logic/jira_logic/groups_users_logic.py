@@ -1,7 +1,5 @@
-from calls.jira import Jira
 from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
-import json
 
 
 class GroupsUsers:
@@ -10,7 +8,7 @@ class GroupsUsers:
         self.jira_groups = GroupJiraCalls(is_staging=True) if is_staging else GroupJiraCalls()
 
     def remove_default_admins(self, admins):
-        sys_admins = self.jira.group_members("administrators")
+        sys_admins = self.jira_groups.group_members("administrators")
         final = []
         for admin in admins:
             if admin not in sys_admins and ".svc" not in admin and ".car" not in admin:
@@ -19,26 +17,26 @@ class GroupsUsers:
         return final
 
     def get_group_members_with_status(self, group, inactive=False):
-        startAt = 0
-        maxResults = 50
+        start_at = 0
+        max_results = 50
         total = 51
         members_list = []
 
-        while total >= maxResults:
+        while total >= max_results:
             if inactive:
-                members = self.jira.get_group(f'?includeInactiveUsers=true&startAt={startAt}'
-                                              f'&maxResults={maxResults}', group)
+                members = self.jira_users.get_group(f'?includeInactiveUsers=true&startAt={start_at}'
+                                                    f'&maxResults={max_results}', group)
             else:
-                members = self.jira.get_group(f'?includeInactiveUsers=false&startAt={startAt}'
-                                              f'&maxResults={maxResults}', group)
+                members = self.jira_users.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
+                                                    f'&maxResults={max_results}', group)
 
             try:
                 for member in members['values']:
                     members_list.append(member['name'])
 
                 total = members['total']
-                startAt += 50
-                maxResults += 50
+                start_at += 50
+                max_results += 50
                 # print(startAt, maxResults)
             except KeyError:
                 return []
