@@ -1,14 +1,12 @@
-from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 
 
 class GroupsUsers:
     def __init__(self, is_staging=False):
-        self.jira_users = UserJiraCalls(is_staging=True) if is_staging else UserJiraCalls()
         self.jira_groups = GroupJiraCalls(is_staging=True) if is_staging else GroupJiraCalls()
 
     def remove_default_admins(self, admins):
-        sys_admins = self.jira_groups.group_members("administrators")
+        sys_admins = self.group_members("administrators")
         final = []
         for admin in admins:
             if admin not in sys_admins and ".svc" not in admin and ".car" not in admin:
@@ -24,10 +22,10 @@ class GroupsUsers:
 
         while total >= max_results:
             if inactive:
-                members = self.jira_users.get_group(f'?includeInactiveUsers=true&startAt={start_at}'
+                members = self.jira_groups.get_group(f'?includeInactiveUsers=true&startAt={start_at}'
                                                     f'&maxResults={max_results}', group)
             else:
-                members = self.jira_users.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
+                members = self.jira_groups.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
                                                     f'&maxResults={max_results}', group)
 
             try:
@@ -37,7 +35,6 @@ class GroupsUsers:
                 total = members['total']
                 start_at += 50
                 max_results += 50
-                # print(startAt, maxResults)
             except KeyError:
                 return []
 
@@ -51,8 +48,8 @@ class GroupsUsers:
             print(response)
 
     def compare_groups(self, group1, group2):
-        group_one = self.jira_groups.group_members(group1)
-        group_two = self.jira_groups.group_members(group2)
+        group_one = self.group_members(group1)
+        group_two = self.group_members(group2)
         different_members = []
 
         for member in group_two:
@@ -60,3 +57,22 @@ class GroupsUsers:
                 different_members.append(member)
 
         return different_members
+
+    def group_members(self, group):
+        start_at = 0
+        max_results = 50
+        total = 51
+        members_list = []
+
+        while total >= max_results:
+            members = self.jira_groups.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
+                                                f'&maxResults={max_results}', group)
+
+            for member in members['values']:
+                members_list.append(member['name'])
+
+            total = members['total']
+            start_at += 50
+            max_results += 50
+            # print(startAt, maxResults)
+        return members_list
