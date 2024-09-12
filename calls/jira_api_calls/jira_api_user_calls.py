@@ -45,22 +45,4 @@ class UserJiraCalls:
 
         return response
 
-    def get_group(self, pref, group):
-        url = self.jira + 'group/member' + pref
 
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'groupname': group
-        }
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return response
-    
