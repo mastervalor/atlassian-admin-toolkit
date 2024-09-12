@@ -1,5 +1,5 @@
 import os, csv
-from logic.jira_logic.groups_users_logic import GroupsUsers
+from logic.jira_logic.group_logic import GroupsUsers
 from logic.jira_logic.user_logic import Users
 from logic.jira_logic.project_logic import Projects
 from logic.jira_logic.field_logic import Fields

@@ -2,7 +2,7 @@ import os
 import csv
 from logic.os_logic.os_logic import OSLogic
 from logic.jira_logic.user_logic import Users
-from logic.jira_logic.groups_users_logic import GroupsUsers
+from logic.jira_logic.group_logic import GroupsUsers
 from logic.okta_logic.okta_user_logic import OktaUsers
 
 # Initialize necessary classes

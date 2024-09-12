@@ -1,4 +1,4 @@
-from logic.jira_logic.groups_users_logic import GroupsUsers
+from logic.jira_logic.group_logic import GroupsUsers
 import csv
 import os
 

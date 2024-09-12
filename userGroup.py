@@ -1,5 +1,5 @@
 from logic.os_logic import OSLogic
-from logic.jira_logic.groups_users_logic import GroupsUsers
+from logic.jira_logic.group_logic import GroupsUsers
 from logic.jira_logic.user_logic import Users
 
 columns = ["learn agents", "other groups"]

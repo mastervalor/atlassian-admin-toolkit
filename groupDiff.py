@@ -2,7 +2,7 @@ import json
 import os
 import csv
 import getpass
-from call import Jira
+from logic.jira_logic.group_logic import GroupsUsers
 
 jira = Jira()
 newFile = 'not in app-jira'
