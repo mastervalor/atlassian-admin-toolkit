@@ -41,7 +41,6 @@ class Jira:
 
         return response
 
-
     def get_project(self, key):
         url = self.jira + 'project/' + key
 
@@ -451,7 +450,6 @@ class Jira:
         )
 
         return response
-
 
     def find_users_by_string(self, string, max_result, start_at):
         url = self.jira + 'user/search'
