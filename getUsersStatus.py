@@ -1,18 +1,18 @@
 from logic.jira_logic.user_logic import Users
-from logic.os_logic import OSLogic
-from calls.jira import Jira
+from logic.os_logic.os_logic import OSLogic
+from logic.jira_logic.group_logic import Groups
 import csv, os
 
 os_logic = OSLogic(open_file='jsm users')
 user = Users()
-jira = Jira()
+groups = Groups()
 newFile = 'all jsm users'
 
-app_jira_agent_license = jira.group_members('app-jira-agent-license')
-jira_servicedesk_users = jira.group_members('jira-servicedesk-users')
-it_Operations = jira.group_members('IT Operations')
-jira_administrators = jira.group_members('jira-administrators')
-servicedesk = jira.group_members('servicedesk')
+app_jira_agent_license = groups.group_members('app-jira-agent-license')
+jira_servicedesk_users = groups.group_members('jira-servicedesk-users')
+it_Operations = groups.group_members('IT Operations')
+jira_administrators = groups.group_members('jira-administrators')
+servicedesk = groups.group_members('servicedesk')
 file = os_logic.read_file()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
