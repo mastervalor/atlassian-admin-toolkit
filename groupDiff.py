@@ -2,13 +2,13 @@ import json
 import os
 import csv
 import getpass
-from logic.jira_logic.group_logic import GroupsUsers
+from logic.jira_logic.group_logic import Groups
 
-jira = Jira()
+groups = Groups()
 newFile = 'not in app-jira'
 openFile = 'groups'
 
-main_group = set(jira.group_members('app-jira'))
+main_group = set(groups.group_members('app-jira'))
 missing_list = []
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
@@ -17,7 +17,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
-            response = jira.group_members(i['group_id'])
+            response = groups.group_members(i['group_id'])
             if response:
                 response = set(response)
                 missing = list(response - main_group)
