@@ -1,7 +1,7 @@
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 
 
-class GroupsUsers:
+class Groups:
     def __init__(self, is_staging=False):
         self.jira_groups = GroupJiraCalls(is_staging=True) if is_staging else GroupJiraCalls()
 
