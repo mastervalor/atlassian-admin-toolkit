@@ -17,13 +17,8 @@ class TestGroupJiraCalls(unittest.TestCase):
         group = "test-group"
         user = "mourad.marzouk"
         response = self.jira_group_calls.remove_group_member(group, user)
-        self.assertin
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == "__main__":
     unittest.main()
-
-groups = GroupJiraCalls(is_staging=True)
-
-delete = groups.remove_group_member("test-group", "mourad.marzouk")
-print("Response from removing group member:", delete.text)
