@@ -22,7 +22,7 @@ class GroupJiraCalls:
             url,
             params=query,
             auth=self.token
-        ).text
+        )
 
         return response
 
