@@ -1,11 +1,17 @@
 from logic.os_logic.os_logic import OSLogic
+from logic.jira_logic.project_logic import Projects
 
 FINAL_LIST_OF_PROJECTS = []
+project = Projects()
 
 
 def add_to_the_list(file):
     for i in file:
-        row = i['Project Key or Project Link (I.E. "CORPENG" for Corporate Engineering Project)']
+        try:
+            row = i['Project Key or Project Link (I.E. "CORPENG" for Corporate Engineering Project)']
+        except KeyError:
+            row = i['What is the Key of Your project?']
+
         if ',' in row:
             projects = row.split(', ')
             for project in projects:
@@ -24,5 +30,7 @@ extra_file = extras.read_file()
 software_file = software.read_file()
 
 add_to_the_list(extra_file)
+add_to_the_list(software_file)
+add_to_the_list(jsm_file)
 
 print(FINAL_LIST_OF_PROJECTS)
