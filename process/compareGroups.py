@@ -1,8 +1,8 @@
-from logic.jira_logic.group_logic import GroupsUsers
+from logic.jira_logic.group_logic import Groups
 from logic.jira_logic.user_logic import Users
 from logic.os_logic.os_logic import OSLogic
 
-groups = GroupsUsers()
+groups = Groups()
 users = Users()
 
 newFile = 'members not in app-jira'
