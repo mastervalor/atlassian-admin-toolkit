@@ -3,6 +3,7 @@ from logic.jira_logic.project_logic import Projects
 
 FINAL_LIST_OF_PROJECTS = []
 project = Projects()
+projects = project.get_project_owners_and_status()
 
 
 def add_to_the_list(file):
@@ -34,3 +35,8 @@ add_to_the_list(software_file)
 add_to_the_list(jsm_file)
 
 print(FINAL_LIST_OF_PROJECTS)
+
+for project in projects:
+    if project['Active'] and project['Key'] not in FINAL_LIST_OF_PROJECTS:
+        print(project)
+
