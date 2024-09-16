@@ -11,7 +11,7 @@ class TestUserJiraCalls(unittest.TestCase):
         response = self.jira_user_calls.get_user(user)
         self.assertEqual(response['emailAddress'], 'mourad.marzouk@getcruise.com')
 
-
-# test = UserJiraCalls()
-#
-# print(test.get_user('mourad.marzouk'))
+    def test_delete_user(self):
+        user = 'test.user'
+        response = self.jira_user_calls.delete_user(user)
+        self.assertEqual(response.status_code, 200)
