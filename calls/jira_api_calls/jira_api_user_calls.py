@@ -45,4 +45,24 @@ class UserJiraCalls:
 
         return response
 
+    def get_user_by_key(self, payload, pref=''):
+        url = self.jira + 'user' + pref
+
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'key': payload,
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
+
 
