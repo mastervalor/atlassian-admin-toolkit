@@ -16,6 +16,11 @@ class TestUserJiraCalls(unittest.TestCase):
         response = self.jira_user_calls.delete_user(user)
         self.assertEqual(response.status_code, 200)
 
+    def test_get_user_by_key(self):
+        user = 'JIRAUSER73627'
+        response = self.jira_user_calls.get_user_by_key(user)
+        self.assertEqual(response['name'], 'swaroop.vimalkumar')
+
 
 if __name__ == "__main__":
     unittest.main()
