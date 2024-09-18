@@ -19,3 +19,14 @@ class DashboardsJiraCalls:
         )
 
         return response
+
+    def get_all_dashboards(self):
+        url = self.jira + 'dashboard'
+
+        response = requests.request(
+            "GET",
+            url,
+            auth=self.token
+        )
+
+        return response
