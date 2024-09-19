@@ -20,13 +20,13 @@ class DashboardsJiraCalls:
 
         return response
 
-    def get_all_dashboards(self):
-        url = self.jira + 'dashboard'
+    def get_all_dashboards(self, pref):
+        url = self.jira + 'dashboard' + pref
 
-        response = requests.request(
+        response = json.loads(requests.request(
             "GET",
             url,
             auth=self.token
-        )
+        ).text)
 
         return response
