@@ -39,3 +39,9 @@ class Dashboards:
 
         return ids
 
+    def delete_boards(self, boards):
+        for board in boards:
+            response = self.dashboards.delete_board(str(board))
+            print(response.status_code)
+        return 'Completed deletions'
+
