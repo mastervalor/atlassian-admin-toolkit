@@ -32,11 +32,12 @@ class DashboardsJiraCalls:
 
         return response
 
-    def get_all_boards(self):
+    def get_all_boards(self, start_at=None, max_results=None):
         url = self.jira_agile + "board"
 
         params = {
-            'maxResults': 1000  # Maximum allowed value
+            'maxResults': max_results,
+            'startAt': start_at
         }
 
         response = json.loads(requests.request(
