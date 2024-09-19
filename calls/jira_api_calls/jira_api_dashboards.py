@@ -32,11 +32,10 @@ class DashboardsJiraCalls:
 
         return response
 
-    def get_all_boards(self, start_at=None, max_results=None):
+    def get_all_boards(self, start_at=None):
         url = self.jira_agile + "board"
 
         params = {
-            'maxResults': max_results,
             'startAt': start_at
         }
 
@@ -46,5 +45,16 @@ class DashboardsJiraCalls:
             params=params,
             auth=self.token
         ).text)
+
+        return response
+
+    def delete_board(self, board_id):
+        url = self.jira_agile + "board/" + board_id
+
+        response = requests.request(
+            "DELETE",
+            url,
+            auth=self.token
+        )
 
         return response
