@@ -24,3 +24,7 @@ class TestDashBoardJiraCalls(unittest.TestCase):
         board_id = '1428'
         response = self.jira_dashboard_calls.delete_board(board_id)
         self.assertEqual(response.status_code, 200)
+
+
+if __name__ == "__main__":
+    unittest.main()
