@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from logic.jira_logic.group_logic import GroupsUsers
+from logic.jira_logic.group_logic import Groups
 from calls.jira import Jira
 
 
@@ -9,7 +9,7 @@ class TestGroupsUsers(unittest.TestCase):
         # Set up the mock Jira instance
         self.mock_jira = MagicMock(spec=Jira)
         # Initialize the GroupsUsers instance with the mocked Jira
-        self.groups_users = GroupsUsers()
+        self.groups_users = Groups()
         self.groups_users.jira = self.mock_jira
 
     def test_remove_default_admins(self):
