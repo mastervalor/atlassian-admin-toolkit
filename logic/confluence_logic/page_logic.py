@@ -1,9 +1,7 @@
 from calls.confluence import Confluence
-from bs4 import BeautifulSoup
 
 
 class Pages:
-
     def __init__(self):
         self.conf = Confluence()
 
