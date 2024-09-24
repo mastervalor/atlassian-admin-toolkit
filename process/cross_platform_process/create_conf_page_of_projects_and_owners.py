@@ -16,10 +16,11 @@ for row in projects:
     row['project'] = html.escape(row['project'])
     row['key'] = html.escape(row['key'])
     admins = project.get_project_admins_group(row['Key'])
+    users = project.get_project_users_group(row['Key'])
     if row['Project type'] == 'software':
-        developers = project.get_project_developer_group(row['Key'])
+        developers = project.get_project_developers_group(row['Key'])
     elif row['Type'] == 'service_desk':
-
+        agents = project.get_project_agents_group(row['Key'])
     projects_dict.append({
         "project_name": row['Project'],
         "project_key": row['Key'],
