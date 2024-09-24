@@ -11,7 +11,7 @@ class ConfluenceSpaceCalls:
         self.token = conf_cloud_dev_token
 
     def get_spaces(self):
-        url = self.cloud_v2
+        url = self.cloud_v2 + 'spaces'
 
         headers = {
             "Accept": "application/json"
