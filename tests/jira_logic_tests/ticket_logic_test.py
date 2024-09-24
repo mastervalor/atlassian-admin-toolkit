@@ -10,7 +10,7 @@ formating = JSONFormating()
 class TestTickets(unittest.TestCase):
     def setUp(self):
         # Set up the mock Jira instance
-        self.mock_jira = MagicMock(spec=Jira)
+        self.mock_jira = MagicMock(spec=Tickets)
         # Initialize the Tickets instance with the mocked Jira
         self.tickets = Tickets()
         self.tickets.jira = self.mock_jira
