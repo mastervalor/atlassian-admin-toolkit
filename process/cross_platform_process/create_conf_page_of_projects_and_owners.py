@@ -13,25 +13,25 @@ projects_dict = []
 
 projects = project.get_project_owners_and_status()
 for row in projects:
-
-    approver = row['username']
-    if '[C]' in approver:
-        approver = approver.replace('[C]', '')
     row['project'] = html.escape(row['project'])
     row['key'] = html.escape(row['key'])
-    row['username'] = html.escape(approver)
+    admins = project.get_project_admins_group(row['Key'])
+    if row['Project type'] == 'software':
+        developers = project.get_project_developer_group(row['Key'])
+    elif row['Type'] == 'service_desk':
+
     projects_dict.append({
-        "project_name": row['Name'],
-        "project_key": row['key'],
-        "approver": row['username'],
-        "admin_group": row['Admin group'],
+        "project_name": row['Project'],
+        "project_key": row['Key'],
+        "owner": row['Name'],
+        "admin_group": admins,
         "developer_group": row['Developer group'],
         "user_group": row['User group'],
         "agent_group": row['Agent group'],
-        "project_type": row['Project type']
+        "project_type": row['Type']
     })
 
-table_headers = ["Project Name", "Project Key", "Approver", "Admin Group", "Developer Group", "User Group",
+table_headers = ["Project Name", "Project Key", "Approver/Owner", "Admin Group", "Developer Group", "User Group",
                  "Agent Group", "Project Type"]
 
 table_content = page.generate_table_content(projects_dict, table_headers)
