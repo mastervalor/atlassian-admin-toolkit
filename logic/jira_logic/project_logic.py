@@ -52,7 +52,7 @@ class Projects:
         groups = self.jira.get_project_groups(key, role_id)
         standard_group = ''
         for group in groups['actors']:
-            if '-users' in group['displayName']:
+            if '-user' in group['displayName']:
                 if group['displayName'] == 'jira-users':
                     standard_group = group['displayName']
                 else:
