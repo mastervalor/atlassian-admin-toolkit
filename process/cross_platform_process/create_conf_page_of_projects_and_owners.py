@@ -15,6 +15,7 @@ projects = project.get_project_owners_and_status()
 for row in projects:
     row['Project'] = html.escape(row['Project'])
     row['Key'] = html.escape(row['Key'])
+    row['Name'] = html.escape(row['Name'])
     admins = project.get_project_admins_group(row['Key'])
     users = project.get_project_users_group(row['Key'])
     agents = ''
