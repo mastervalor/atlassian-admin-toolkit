@@ -13,9 +13,10 @@ projects_dict = []
 
 projects = project.get_project_owners_and_status()
 for row in projects:
+    approver = row['Name']
     row['Project'] = html.escape(row['Project'])
     row['Key'] = html.escape(row['Key'])
-    row['Name'] = html.escape(row['Name'])
+    row['username'] = html.escape(approver)
     admins = project.get_project_admins_group(row['Key'])
     users = project.get_project_users_group(row['Key'])
     agents = ''
@@ -28,7 +29,7 @@ for row in projects:
     projects_dict.append({
         "project_name": row['Project'],
         "project_key": row['Key'],
-        "owner": row['Name'],
+        "owner": row['username'],
         "admin_group": admins,
         "developer_group": developers,
         "user_group": users,
@@ -36,7 +37,7 @@ for row in projects:
         "project_type": row['Type']
     })
 
-table_headers = ["Project Name", "Project Key", "Approver/Owner", "Admin Group", "Developer Group", "User Group",
+table_headers = ["Project Name", "Project Key", "Owner", "Admin Group", "Developer Group", "User Group",
                  "Agent Group", "Project Type"]
 
 table_content = page.generate_table_content(projects_dict, table_headers)
