@@ -6,3 +6,7 @@ okta = 'https://cruise.okta.com/api/v1/'
 confluence_staging = 'https://wiki.stage.robot.car/rest/api/'
 jira_agile = "https://jira.robot.car/rest/agile/1.0/"
 jira_agile_dev = "https://jira-dev.robot.car/rest/agile/1.0/"
+conf_cloud_v1 = "https://getcruise.atlassian.net/wiki/rest/api/"
+conf_cloud_v2 = "https://getcruise.atlassian.net/wiki/api/v2/"
+conf_cloud_v1_dev = "https://getcruise-sandbox-515.atlassian.net/wiki/rest/api/"
+conf_cloud_v2_dev = "https://getcruise-sandbox-515.atlassian.net/wiki/api/v2/"
