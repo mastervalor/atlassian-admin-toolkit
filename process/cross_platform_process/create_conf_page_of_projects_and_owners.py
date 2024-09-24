@@ -13,22 +13,25 @@ projects_dict = []
 
 projects = project.get_project_owners_and_status()
 for row in projects:
-    row['project'] = html.escape(row['project'])
-    row['key'] = html.escape(row['key'])
+    row['Project'] = html.escape(row['Project'])
+    row['Key'] = html.escape(row['Key'])
     admins = project.get_project_admins_group(row['Key'])
     users = project.get_project_users_group(row['Key'])
-    if row['Project type'] == 'software':
+    agents = ''
+    developers = ''
+    if row['Type'] == 'software':
         developers = project.get_project_developers_group(row['Key'])
     elif row['Type'] == 'service_desk':
         agents = project.get_project_agents_group(row['Key'])
+
     projects_dict.append({
         "project_name": row['Project'],
         "project_key": row['Key'],
         "owner": row['Name'],
         "admin_group": admins,
-        "developer_group": row['Developer group'],
-        "user_group": row['User group'],
-        "agent_group": row['Agent group'],
+        "developer_group": developers,
+        "user_group": users,
+        "agent_group": agents,
         "project_type": row['Type']
     })
 
