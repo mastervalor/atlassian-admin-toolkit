@@ -72,7 +72,7 @@ class Projects:
 
         return f"No agents found in {key}"
 
-    def get_project_developer_group(self, key):
+    def get_project_developers_group(self, key):
         role_id = self.project_roles['Developers']
         groups = self.jira.get_project_groups(key, role_id)
         standard_group = ''
@@ -99,7 +99,7 @@ class Projects:
             'Approver': approver,
             'Approver status': approver_status,
             'Admin group': self.get_project_admins_group(key),
-            'Developer group': self.get_project_developer_group(key),
+            'Developer group': self.get_project_developers_group(key),
             'User group': self.get_project_users_group(key),
             'Agent group': self.get_project_agents_group(key),
             'Project type': self.get_project_type(key)
