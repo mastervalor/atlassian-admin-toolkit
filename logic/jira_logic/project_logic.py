@@ -126,7 +126,9 @@ class Projects:
                 'Key': project['key'],
                 'Name': project['lead']['displayName'],
                 'Username': project['lead']['name'],
-                'Active': project['lead']['active']
+                'Active': project['lead']['active'],
+                'Project_archived': project['archived'],
+                'Type': project['projectTypeKey']
             })
 
         return project_owners
