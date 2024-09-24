@@ -1,4 +1,5 @@
 from calls.confluence import Confluence
+from bs4 import BeautifulSoup
 
 
 class Pages:
