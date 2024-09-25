@@ -1,4 +1,5 @@
 from calls.confluence_api_calls.conf_api_spaces import ConfluenceSpaceCalls
+from urllib.parse import urlparse, parse_qs
 
 
 class Spaces:
@@ -18,17 +19,19 @@ class Spaces:
             all_spaces.extend(response_data.get('results', []))
 
             if "_links" in response_data and "next" in response_data["_links"]:
-                cursor = response_data["_links"]["next"]  # Update cursor for the next batch
+                next_url = response_data["_links"]["next"]
+                parsed_url = urlparse(next_url)
+                cursor = parse_qs(parsed_url.query).get('cursor', [None])[0]  # Update cursor for the next batch
             else:
                 break
 
         return all_spaces
 
     def get_space_ids(self, spaces_list):
-        spaces = {}
+        spaces_with_ids = {}
         all_spaces = self.get_all_spaces()
         for spaces in all_spaces:
             if spaces['name'] in spaces_list:
-                spaces['name'] = spaces['id']
+                spaces_with_ids[spaces['name']] = spaces['id']
 
-        return spaces
+        return spaces_with_ids
