@@ -35,42 +35,62 @@ class ConfluenceSpaceCalls:
 
         return response
 
-    def fetch_pages_in_space(self, space_id, limit=250, cursor=None):
-        url = self.cloud_v2 + f"space/{space_id}/content/page"
+    def fetch_pages_in_space(self, space_id, cursor=None):
+        url = self.cloud_v2 + f"spaces/{space_id}/pages"
 
         headers = {
             "Accept": "application/json"
         }
 
         params = {
-            "limit": limit
         }
 
         if cursor:
             params["cursor"] = cursor
 
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=params,
-            auth=self.token
-        ).text)
+        try:
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params,
+                auth=self.token
+            )
 
-        return response
+            # Check if the request was successful (status code 200)
+            if response.status_code != 200:
+                print(f"Failed to retrieve pages for space {space_id}. Status Code: {response.status_code}")
+                print(f"Response Text: {response.text}")
+                return None
+
+            # Try to parse the JSON response
+            return response.json()
+
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            return None
+
+        except json.JSONDecodeError as e:
+            print(f"Failed to parse JSON: {e}")
+            print(f"Response Text: {response.text}")
+            return None
 
     def fetch_restrictions_for_page(self, page_id):
-        url = self.cloud_v2 + f"content/{page_id}/restriction/byOperation"
+        url = self.cloud_v1 + f"content/{page_id}/restriction/byOperation"
 
         headers = {
             "Accept": "application/json"
         }
 
-        response = json.loads(requests.request(
-            "GET",
+        response = requests.get(
             url,
             headers=headers,
             auth=self.token
-        ).text)
+        )
 
-        return response
+        if response.status_code != 200:
+            print(f"Failed to retrieve restrictions for page {page_id}: {response.status_code}")
+            return None
+
+        restrictions_data = response.json()
+
+        return restrictions_data
