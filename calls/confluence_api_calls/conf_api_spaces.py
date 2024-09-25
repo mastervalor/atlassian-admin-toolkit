@@ -103,14 +103,25 @@ class ConfluenceSpaceCalls:
             "Content-Type": "application/json"
         }
 
-        data = {
-            "accountId": account_id
+        payload = {
+            "results": [
+                {
+                    "operation": operation_key,
+                    "restrictions": {
+                        "user": [
+                            {"accountId": account_id},  # The user you're adding
+                            {"accountId": '557058:981107ee-1d06-4794-9954-f21c4e7c246a'}  # Yourself to avoid eviction
+                        ]
+                    }
+                }
+            ]
         }
         print(f"Adding user {account_id} to page {page_id} with operation {operation_key}.")
 
         response = requests.put(
             url,
             headers=headers,
+            json=payload,
             auth=self.token
         )
 
