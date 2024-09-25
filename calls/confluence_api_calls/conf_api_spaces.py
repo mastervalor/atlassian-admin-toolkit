@@ -18,7 +18,8 @@ class ConfluenceSpaceCalls:
         }
 
         params = {
-            "limit": limit
+            "limit": limit,
+            "status": 'current',
         }
 
         if cursor:
