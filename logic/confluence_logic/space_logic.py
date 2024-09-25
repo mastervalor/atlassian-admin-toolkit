@@ -60,13 +60,25 @@ class Spaces:
     def get_restricted_pages_in_space(self, space_id):
         restricted_pages = []
 
+        # Get all pages in the space
         all_pages = self.get_pages_in_space(space_id)
 
+        # Check for restrictions on each page
         for page in all_pages:
             page_id = page['id']
             restrictions = self.conf_spaces.fetch_restrictions_for_page(page_id)
 
-            if restrictions and restrictions.get('restrictions'):
+            if not restrictions:
+                continue
+
+            # Check for any restrictions in the 'read' and 'update' operations
+            read_restrictions = restrictions.get('read', {}).get('restrictions', {})
+            update_restrictions = restrictions.get('update', {}).get('restrictions', {})
+
+            # Check if there are any user or group restrictions in either 'read' or 'update'
+            if read_restrictions.get('user', {}).get('results') or read_restrictions.get('group', {}).get('results') or \
+                    update_restrictions.get('user', {}).get('results') or update_restrictions.get('group', {}).get(
+                'results'):
                 restricted_pages.append(page)
 
         return restricted_pages
