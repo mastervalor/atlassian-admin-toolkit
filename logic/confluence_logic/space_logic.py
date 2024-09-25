@@ -57,15 +57,38 @@ class Spaces:
 
         return all_pages
 
+    def get_page_ids_in_space(self, space_id):
+        page_ids = []
+        cursor = None
+
+        while True:
+            # Fetch pages for the space with pagination support
+            response_data = self.conf_spaces.fetch_pages_in_space(space_id, cursor)
+
+            if not response_data:
+                break
+
+            # Collect the page IDs
+            page_ids.extend([page['id'] for page in response_data.get('results', [])])
+
+            # Check if there's more data to paginate through
+            if "_links" in response_data and "next" in response_data["_links"]:
+                next_url = response_data["_links"]["next"]
+                parsed_url = urlparse(next_url)
+                cursor = parse_qs(parsed_url.query).get('cursor', [None])[0]
+            else:
+                break
+
+        return page_ids
+
     def get_restricted_pages_in_space(self, space_id):
         restricted_pages = []
 
         # Get all pages in the space
-        all_pages = self.get_pages_in_space(space_id)
+        all_pages = self.get_page_ids_in_space(space_id)
 
         # Check for restrictions on each page
-        for page in all_pages:
-            page_id = page['id']
+        for page_id in all_pages:
             restrictions = self.conf_spaces.fetch_restrictions_for_page(page_id)
 
             if not restrictions:
@@ -79,6 +102,6 @@ class Spaces:
             if read_restrictions.get('user', {}).get('results') or read_restrictions.get('group', {}).get('results') or \
                     update_restrictions.get('user', {}).get('results') or update_restrictions.get('group', {}).get(
                 'results'):
-                restricted_pages.append(page)
+                restricted_pages.append(page_id)
 
         return restricted_pages
