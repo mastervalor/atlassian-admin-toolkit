@@ -34,3 +34,28 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
+
+    def fetch_pages_in_space(self, space_id, limit=250, cursor=None):
+        url = self.cloud_v2 + f"space/{space_id}/content/page"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        params = {
+            "limit": limit
+        }
+
+        if cursor:
+            params["cursor"] = cursor
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=params,
+            auth=self.token
+        ).text)
+
+        return response
+    
