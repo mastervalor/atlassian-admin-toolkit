@@ -30,5 +30,5 @@ class Spaces:
         for spaces in all_spaces:
             if spaces['name'] in spaces_list:
                 spaces['name'] = spaces['id']
-        
+
         return spaces
