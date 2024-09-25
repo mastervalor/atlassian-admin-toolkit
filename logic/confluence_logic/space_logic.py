@@ -25,7 +25,10 @@ class Spaces:
         return all_spaces
 
     def get_space_ids(self, spaces_list):
-        all_spaces = self.conf_spaces.get_spaces()['results']
-        print(len(all_spaces))
+        spaces = {}
+        all_spaces = self.get_all_spaces()
         for spaces in all_spaces:
-            print(spaces)
+            if spaces['name'] in spaces_list:
+                spaces['name'] = spaces['id']
+        
+        return spaces
