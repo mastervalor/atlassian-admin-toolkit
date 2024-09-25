@@ -94,3 +94,31 @@ class ConfluenceSpaceCalls:
         restrictions_data = response.json()
 
         return restrictions_data
+
+    def add_user_to_page_restriction(self, page_id, operation_key, account_id):
+        url = f"{self.cloud_v1}/content/{page_id}/restriction/byOperation/{operation_key}/user"
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        data = {
+            "accountId": account_id
+        }
+
+        response = requests.put(
+            url,
+            headers=headers,
+            json=data,
+            auth=self.token
+        )
+
+        if response.status_code == 200:
+            print(f"Successfully added user {account_id} to page {page_id} for {operation_key} access.")
+        elif response.status_code == 404:
+            print(f"Page {page_id} not found.")
+        else:
+            print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
+
+        return response.status_code
