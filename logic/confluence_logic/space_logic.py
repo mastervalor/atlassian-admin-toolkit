@@ -21,7 +21,7 @@ class Spaces:
             if "_links" in response_data and "next" in response_data["_links"]:
                 next_url = response_data["_links"]["next"]
                 parsed_url = urlparse(next_url)
-                cursor = parse_qs(parsed_url.query).get('cursor', [None])[0]  # Update cursor for the next batch
+                cursor = parse_qs(parsed_url.query).get('cursor', [None])[0]
             else:
                 break
 
@@ -48,7 +48,6 @@ class Spaces:
 
             all_pages.extend(response_data.get('results', []))
 
-
             if "_links" in response_data and "next" in response_data["_links"]:
                 next_url = response_data["_links"]["next"]
                 parsed_url = urlparse(next_url)
@@ -57,3 +56,17 @@ class Spaces:
                 break
 
         return all_pages
+
+    def get_restricted_pages_in_space(self, space_id):
+        restricted_pages = []
+
+        all_pages = self.get_pages_in_space(space_id)
+
+        for page in all_pages:
+            page_id = page['id']
+            restrictions = self.conf_spaces.fetch_restrictions_for_page(page_id)
+
+            if restrictions and restrictions.get('restrictions'):
+                restricted_pages.append(page)
+
+        return restricted_pages
