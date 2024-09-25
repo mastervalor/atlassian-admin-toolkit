@@ -10,17 +10,25 @@ class ConfluenceSpaceCalls:
         self.cloud_v2 = conf_cloud_v2_dev if is_staging else conf_cloud_v2
         self.token = conf_cloud_dev_token
 
-    def get_spaces(self):
+    def get_spaces(self, limit=250, cursor=None):
         url = self.cloud_v2 + 'spaces'
 
         headers = {
             "Accept": "application/json"
         }
 
+        params = {
+            "limit": limit
+        }
+
+        if cursor:
+            params["cursor"] = cursor
+
         response = json.loads(requests.request(
             "GET",
             url,
             headers=headers,
+            params=params,
             auth=self.token
         ).text)
 
