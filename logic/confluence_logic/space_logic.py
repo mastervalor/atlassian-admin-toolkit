@@ -121,7 +121,7 @@ class Spaces:
     def add_user_edit_to_pages_restriction(self, page_ids, account_id):
         for page_id in page_ids:
             # Call the function to add the user to each page restriction
-            response = self.conf_spaces.add_user_to_page_restriction(page_id, "update", account_id)
+            response = self.conf_spaces.add_restrictions_to_page(page_id, "update", account_id)
 
             if response.status_code == 200:
                 print(f"Successfully added user {account_id} to page {page_id} for edit access.")
