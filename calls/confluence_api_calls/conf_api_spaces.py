@@ -58,4 +58,20 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
+
+    def fetch_restrictions_for_page(self, page_id):
+        url = self.cloud_v2 + f"content/{page_id}/restriction/byOperation"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
     
