@@ -114,11 +114,4 @@ class ConfluenceSpaceCalls:
             auth=self.token
         )
 
-        if response.status_code == 200:
-            print(f"Successfully added user {account_id} to page {page_id} for {operation_key} access.")
-        elif response.status_code == 404:
-            print(f"Page {page_id} not found.")
-        else:
-            print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
-
-        return response.status_code
+        return response
