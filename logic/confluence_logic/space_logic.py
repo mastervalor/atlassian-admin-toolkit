@@ -35,3 +35,25 @@ class Spaces:
                 spaces_with_ids[spaces['name']] = spaces['id']
 
         return spaces_with_ids
+
+    def get_pages_in_space(self, space_id):
+        all_pages = []
+        cursor = None
+
+        while True:
+            response_data = self.conf_spaces.fetch_pages_in_space(space_id, cursor)
+
+            if not response_data:
+                break
+
+            all_pages.extend(response_data.get('results', []))
+
+
+            if "_links" in response_data and "next" in response_data["_links"]:
+                next_url = response_data["_links"]["next"]
+                parsed_url = urlparse(next_url)
+                cursor = parse_qs(parsed_url.query).get('cursor', [None])[0]
+            else:
+                break
+
+        return all_pages
