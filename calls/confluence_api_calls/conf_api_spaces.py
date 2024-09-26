@@ -103,20 +103,40 @@ class ConfluenceSpaceCalls:
             "Content-Type": "application/json"
         }
 
+        data = {
+            "accountId": account_id
+        }
+
+        response = requests.put(
+            url,
+            headers=headers,
+            json=data,
+            auth=self.token
+        )
+
+        return response
+
+    def add_self_to_page_restriction(self, page_id, operation_key):
+        url = f"{self.cloud_v1}/content/{page_id}/restriction/byOperation/{operation_key}/user"
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
         payload = {
             "results": [
                 {
                     "operation": operation_key,
                     "restrictions": {
                         "user": [
-                            {"accountId": account_id},  # The user you're adding
                             {"accountId": '557058:981107ee-1d06-4794-9954-f21c4e7c246a'}  # Yourself to avoid eviction
                         ]
                     }
                 }
             ]
         }
-        print(f"Adding user {account_id} to page {page_id} with operation {operation_key}.")
+        print(f"Adding user self to page {page_id} with operation {operation_key}.")
 
         response = requests.put(
             url,
