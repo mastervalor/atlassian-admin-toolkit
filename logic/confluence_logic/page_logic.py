@@ -1,10 +1,11 @@
 from calls.confluence import Confluence
+from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
 from bs4 import BeautifulSoup
 
 
 class Pages:
-    def __init__(self):
-        self.conf = Confluence()
+    def __init__(self,  is_staging=False):
+        self.conf_pages = ConfluencePageCalls(is_staging=True) if is_staging else ConfluencePageCalls()
 
     def create_page(self, space_key, title, content, ancestors):
         page_type = 'page'
@@ -122,3 +123,16 @@ class Pages:
     def delete_page(self, page_id):
         response = self.conf.delete_page(page_id)
         return response
+
+    def add_user_edit_to_pages_restriction(self, page_ids, account_id):
+        for page_id in page_ids:
+            # Call the function to add the user to each page restriction
+            response = self.conf_pages.add_restrictions_to_page(page_id, "update", account_id)
+
+            if response.status_code == 200:
+                print(f"Successfully added user {account_id} to page {page_id} for edit access.")
+            elif response.status_code == 404:
+                print(f"Page {page_id} not found.")
+            else:
+                print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
+
