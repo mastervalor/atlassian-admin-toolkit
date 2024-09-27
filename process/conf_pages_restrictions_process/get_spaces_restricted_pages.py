@@ -1,32 +1,24 @@
 from logic.confluence_logic.space_logic import Spaces
-from logic.confluence_logic.page_logic import Pages
 from logic.os_logic.os_logic import OSLogic
 
 # get pages Ids from a list of names
 spaces = Spaces(is_staging=True)
-pages = Pages(is_staging=True)
-# os_logic = OSLogic(open_file='LucidChart')
-# lucid_chart = os_logic.read_file()
-# spaces_list = []
+os_logic = OSLogic(open_file='LucidChart', write_file='lucid chart page ids', columns=['Page ID'])
+lucid_chart = os_logic.read_file()
+spaces_list = []
+page_ids = []
 
-# for space in lucid_chart:
-#     spaces_list.append(space['Space Name'])
+for space in lucid_chart:
+    spaces_list.append(space['Space Name'])
 
-# print(spaces_list)
-# print(spaces.get_space_ids(spaces_list))
+space_ids = spaces.get_space_ids(spaces_list)
 # get all restricted pages in a space and their IDs
-# print(spaces_class.get_space_ids(['Information Technology']))
+for space_id in space_ids.values():
+    restricted_pages = spaces.get_restricted_pages_in_space(space_id)
+    page_ids.extend(restricted_pages)  # Add these pages to the main page_ids list
 
-# Get all pages in a space
-# pages = spaces.get_pages_in_space('64782345')
-# print(f"Total pages in space: {len(pages)}")
+    # Print progress to track the process
+    print(f"Space: {space_id} had restricted pages: {len(restricted_pages)}")
 
-# Get restricted pages in a space
-# page = ['64794020']
-user_id = '557058:9ab63286-11ed-497d-8147-88b76e6c8a56'
-
-restricted_pages = spaces.get_restricted_pages_in_space('91717652')
-print(f"Total restricted pages in space: {len(restricted_pages)}")
-pages.add_user_edit_to_pages_restriction(restricted_pages, user_id)
-# user_id = '557058:9ab63286-11ed-497d-8147-88b76e6c8a56'
-# spaces.add_user_edit_to_pages_restriction(page, user_id)
+data_rows = [{'Page ID': page_id} for page_id in page_ids]
+os_logic.write_to_file(data_rows)
