@@ -1,8 +1,10 @@
 from logic.confluence_logic.space_logic import Spaces
+from logic.confluence_logic.page_logic import Pages
 from logic.os_logic.os_logic import OSLogic
 
 # get pages Ids from a list of names
 spaces = Spaces(is_staging=True)
+pages = Pages(is_staging=True)
 # os_logic = OSLogic(open_file='LucidChart')
 # lucid_chart = os_logic.read_file()
 # spaces_list = []
