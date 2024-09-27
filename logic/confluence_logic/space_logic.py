@@ -1,4 +1,6 @@
 from calls.confluence_api_calls.conf_api_spaces import ConfluenceSpaceCalls
+from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
+
 from urllib.parse import urlparse, parse_qs
 
 
