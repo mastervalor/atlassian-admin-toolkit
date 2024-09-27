@@ -22,8 +22,11 @@ pages = Pages(is_staging=True)
 # print(f"Total pages in space: {len(pages)}")
 
 # Get restricted pages in a space
-page = ['64794020']
-# restricted_pages = spaces.get_restricted_pages_in_space('64782345')
-# print(f"Total restricted pages in space: {len(restricted_pages)}")
+# page = ['64794020']
 user_id = '557058:9ab63286-11ed-497d-8147-88b76e6c8a56'
-spaces.add_user_edit_to_pages_restriction(page, user_id)
+
+restricted_pages = spaces.get_restricted_pages_in_space('91717652')
+print(f"Total restricted pages in space: {len(restricted_pages)}")
+pages.add_user_edit_to_pages_restriction(restricted_pages, user_id)
+# user_id = '557058:9ab63286-11ed-497d-8147-88b76e6c8a56'
+# spaces.add_user_edit_to_pages_restriction(page, user_id)
