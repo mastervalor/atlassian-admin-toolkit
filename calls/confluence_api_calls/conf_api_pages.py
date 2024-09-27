@@ -95,3 +95,25 @@ class ConfluencePageCalls:
         )
 
         return response
+
+    def fetch_restrictions_for_page(self, page_id):
+        url = self.cloud_v1 + f"content/{page_id}/restriction/byOperation"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = requests.get(
+            url,
+            headers=headers,
+            auth=self.token
+        )
+
+        if response.status_code != 200:
+            print(f"Failed to retrieve restrictions for page {page_id}: {response.status_code}")
+            return None
+
+        restrictions_data = response.json()
+
+        return restrictions_data
+
