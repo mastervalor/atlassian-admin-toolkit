@@ -44,32 +44,23 @@ class ConfluencePageCalls:
 
         return response
 
-    def add_self_to_page_restriction(self, page_id, operation_key):
-        url = f"{self.cloud_v1}/content/{page_id}/restriction/byOperation/{operation_key}/user"
+    def add_self_to_page_restriction(self, page_id):
+        account_id = '63c996ae6178fcc941d947ad'
+        url = f"{self.cloud_v1}/content/{page_id}/restriction/byOperation/update/user?accountId={account_id}"
 
         headers = {
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
 
-        payload = {
-            "results": [
-                {
-                    "operation": operation_key,
-                    "restrictions": {
-                        "user": [
-                            {"accountId": '557058:981107ee-1d06-4794-9954-f21c4e7c246a'}  # Yourself to avoid eviction
-                        ]
-                    }
-                }
-            ]
+        data = {
+            "accountId": account_id
         }
-        print(f"Adding user self to page {page_id} with operation {operation_key}.")
 
         response = requests.put(
             url,
             headers=headers,
-            json=payload,
+            json=data,
             auth=self.token
         )
 
