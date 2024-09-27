@@ -136,3 +136,16 @@ class Pages:
             else:
                 print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
 
+    def add_user_read_to_pages_restriction(self, page_ids, account_id):
+        for page_id in page_ids:
+            # Call the function to add the user to each page restriction
+            response = self.conf_pages.add_user_to_page_restriction(page_id, "read", account_id)
+
+            if response.status_code == 200:
+                print(f"Successfully added user {account_id} to page {page_id} for read access.")
+            elif response.status_code == 404:
+                print(f"Page {page_id} not found.")
+            else:
+                print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
+
+
