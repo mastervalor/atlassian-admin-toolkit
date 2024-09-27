@@ -127,6 +127,15 @@ class Pages:
     def add_user_edit_to_pages_restriction(self, page_ids, account_id):
         for page_id in page_ids:
             # Call the function to add the user to each page restriction
+            self_add = self.conf_pages.add_self_to_page_restriction(page_id)
+
+            if self_add.status_code == 200:
+                print(f"Successfully added you to {page_id} for edit access.")
+            elif self_add.status_code == 404:
+                print(f"Page {page_id} not found.")
+            else:
+                print(f"Failed to add you to page {page_id}: {self_add.status_code}, {self_add.text}")
+
             response = self.conf_pages.add_restrictions_to_page(page_id, "update", account_id)
 
             if response.status_code == 200:
