@@ -7,6 +7,7 @@ from urllib.parse import urlparse, parse_qs
 class Spaces:
     def __init__(self, is_staging=False):
         self.conf_spaces = ConfluenceSpaceCalls(is_staging=True) if is_staging else ConfluenceSpaceCalls()
+        self.conf_pages = ConfluencePageCalls(is_staging=True) if is_staging else ConfluencePageCalls()
 
     def get_all_spaces(self):
         all_spaces = []
@@ -91,7 +92,7 @@ class Spaces:
 
         # Check for restrictions on each page
         for page_id in all_pages:
-            restrictions = self.conf_spaces.fetch_restrictions_for_page(page_id)
+            restrictions = self.conf_pages.fetch_restrictions_for_page(page_id)
 
             if not restrictions:
                 continue
