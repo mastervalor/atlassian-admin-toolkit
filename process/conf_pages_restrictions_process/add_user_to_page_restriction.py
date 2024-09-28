@@ -1,9 +1,10 @@
 from logic.confluence_logic.space_logic import Spaces
 from calls.confluence_api_calls.conf_api_spaces import ConfluenceSpaceCalls
 from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
+from logic.os_logic.os_logic import OSLogic
 from dataformating.json_formating import JSONFormating
 
-
+os_logic = OSLogic(open_file='LucidChart', write_file='lucid chart page ids', columns=['Page ID'])
 spaces = Spaces(is_staging=True)
 conf_spaces = ConfluenceSpaceCalls(is_staging=True)
 conf_pages = ConfluencePageCalls(is_staging=True)
