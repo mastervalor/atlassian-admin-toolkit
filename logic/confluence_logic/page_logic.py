@@ -133,8 +133,10 @@ class Pages:
                 print(f"Successfully added you to {page_id} for edit access.")
             elif self_add.status_code == 404:
                 print(f"Page {page_id} not found.")
+                return self_add.status_code
             else:
                 print(f"Failed to add you to page {page_id}: {self_add.status_code}, {self_add.text}")
+                return self_add.status_code
 
             response = self.conf_pages.add_restrictions_to_page(page_id, "update", account_id)
 
@@ -147,6 +149,18 @@ class Pages:
 
     def add_user_read_to_pages_restriction(self, page_ids, account_id):
         for page_id in page_ids:
+
+            self_add = self.conf_pages.add_self_to_page_restriction(page_id)
+
+            if self_add.status_code == 200:
+                print(f"Successfully added you to {page_id} for edit access.")
+            elif self_add.status_code == 404:
+                print(f"Page {page_id} not found.")
+                return self_add.status_code
+            else:
+                print(f"Failed to add you to page {page_id}: {self_add.status_code}, {self_add.text}")
+                return self_add.status_code
+
             # Call the function to add the user to each page restriction
             response = self.conf_pages.add_user_to_page_restriction(page_id, "read", account_id)
 
@@ -154,6 +168,7 @@ class Pages:
                 print(f"Successfully added user {account_id} to page {page_id} for read access.")
             elif response.status_code == 404:
                 print(f"Page {page_id} not found.")
+
             else:
                 print(f"Failed to add user {account_id} to page {page_id}: {response.status_code}, {response.text}")
 
