@@ -1,8 +1,5 @@
-from logic.confluence_logic.space_logic import Spaces
-from calls.confluence_api_calls.conf_api_spaces import ConfluenceSpaceCalls
 from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
 from logic.os_logic.os_logic import OSLogic
-from dataformating.json_formating import JSONFormating
 
 os_logic = OSLogic(open_file='lucid chart page ids')
 restricted_pages = os_logic.read_file()
