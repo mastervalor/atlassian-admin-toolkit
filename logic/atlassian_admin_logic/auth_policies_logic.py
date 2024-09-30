@@ -5,8 +5,8 @@ class AuthPolicies:
     def __init__(self):
         self.auth_policies = AtlassianAuthPolicies()
 
-    def get_status_of_task(self,task_id):
-        response = self.auth_policies
+    def get_status_of_task(self, task_id):
+        response = self.auth_policies.get_task_status(task_id)
 
     def add_users_to_auth_policies(self, users, policy_id):
         user_responses = []
