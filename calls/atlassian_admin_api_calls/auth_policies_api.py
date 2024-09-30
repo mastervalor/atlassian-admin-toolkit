@@ -42,10 +42,11 @@ class AtlassianAuthPolicies:
             "Authorization": self.token
         }
 
-        response = json.loads(requests.request(
+        response = requests.request(
             "GET",
             url,
             headers=headers
-        ).text)
+        )
 
         return response
+    
