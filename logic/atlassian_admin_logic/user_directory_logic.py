@@ -9,4 +9,3 @@ class UserDirectoryLogic:
         for user in users:
             response = self.user_directory.restore_user(user)
 
-            
