@@ -13,7 +13,7 @@ class AuthPolicies:
         if response.status_code == 200:
             # Request succeeded, process the task status
             task_status = response.json()
-            print("Task in progress:", task_status.get('inProgressCount', 0))
+            print("Task in progress:", task_status.get(' ', 0))
             print("Task success count:", task_status.get('successCount', 0))
             print("Task failure count:", task_status.get('failureCount', 0))
             return task_status
