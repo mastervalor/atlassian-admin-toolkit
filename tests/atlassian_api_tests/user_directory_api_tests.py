@@ -6,4 +6,5 @@ class TestUserDirectory(unittest.TestCase):
     def setUp(self):
         self.user_directory = UserDirectory()
 
-        
+    def test_restore_user(self):
+        user_id =
