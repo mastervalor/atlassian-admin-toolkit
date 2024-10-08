@@ -1,21 +1,19 @@
-from auth import okta_token
-from config import okta
+from auth import okta_token as token
+from config import okta as okta_base_url
 import requests
 import json
 
 
-class OktaUsers:
-    def __init__(self):
-        self.token = okta_token
-        self.okta_base_url = okta
-    
-    def users_profile(self, email):
-        url = self.okta_base_url + 'users'
+class OktaUsersCalls:
+
+    @classmethod
+    def users_profile(cls, email):
+        url = okta_base_url + 'users'
         params = {'filter': 'profile.email eq "{0}"'.format(email)}
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': self.token
+            'Authorization': token
         }
 
         response = requests.get(url, headers=headers, params=params)
