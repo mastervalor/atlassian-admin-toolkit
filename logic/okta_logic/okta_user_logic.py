@@ -1,4 +1,3 @@
-from calls.okta import Okta
 from calls.okta_api_calls.okta_users_api import OktaUsersCalls
 
 
