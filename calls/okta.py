@@ -4,22 +4,6 @@ import json
 
 
 class Okta:
-    @classmethod
-    def users_profile(cls, email):
-        url = 'https://cruise.okta.com/api/v1/users'
-        email = email
-        params = {'filter': 'profile.email eq "{0}"'.format(email)}
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-
-        response = requests.get(url, headers=headers, params=params)
-        try:
-            return json.loads(response.text)[0]
-        except IndexError:
-            return False
 
     @classmethod
     def get_user_groups(cls, user_id):
