@@ -7,4 +7,6 @@ class TestUserDirectory(unittest.TestCase):
         self.user_directory = UserDirectory()
 
     def test_restore_user(self):
-        user_id = '4785775'
+        user_id = ['63c996ae6178fcc941d947ad']
+        response = self.user_directory.restore_user(user_id)
+        self.assertEqual(response.status_code, 200)
