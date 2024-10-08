@@ -10,5 +10,5 @@ class UserDirectoryLogic:
             response = self.user_directory.restore_user(user)
             print(response)
 
-    
+
 
