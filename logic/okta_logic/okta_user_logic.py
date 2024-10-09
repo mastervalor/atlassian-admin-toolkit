@@ -5,7 +5,7 @@ class OktaUsers:
 
     @classmethod
     def get_user_manager(cls, email):
-        if "@getcruise.com" not in email:
+        if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
         try:
@@ -17,7 +17,7 @@ class OktaUsers:
 
     @classmethod
     def get_user_id(cls, email):
-        if "@getcruise.com" not in email:
+        if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
         try:
@@ -29,15 +29,17 @@ class OktaUsers:
 
     @classmethod
     def get_user_status(cls, email):
-        if "@getcruise.com" not in email:
+        if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
-        user_status = user_profile['status']
-        return user_status
+        if user_profile:
+            return user_profile['status']
+        else:
+            return None
 
     @classmethod
     def get_user_title(cls, email):
-        if "@getcruise.com" not in email:
+        if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
         user_title = user_profile['profile']['title']
@@ -45,7 +47,7 @@ class OktaUsers:
 
     @classmethod
     def get_manager_info(cls, email):
-        if "@getcruise.com" not in email:
+        if "@" not in email:
             email = email + '@getcruise.com'
         manager = cls.get_user_manager(email)
         if manager is None:
