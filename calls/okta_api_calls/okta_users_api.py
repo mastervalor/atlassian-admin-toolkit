@@ -21,4 +21,6 @@ class OktaUsersCalls:
             return json.loads(response.text)[0]
         except IndexError:
             return False
+        except KeyError:
+            return False
 
