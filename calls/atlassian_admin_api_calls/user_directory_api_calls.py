@@ -18,10 +18,10 @@ class UserDirectory:
             "Authorization": self.token
         }
 
-        response = json.loads(requests.request(
+        response = requests.request(
             "POST",
             url,
             headers=headers
-        ).text)
+        )
 
         return response
