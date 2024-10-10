@@ -1,4 +1,5 @@
 from calls.atlassian_admin_api_calls.auth_policies_api import AtlassianAuthPolicies
+from dataformating.response_handling import APIResponseHandler
 import math
 
 
@@ -9,44 +10,21 @@ class AuthPolicies:
     def get_status_of_task(self, task_id):
         response = self.auth_policies.get_task_status(task_id)
 
-        # Check the status code of the response
-        if response.status_code == 200:
-            # Request succeeded, process the task status
-            task_status = response.json()
-            print("Task in progress:", task_status.get(' ', 0))
+        # Use the APIResponseHandler to process the response
+        handler = APIResponseHandler(response)
+
+        # Check if the response was successful (2xx status code)
+        if handler.get_status_code() == 200:
+            task_status = handler.get_data()
+            print("Task in progress:", task_status.get('inProgressCount', 0))
             print("Task success count:", task_status.get('successCount', 0))
             print("Task failure count:", task_status.get('failureCount', 0))
             return task_status
 
-        elif response.status_code == 400:
-            # Handle bad request
-            print("Bad request. Please check the syntax or parameters.")
-            return {"error": "Bad Request", "details": response.json()}
-
-        elif response.status_code == 401:
-            # Handle unauthorized access
-            print("Unauthorized access. Please check your authentication token.")
-            return {"error": "Unauthorized", "details": response.json()}
-
-        elif response.status_code == 404:
-            # Handle not found
-            print(f"Task with ID {task_id} not found.")
-            return {"error": "Not Found", "details": response.json()}
-
-        elif response.status_code == 429:
-            # Handle rate limiting
-            print("Rate limit exceeded. Please try again later.")
-            return {"error": "Too Many Requests", "details": response.json()}
-
-        elif response.status_code == 500:
-            # Handle internal server error
-            print("Server error. Please try again later.")
-            return {"error": "Internal Server Error", "details": response.json()}
-
+        # Handle any errors and print the appropriate message
         else:
-            # Handle unexpected status codes
-            print(f"Unexpected error: {response.status_code}")
-            return {"error": f"Unexpected error {response.status_code}", "details": response.text}
+            print(f"Error occurred: {handler.get_error_message()}")
+            return {"error": handler.get_error_message(), "details": handler.get_data()}
 
     def add_users_to_auth_policies(self, users, policy_id):
         # Define chunk size (500 users per request)
