@@ -8,7 +8,6 @@ class UserDirectoryLogic:
     def restore_users(self, users):
         for user in users:
             response = self.user_directory.restore_user(user)
-            print(response)
-
+            print(response['message'])
 
 
