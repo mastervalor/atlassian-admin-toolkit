@@ -3,7 +3,7 @@ from calls.looker_api_calls.looker_user_api import LookerUsers
 
 class LookerUserLogic:
     def __init__(self):
-        self.looker_user = LookerUsers
+        self.looker_user = LookerUsers()
 
     def deactivate_users(self, user_ids):
         for user_id in user_ids:
@@ -13,4 +13,3 @@ class LookerUserLogic:
                 print(f'User {user_id} deactivated successfully.')
             else:
                 print(f'Failed to deactivate user {user_id}: {response.content}')
-                
