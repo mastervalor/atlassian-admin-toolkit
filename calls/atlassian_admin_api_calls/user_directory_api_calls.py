@@ -25,3 +25,19 @@ class UserDirectory:
         )
 
         return response
+
+    def suspend_user(self, user_id):
+        url = self.admin_url + f"{self.org_id}/directory/users/{user_id}/suspend-access"
+
+        headers = {
+            "Accept": "application/json",
+            "Authorization": self.token
+        }
+
+        response = requests.request(
+            "POST",
+            url,
+            headers=headers
+        )
+
+        return response
