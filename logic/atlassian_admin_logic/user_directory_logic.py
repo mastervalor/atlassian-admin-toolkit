@@ -14,5 +14,5 @@ class UserDirectoryLogic:
             if handler.get_status_code() == 200:
                 print(f"Success: {handler.get_data().get('message', 'No message returned')}")
             else:
-                print(f"Error: {handler.get_error_message()}")
-                
+                print(f"Error code:{handler.get_status_code()} Error: {handler.get_error_message()}")
+
