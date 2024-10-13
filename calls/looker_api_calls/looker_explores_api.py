@@ -32,3 +32,4 @@ class LookerExplores:
         response = requests.get(url, headers=headers)
 
         return response
+    
