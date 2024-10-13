@@ -32,12 +32,14 @@ class LookerDashboardLogic:
         if response.status_code == 200:
             dashboard = response.json()
 
-            # Assuming model information is stored within `dashboard_elements`
             # Extract model details from each element of the dashboard
             model_names = set()  # Use a set to avoid duplicates
-            for element in dashboard.get('dashboard_elements', []):
-                model = element.get('query', {}).get('model')
-                if model:
+            dashboard_elements = dashboard.get('dashboard_elements', [])
+
+            for element in dashboard_elements:
+                query = element.get('query')
+                if query and 'model' in query:
+                    model = query['model']
                     model_names.add(model)
 
             if model_names:
@@ -45,6 +47,7 @@ class LookerDashboardLogic:
             else:
                 print(f"No model information found for dashboard ID {dashboard_id}")
 
-            return model_names
+            # Convert set to list before returning
+            return list(model_names)
         else:
             raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
