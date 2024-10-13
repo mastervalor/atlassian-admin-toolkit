@@ -8,3 +8,17 @@ class LookerExplores:
         self.looker_url = looker_base_url
         self.looker_token = LookerToken()
         self.token = self.looker_token.get_access_token()
+
+    
+
+    def get_all_explores_by_model(self, model_name):
+        """Retrieve all explores for a specific model."""
+        url = f'{self.looker_url}/api/4.0/lookml_models/{model_name}/explores'
+        headers = {
+            'Authorization': f'token {self.token}',
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.get(url, headers=headers)
+
+        return response
