@@ -11,7 +11,6 @@ class LookerExplores:
 
     def get_all_explores(self):
         """Retrieve all explores across all models in the system."""
-        # Step 1: Get all LookML models
         models_url = f'{self.looker_url}/api/4.0/lookml_models'
         headers = {
             'Authorization': f'token {self.token}',
@@ -20,7 +19,6 @@ class LookerExplores:
 
         models_response = requests.get(models_url, headers=headers)
 
-        # Return the raw response for the models so the logic can be handled elsewhere
         return models_response
 
     def get_all_explores_by_model(self, model_name):
