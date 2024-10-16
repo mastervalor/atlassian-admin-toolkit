@@ -50,8 +50,11 @@ class OktaUsers:
         if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
-        second_email = user_profile['profile']['secondEmail']
-        return second_email
+        try:
+            second_email = user_profile['profile']['secondEmail']
+            return second_email
+        except TypeError:
+            return None
 
     @classmethod
     def get_manager_info(cls, email):
