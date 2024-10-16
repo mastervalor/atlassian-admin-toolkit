@@ -16,10 +16,10 @@ for row in file:
                 manager = OktaUsers.get_user_manager(owner)
                 if manager:
                     manager_status = OktaUsers.get_user_status(manager)
-                    print(owner, owner_status, manager, manager_status)
+                    print(row['API Integration Account'], owner, owner_status, manager, manager_status)
                 else:
-                    print(owner, owner_status, manager)
+                    print(row['API Integration Account'], owner, owner_status, manager)
             else:
-                print(owner, owner_status)
+                print(row['API Integration Account'], owner, owner_status)
         else:
-            print(owner)
+            print(row['API Integration Account'], owner)
