@@ -15,3 +15,8 @@ for project in file:
 projects = project_logic.get_project_owners_and_status()
 
 for project in projects:
+    if project['Key'] not in archived_projects:
+        projects_table.append(project)
+
+
+os_logic.write_to_file(projects_table)
