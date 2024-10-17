@@ -121,7 +121,7 @@ class Projects:
 
     def get_project_owners_and_status(self):
         project_owners = []
-        projects = self.jira.get_projects_with_owners()
+        projects = self.jira_projects.get_projects_with_owners()
         for project in projects:
             project_owners.append({
                 'Project': project['name'],
