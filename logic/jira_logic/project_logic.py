@@ -1,11 +1,13 @@
 from calls.jira import Jira
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
+from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 
 
 class Projects:
     def __init__(self, is_staging=False):
         self.jira = Jira(is_staging)
         self.jira_groups = GroupJiraCalls()
+        self.jira_projects = ProjectJiraCalls()
         self.project_roles = {'Administrators': '10002', 'Developers': '10001', 'users': '10000', 'agents': '10301',
                               'customers': '10300'}
 
@@ -89,7 +91,7 @@ class Projects:
         return f"No developer found in {key}"
 
     def get_project_type(self, key):
-        project = self.jira.get_project(key)
+        project = self.jira_projects.get_project(key)
         return project['projectTypeKey']
 
     def build_project_table(self, name, key, approver, approver_status):
