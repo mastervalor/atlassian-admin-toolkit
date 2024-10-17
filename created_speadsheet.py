@@ -1,4 +1,4 @@
-from call import Jira
+from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 import re
 import os
 import csv
@@ -13,7 +13,7 @@ def extract_section(input_string):
         return None
 
 
-jira = Jira()
+jira = ProjectJiraCalls()
 newFile = 'project status'
 openFile = 'all projects'
 
