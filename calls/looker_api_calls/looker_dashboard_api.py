@@ -32,3 +32,13 @@ class LookerDashboard:
         response = requests.get(url, headers=headers)
 
         return response
+
+    def search_dashboards_for_explore(self, explore_name):
+        url = f'{self.looker_url}/api/4.0/dashboards/search'
+        headers = {
+            'Authorization': f'token {self.token}',
+            'Content-Type': 'application/json'
+        }
+        params = {'explore': explore_name}
+        response = requests.get(url, headers=headers, params=params)
+        return response.json()
