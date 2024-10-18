@@ -19,4 +19,3 @@ class LooksExplores:
             return response.json()
         else:
             raise Exception(f'Failed to search looks by explore: {response.text}')
-        
