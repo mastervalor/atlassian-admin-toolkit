@@ -39,10 +39,3 @@ class LookerExplorersLogic:
                 combined_data = {**model, **explore}
                 explores_data.append(combined_data)
         return explores_data
-
-        # 'model_name': model['name'],
-        # 'project_name': model['project_name'],
-        # 'explore_name': explore['name'],
-        # 'explore_label': explore['label'],
-        # 'explore_hidden': explore['hidden'],
-        # 'explore_group_label': explore['group_label']
