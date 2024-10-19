@@ -27,52 +27,51 @@ class LookerDashboardLogic:
             else:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
 
-    def get_dashboards_models(self, dashboard_id):
+    def get_dashboards_models(self, dashboard_id, model_name):
+        """
+        Retrieves and counts occurrences of the specified model in the dashboard elements.
+
+        :param dashboard_id: The ID of the dashboard to retrieve.
+        :param model_name: The name of the model to search for in the dashboard elements.
+        :return: A tuple with (model_count, dashboard_title), where model_count is the number of times the model is found.
+        """
         response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
         if response.status_code == 200:
             dashboard = response.json()
+            dashboard_title = dashboard.get('title', 'No Title')
 
             # Extract model details from each element of the dashboard
-            model_names = set()  # Use a set to avoid duplicates
+            model_count = 0
             dashboard_elements = dashboard.get('dashboard_elements', [])
 
             for element in dashboard_elements:
+                # Check if the model is present in the 'query' of the dashboard element
                 query = element.get('query')
                 if query and 'model' in query:
-                    model = query['model']
-                    model_names.add(model)
+                    model_info = query['model']
+                    if isinstance(model_info, dict):
+                        if model_info.get('id') == model_name:
+                            model_count += 1
+                    elif isinstance(model_info, str) and model_info == model_name:
+                        model_count += 1
 
-            if model_names:
-                print(f"Dashboard ID {dashboard_id} uses models: {', '.join(model_names)}")
+                # Check for models within 'result_maker'
+                result_maker = element.get('result_maker')
+                if result_maker and 'query' in result_maker:
+                    query = result_maker['query']
+                    model_info = query.get('model')
+                    if isinstance(model_info, dict):
+                        if model_info.get('id') == model_name:
+                            model_count += 1
+                    elif isinstance(model_info, str) and model_info == model_name:
+                        model_count += 1
+
+            if model_count > 0:
+                print(
+                    f"Dashboard ID {dashboard_id} (Title: {dashboard_title}) uses model '{model_name}' {model_count} times.")
             else:
-                print(f"No model information found for dashboard ID {dashboard_id}")
+                print(f"Dashboard ID {dashboard_id} (Title: {dashboard_title}) does not use model '{model_name}'.")
 
-            # Convert set to list before returning
-            return list(model_names)
+            return model_count, dashboard_title
         else:
             raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
-
-    def search_for_jira_model(self, dashboard_elements):
-        jira_model_count = 0  # To count, how many times the "Jira" model appears
-        for element in dashboard_elements:
-            # Check in 'look' for the model
-            if 'look' in element:
-                look = element['look']
-                if 'query' in look and 'model' in look['query']:
-                    model_info = look['query']['model']
-                    if isinstance(model_info, dict) and model_info.get('id') == 'jira':
-                        jira_model_count += 1
-                    elif isinstance(model_info, str) and model_info == 'jira':
-                        jira_model_count += 1
-
-            # Check in 'result_maker' for the model
-            if 'result_maker' in element:
-                result_maker = element['result_maker']
-                if 'query' in result_maker and 'model' in result_maker['query']:
-                    model_info = result_maker['query']['model']
-                    if isinstance(model_info, dict) and model_info.get('id') == 'jira':
-                        jira_model_count += 1
-                    elif isinstance(model_info, str) and model_info == 'jira':
-                        jira_model_count += 1
-
-        return jira_model_count
