@@ -16,62 +16,78 @@ class LookerDashboardLogic:
         else:
             raise Exception(f'Failed to retrieve dashboards: {response.content}')
 
-    def get_dashboards_by_id(self, dashboard_ids):
+    def get_dashboards_by_ids(self, dashboard_ids, model_name):
+        """
+        Retrieves and counts occurrences of a specified model in each dashboard by their IDs.
+
+        :param dashboard_ids: List of dashboard IDs to retrieve.
+        :param model_name: The name of the model to search for in the dashboard elements.
+        :return: A list of dictionaries containing dashboard ID, title, and model count.
+        """
+        dashboards_info = []
+
         for dashboard_id in dashboard_ids:
             response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
 
             if response.status_code == 200:
                 dashboard = response.json()
-                print(f"ID: {dashboard['id']}, Title: {dashboard['title']}, URL: {dashboard['url']}")
-                return dashboard
+                model_count, dashboard_title = self.get_dashboards_models(dashboard, model_name)
+                dashboards_info.append({
+                    'dashboard_id': dashboard_id,
+                    'title': dashboard_title,
+                    'model_count': model_count
+                })
             else:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
 
-    def get_dashboards_models(self, dashboard_id, model_name):
-        """
-        Retrieves and counts occurrences of the specified model in the dashboard elements.
+        return dashboards_info
 
-        :param dashboard_id: The ID of the dashboard to retrieve.
+    def recursive_model_search(self, data, model_name):
+        """
+        Recursively searches through nested dictionaries and lists for the specified model.
+
+        :param data: The data (dictionary or list) to search through.
+        :param model_name: The name of the model to search for.
+        :return: The count of how many times the model is found.
+        """
+        model_count = 0
+
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if key == 'model':
+                    # Handle both dictionary and string representations of the model
+                    if isinstance(value, dict) and value.get('id') == model_name:
+                        model_count += 1
+                    elif isinstance(value, str) and value == model_name:
+                        model_count += 1
+                # Recursively search in nested dictionaries
+                model_count += self.recursive_model_search(value, model_name)
+
+        elif isinstance(data, list):
+            for item in data:
+                # Recursively search in nested lists
+                model_count += self.recursive_model_search(item, model_name)
+
+        return model_count
+
+    def get_dashboards_models(self, dashboard, model_name):
+        """
+        Extracts model details from the dashboard elements and counts occurrences of the specified model.
+
+        :param dashboard: The dashboard object to process.
         :param model_name: The name of the model to search for in the dashboard elements.
         :return: A tuple with (model_count, dashboard_title), where model_count is the number of times the model is found.
         """
-        response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
-        if response.status_code == 200:
-            dashboard = response.json()
-            dashboard_title = dashboard.get('title', 'No Title')
+        dashboard_title = dashboard.get('title', 'No Title')
+        dashboard_elements = dashboard.get('dashboard_elements', [])
 
-            # Extract model details from each element of the dashboard
-            model_count = 0
-            dashboard_elements = dashboard.get('dashboard_elements', [])
+        # Use recursive search to count occurrences of the model
+        model_count = self.recursive_model_search(dashboard_elements, model_name)
 
-            for element in dashboard_elements:
-                # Check if the model is present in the 'query' of the dashboard element
-                query = element.get('query')
-                if query and 'model' in query:
-                    model_info = query['model']
-                    if isinstance(model_info, dict):
-                        if model_info.get('id') == model_name:
-                            model_count += 1
-                    elif isinstance(model_info, str) and model_info == model_name:
-                        model_count += 1
-
-                # Check for models within 'result_maker'
-                result_maker = element.get('result_maker')
-                if result_maker and 'query' in result_maker:
-                    query = result_maker['query']
-                    model_info = query.get('model')
-                    if isinstance(model_info, dict):
-                        if model_info.get('id') == model_name:
-                            model_count += 1
-                    elif isinstance(model_info, str) and model_info == model_name:
-                        model_count += 1
-
-            if model_count > 0:
-                print(
-                    f"Dashboard ID {dashboard_id} (Title: {dashboard_title}) uses model '{model_name}' {model_count} times.")
-            else:
-                print(f"Dashboard ID {dashboard_id} (Title: {dashboard_title}) does not use model '{model_name}'.")
-
-            return model_count, dashboard_title
+        if model_count > 0:
+            print(
+                f"Dashboard ID {dashboard['id']} (Title: {dashboard_title}) uses model '{model_name}' {model_count} times.")
         else:
-            raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
+            print(f"Dashboard ID {dashboard['id']} (Title: {dashboard_title}) does not use model '{model_name}'.")
+
+        return model_count, dashboard_title
