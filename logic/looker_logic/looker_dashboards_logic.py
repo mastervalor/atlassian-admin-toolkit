@@ -91,3 +91,43 @@ class LookerDashboardLogic:
             print(f"Dashboard ID {dashboard['id']} (Title: {dashboard_title}) does not use model '{model_name}'.")
 
         return model_count, dashboard_title
+
+    def get_dashboard_metadata(self, dashboard_ids, model_name):
+        """
+        Retrieves metadata for each dashboard including creation details, model count, and access details.
+
+        :param dashboard_ids: List of dashboard IDs to retrieve.
+        :param model_name: The name of the model to search for in the dashboard elements.
+        :return: A list of dictionaries with dashboard metadata.
+        """
+        dashboards_info = []
+
+        for dashboard_id in dashboard_ids:
+            response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
+
+            if response.status_code == 200:
+                dashboard = response.json()
+
+                # Call the get_dashboards_models function to get model count and title
+                model_count, dashboard_title = self.get_dashboards_models(dashboard, model_name)
+
+                # Extract high-level metadata
+                dashboard_metadata = {
+                    'dashboard_id': dashboard.get('id'),
+                    'title': dashboard_title,
+                    'created_at': dashboard.get('created_at'),
+                    'created_by': dashboard.get('user_id'),  # Assuming this field exists
+                    'last_updated_at': dashboard.get('updated_at'),
+                    'last_updated_by': dashboard.get('last_updater_id'),
+                    'last_viewed': dashboard.get('last_viewed_at'),
+                    'last_accessed': dashboard.get('last_accessed_at'),
+                    'model_name': model_name,
+                    'model_count': model_count
+                }
+
+                dashboards_info.append(dashboard_metadata)
+
+            else:
+                raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
+
+        return dashboards_info
