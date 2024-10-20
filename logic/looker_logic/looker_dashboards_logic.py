@@ -1,4 +1,5 @@
 from calls.looker_api_calls.looker_dashboard_api import LookerDashboard
+from dataformating.datetime_formating import DateTimeFormating
 
 
 class LookerDashboardLogic:
@@ -115,13 +116,13 @@ class LookerDashboardLogic:
                 dashboard_metadata = {
                     'dashboard_id': dashboard.get('id'),
                     'title': dashboard_title,
-                    'created_at': dashboard.get('created_at'),
+                    'created_at': DateTimeFormating.format_datetime(dashboard.get('created_at')),
                     'created_by': dashboard.get('user_name'),  # Assuming this field exists
-                    'last_updated_at': dashboard.get('updated_at'),
+                    'last_updated_at': DateTimeFormating.format_datetime(dashboard.get('updated_at')),
                     'last_updated_by': dashboard.get('last_updater_id'),
-                    'last_viewed': dashboard.get('last_viewed_at'),
+                    'last_viewed': DateTimeFormating.format_datetime(dashboard.get('last_viewed_at')),
                     'view_count': dashboard.get('view_count'),
-                    'last_accessed': dashboard.get('last_accessed_at'),
+                    'last_accessed': DateTimeFormating.format_datetime(dashboard.get('last_accessed_at')),
                     'model_name': model_name,
                     'model_count': model_count
                 }
