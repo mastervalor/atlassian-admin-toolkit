@@ -123,7 +123,7 @@ class LookerDashboardLogic:
                     'created_at': DateTimeFormating.format_datetime(dashboard.get('created_at')),
                     'created_by': dashboard.get('user_name'),  # Assuming this field exists
                     'last_updated_at': DateTimeFormating.format_datetime(dashboard.get('updated_at')),
-                    'last_updated_by': dashboard.get('last_updater_id'),
+                    'last_updated_by': dashboard.get('last_updater_name'),
                     'last_viewed': DateTimeFormating.format_datetime(dashboard.get('last_viewed_at')),
                     'view_count': dashboard.get('view_count'),
                     'last_accessed': DateTimeFormating.format_datetime(dashboard.get('last_accessed_at')),
