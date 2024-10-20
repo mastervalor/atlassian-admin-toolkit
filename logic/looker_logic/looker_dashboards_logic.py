@@ -127,8 +127,8 @@ class LookerDashboardLogic:
                     'last_viewed': DateTimeFormating.format_datetime(dashboard.get('last_viewed_at')),
                     'view_count': dashboard.get('view_count'),
                     'last_accessed': DateTimeFormating.format_datetime(dashboard.get('last_accessed_at')),
+                    'main_model': dashboard.get('model'),
                     'model_counts': model_counts,  # Add model counts to metadata
-                    'main_model': dashboard.get('model')
                 }
                 for model, count in model_counts.items():
                     dashboard_metadata[f'{model}_count'] = count
@@ -140,4 +140,3 @@ class LookerDashboardLogic:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
 
         return dashboards_info
-    
