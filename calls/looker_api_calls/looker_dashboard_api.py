@@ -7,7 +7,7 @@ class LookerDashboard:
     def __init__(self):
         self.looker_url = looker_base_url
         self.looker_token = LookerToken()
-        self.token = self.looker_token.get_access_token()
+        self.token = self.looker_token.token
 
     def get_all_dashboards(self):
         """Retrieve all dashboards and their details."""
@@ -30,6 +30,13 @@ class LookerDashboard:
         }
 
         response = requests.get(url, headers=headers)
+
+        # If the token is expired (401 or 403), refresh the token and retry
+        if response.status_code in [401, 403]:
+            print(f"Token expired, refreshing token for dashboard {dashboard_id}...")
+            self.token = self.looker_token.refresh_token()  # Refresh the token
+            headers['Authorization'] = f'token {self.token}'
+            response = requests.get(url, headers=headers)
 
         return response
 
