@@ -129,6 +129,8 @@ class LookerDashboardLogic:
                     'last_accessed': DateTimeFormating.format_datetime(dashboard.get('last_accessed_at')),
                     'model_counts': model_counts  # Add model counts to metadata
                 }
+                for model, count in model_counts.items():
+                    dashboard_metadata[f'{model}_count'] = count
 
                 dashboards_info.append(dashboard_metadata)
                 print(f'All data found for {dashboard_title}')
