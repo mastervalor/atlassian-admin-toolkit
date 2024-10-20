@@ -12,4 +12,4 @@ for dash in dashboards:
     dashboards_ids.append(dash['dashboard_id'])
 
 dashboards_info = dashboard_logic.get_dashboard_metadata(dashboards_ids, model_names)
-print(dashboards_ids)
+os_logic.write_to_file(dashboards_info)
