@@ -140,3 +140,4 @@ class LookerDashboardLogic:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
 
         return dashboards_info
+    
