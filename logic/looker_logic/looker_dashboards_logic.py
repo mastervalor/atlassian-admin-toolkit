@@ -128,6 +128,7 @@ class LookerDashboardLogic:
                 }
 
                 dashboards_info.append(dashboard_metadata)
+                print(f'All data found for {dashboard_title}')
 
             else:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
