@@ -1,12 +1,12 @@
 import requests
-from _post  import PostHandeling
+from slack_api_handling import APIHandling
 
 
 class UserAPIClient:
     def __init__(self, token=None):
         self.base_url = 'https://slack.com/api/'
         self.token = token
-        self.post_handling = PostHandeling()
+        self.post_handling = APIHandling()
 
     def get_user_id(self, user_email):
         url = self.base_url + 'users.lookupByEmail'
