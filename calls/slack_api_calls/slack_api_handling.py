@@ -21,3 +21,16 @@ class APIHandler:
             error = response_data.get('error', 'Unknown error')
             raise Exception(f"Slack API error on {endpoint}: {error}")
         return response_data
+
+    def _get(self, endpoint, params):
+        url = self.base_url + endpoint
+        headers = {
+            'Authorization': f'Bearer {self.token}'
+        }
+        response = requests.get(url, headers=headers, params=params)
+        response_data = response.json()
+        if not response_data.get('ok'):
+            error = response_data.get('error', 'Unknown error')
+            raise Exception(f"Slack API error on {endpoint}: {error}")
+        return response_data
+    
