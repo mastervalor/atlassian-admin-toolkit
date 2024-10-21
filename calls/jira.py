@@ -393,7 +393,7 @@ class Jira:
         )
 
         if response.status_code == 200:
-            return response.json()  # Use response.json() for automatic parsing
+            return response.json()
         elif response.status_code == 202:
             return {"message": "Request accepted and processed successfully, but no immediate response."}
         else:
