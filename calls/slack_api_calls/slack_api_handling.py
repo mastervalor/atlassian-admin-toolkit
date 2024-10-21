@@ -1,10 +1,9 @@
-import os
 import requests
 from auth import slack_token
 
 
 class APIHandler:
-    def __init__(self, token=None):
+    def __init__(self):
         self.base_url = 'https://slack.com/api/'
         self.token = slack_token
         if not self.token:
