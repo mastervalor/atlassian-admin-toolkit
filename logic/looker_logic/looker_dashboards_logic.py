@@ -168,3 +168,31 @@ class LookerDashboardLogic:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
 
         return dashboards_info
+
+    def get_dashboard_updaters(self, dashboard_ids):
+        """
+             Retrieves metadata for each dashboard including creation details, model counts, and access details.
+
+             :param dashboard_ids: List of dashboard IDs to retrieve.
+             :return: A list of dictionaries with dashboard updaters.
+             """
+        dashboards_info = []
+
+        for dashboard_id in dashboard_ids:
+            response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
+
+            if response.status_code == 200:
+                dashboard = response.json()
+
+                dashboard_metadata = {
+                    'dashboard_id': dashboard.get('id'),
+                    'last_updated_by': dashboard.get('last_updater_name'),
+                }
+
+                dashboards_info.append(dashboard_metadata)
+                print(f'All data found for {dashboard.get("id")}')
+
+            else:
+                raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
+
+        return dashboards_info
