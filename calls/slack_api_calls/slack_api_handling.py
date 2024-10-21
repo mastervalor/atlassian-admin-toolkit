@@ -2,14 +2,14 @@ import requests
 from auth import slack_token
 
 
-class APIHandler:
+class SlackAPIHandling:
     def __init__(self):
         self.base_url = 'https://slack.com/api/'
         self.token = slack_token
         if not self.token:
             raise ValueError("Slack Bot User OAuth token is required.")
 
-    def _post(self, endpoint, data):
+    def post(self, endpoint, data):
         url = self.base_url + endpoint
         headers = {
             'Content-Type': 'application/json; charset=utf-8',
@@ -22,7 +22,7 @@ class APIHandler:
             raise Exception(f"Slack API error on {endpoint}: {error}")
         return response_data
 
-    def _get(self, endpoint, params):
+    def get(self, endpoint, params):
         url = self.base_url + endpoint
         headers = {
             'Authorization': f'Bearer {self.token}'
