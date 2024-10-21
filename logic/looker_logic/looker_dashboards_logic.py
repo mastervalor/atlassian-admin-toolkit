@@ -190,7 +190,7 @@ class LookerDashboardLogic:
                 }
 
                 dashboards_info.append(dashboard_metadata)
-                print(f'All data found for {dashboard.get("id")}')
+                print(f'All data found for {dashboard.get("id")}, Updater {dashboard.get("last_updated_by")}')
 
             else:
                 raise Exception(f'Failed to retrieve dashboard {dashboard_id}: {response.content}')
