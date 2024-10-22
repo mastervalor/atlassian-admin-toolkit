@@ -13,3 +13,11 @@ class MessageHandler:
         response_data = self.api_handler.post(endpoint, data)
         return response_data['channel']['id']
 
+    def open_group_message(self, user_ids):
+        if not isinstance(user_ids, list) or len(user_ids) < 2:
+            raise ValueError("user_ids must be a list of at least two user IDs.")
+        endpoint = 'conversations.open'
+        data = {'users': ','.join(user_ids)}
+        response_data = self.api_handler.post(endpoint, data)
+        return response_data['channel']['id']
+
