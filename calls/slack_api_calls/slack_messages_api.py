@@ -29,4 +29,3 @@ class MessageHandler:
         }
         response_data = self.api_handler.post(endpoint, data)
         return response_data
-    
