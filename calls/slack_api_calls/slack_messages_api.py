@@ -21,3 +21,12 @@ class MessageHandler:
         response_data = self.api_handler.post(endpoint, data)
         return response_data['channel']['id']
 
+    def send_message(self, channel_id, text):
+        endpoint = 'chat.postMessage'
+        data = {
+            'channel': channel_id,
+            'text': text
+        }
+        response_data = self.api_handler.post(endpoint, data)
+        return response_data
+    
