@@ -1,9 +1,9 @@
-from slack_api_handling import SlackAPIHandling
+from calls.slack_api_calls.slack_api_handling import SlackAPIHandling
 
 
 class SlackUserAPI:
-    def __init__(self, api_handler):
-        self.api_handler = api_handler
+    def __init__(self):
+        self.api_handler = SlackAPIHandling()
 
     def get_user_id(self, user_email):
         endpoint = 'users.lookupByEmail'
