@@ -16,3 +16,22 @@ class MessageLogic:
         except Exception as e:
             print(f"Failed to send direct message to {user_email}: {e}")
 
+    def send_group_message(self, user_emails, message_text):
+        user_ids = []
+        for email in user_emails:
+            try:
+                user_id = self.user_handler.get_user_id(email)
+                user_ids.append(user_id)
+            except Exception as e:
+                print(f"Failed to get user ID for {email}: {e}")
+
+        if len(user_ids) < 2:
+            print("At least two valid users are required for a group message.")
+            return
+
+        try:
+            channel_id = self.message_handler.open_group_message(user_ids)
+            self.message_handler.send_message(channel_id, message_text)
+            print(f"Group message sent to {', '.join(user_emails)}")
+        except Exception as e:
+            print(f"Failed to send group message: {e}")
