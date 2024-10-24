@@ -29,4 +29,13 @@ class TestMessageHandler(unittest.TestCase):
         self.assertTrue(response['ok'])
         print(f"Message sent to {self.test_email}")
 
-    
+    def test_open_group_message(self):
+        user_ids = []
+        for email in self.test_email_group:
+            user_id = self.user_api.get_user_id(email)
+            user_ids.append(user_id)
+        channel_id = self.message_handler.open_group_message(user_ids)
+        self.assertIsNotNone(channel_id)
+        print(f"Group DM Channel ID: {channel_id}")
+
+   
