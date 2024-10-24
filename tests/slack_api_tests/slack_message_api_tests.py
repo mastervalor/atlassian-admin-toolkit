@@ -15,3 +15,11 @@ class TestMessageHandler(unittest.TestCase):
             'mourad.marzouk@getcruise.com',
             'test.user@getcruise.com'
         ]
+
+    def test_open_direct_message(self):
+        user_id = self.user_api.get_user_id(self.test_email)
+        channel_id = self.message_handler.open_direct_message(user_id)
+        self.assertIsNotNone(channel_id)
+        print(f"DM Channel ID with {self.test_email}: {channel_id}")
+
+    
