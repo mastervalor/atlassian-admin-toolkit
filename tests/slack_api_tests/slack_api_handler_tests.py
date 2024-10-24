@@ -7,4 +7,12 @@ class TestSlackAPIHandling(unittest.TestCase):
     def setUpClass(cls):
         cls.api_handler = SlackAPIHandling()
 
-    
+    def test_get(self):
+        # Test the 'api.test' endpoint which is safe and doesn't require parameters
+        endpoint = 'api.test'
+        params = {'foo': 'bar'}
+        response = self.api_handler.get(endpoint, params)
+        self.assertTrue(response['ok'])
+        self.assertEqual(response['args']['foo'], 'bar')
+
+   
