@@ -22,4 +22,11 @@ class TestMessageHandler(unittest.TestCase):
         self.assertIsNotNone(channel_id)
         print(f"DM Channel ID with {self.test_email}: {channel_id}")
 
+    def test_send_direct_message(self):
+        user_id = self.user_api.get_user_id(self.test_email)
+        channel_id = self.message_handler.open_direct_message(user_id)
+        response = self.message_handler.send_message(channel_id, "Hello from unittest!")
+        self.assertTrue(response['ok'])
+        print(f"Message sent to {self.test_email}")
+
     
