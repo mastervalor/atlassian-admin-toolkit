@@ -38,4 +38,16 @@ class TestMessageHandler(unittest.TestCase):
         self.assertIsNotNone(channel_id)
         print(f"Group DM Channel ID: {channel_id}")
 
-   
+    def test_send_group_message(self):
+        user_ids = []
+        for email in self.test_email_group:
+            user_id = self.user_api.get_user_id(email)
+            user_ids.append(user_id)
+        channel_id = self.message_handler.open_group_message(user_ids)
+        response = self.message_handler.send_message(channel_id, "Hello group from unittest!")
+        self.assertTrue(response['ok'])
+        print(f"Group message sent to {', '.join(self.test_email_group)}")
+
+
+if __name__ == '__main__':
+    unittest.main()
