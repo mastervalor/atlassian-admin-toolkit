@@ -1,4 +1,4 @@
-def create_message_blocks(name, svc_name):
+def api_message_block(name, svc_name):
     blocks = []
 
     # Greeting block
