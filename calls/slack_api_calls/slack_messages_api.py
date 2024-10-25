@@ -21,11 +21,12 @@ class SlackMessageAPI:
         response_data = self.api_handler.post(endpoint, data)
         return response_data['channel']['id']
 
-    def send_message(self, channel_id, text):
+    def send_message(self, channel_id, text=None, blocks=None):
         endpoint = 'chat.postMessage'
-        data = {
-            'channel': channel_id,
-            'text': text
-        }
+        data = {'channel': channel_id}
+        if text:
+            data['text'] = text
+        if blocks:
+            data['blocks'] = blocks
         response_data = self.api_handler.post(endpoint, data)
         return response_data
