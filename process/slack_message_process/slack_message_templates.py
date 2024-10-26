@@ -91,9 +91,31 @@ def api_message_block(name, svc_name):
 
     return blocks
 
+
 def looker_message_block(creator, updater, dashboard_name, dashboard_id):
     blocks = []
 
     # Greeting block
     greeting_text = f":wave: Hello {creator} and {updater},"
-    
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": greeting_text
+        }
+    })
+
+    # First paragraph
+    paragraph1 = (
+        f"We are reaching out as you have been identified as the creator or updater of the Looker dashboard "
+        f"<https://looker.robot.car/dashboards/{str(dashboard_id)}|{dashboard_name}>. We want to inform you that this dashboard currently uses the Jira direct database "
+        "as a data source, which will no longer be available after our migration to the cloud. Since Jira is moving "
+        "off AWS in line with company initiatives, this database connection will be discontinued."
+    )
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": paragraph1
+        }
+    })
