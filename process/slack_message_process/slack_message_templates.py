@@ -119,3 +119,69 @@ def looker_message_block(creator, updater, dashboard_name, dashboard_id):
             "text": paragraph1
         }
     })
+
+    paragraph2 = (
+        "We recommend switching to the BQ pipeline as your new data source. You don’t need to wait for the migration—you "
+        "can start making the switch now."
+    )
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": paragraph2
+        }
+    })
+
+    # Divider
+    blocks.append({"type": "divider"})
+
+    # Header
+    header = "What is needed from you:"
+    blocks.append({
+        "type": "header",
+        "text": {
+            "type": "plain_text",
+            "text": header,
+            "emoji": True
+        }
+    })
+
+    # Bullet points
+    bullet_points = [
+        "- Please go and create a ticket at go/rds then give us the ticket number here.",
+        "- We will work with the data ingest team to get your Jira data part of their pipeline to BQ",
+        "- If this dashboard is no longer needed, please do nothing and we will shut down the service alongside our old version of Jira"
+    ]
+
+    # Format bullets
+    bullets_text = ""
+    for point in bullet_points:
+        if point.startswith("-"):
+            content = point.strip("- ").strip()
+            bullets_text += f"• {content}\n"
+        else:
+            bullets_text += f"{point}\n"
+
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": bullets_text.strip()
+        }
+    })
+
+    # Closing paragraph
+    closing_paragraph = (
+        "If you need additional assistance preparing for migration, please let us know how we can help!\n\n"
+        "Thank you,\n"
+        "*ET Corporate Engineering*"
+    )
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": closing_paragraph
+        }
+    })
+
+    return blocks
