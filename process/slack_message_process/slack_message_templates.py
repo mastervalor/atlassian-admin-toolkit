@@ -148,7 +148,7 @@ def looker_message_block(creator, updater, dashboard_name, dashboard_id):
 
     # Bullet points
     bullet_points = [
-        "- Please go and create a ticket at go/rds then give us the ticket number here.",
+        "- Please go and create a ticket at <https://jira.robot.car/secure/CreateIssue.jspa?issuetype=10202&pid=1900|go/rds> then give us the ticket number here.",
         "- We will work with the data ingest team to get your Jira data part of their pipeline to BQ",
         "- If this dashboard is no longer needed, please do nothing and we will shut down the service alongside our old version of Jira"
     ]
