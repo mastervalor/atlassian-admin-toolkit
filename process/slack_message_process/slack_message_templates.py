@@ -63,7 +63,7 @@ def api_message_block(name, svc_name):
         if point.startswith("-"):
             # Bullet
             content = point.strip("- ").strip()
-            bullets_text += f"  •  {content}\n"
+            bullets_text += f" • {content}\n"
         else:
             bullets_text += f"{point}\n"
 
@@ -90,3 +90,10 @@ def api_message_block(name, svc_name):
     })
 
     return blocks
+
+def looker_message_block(creator, updater, dashboard_name, dashboard_id):
+    blocks = []
+
+    # Greeting block
+    greeting_text = f":wave: Hello {creator} and {updater},"
+    
