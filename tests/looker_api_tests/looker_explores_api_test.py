@@ -18,16 +18,12 @@ class TestLookerExploresIntegration(unittest.TestCase):
             self.assertIn("explores", model, "Each model should contain 'explores'")
 
     def test_get_all_explores_by_model(self):
-        # Replace 'model_name' with a valid model name for staging
-        model_name = "ecommerce"  # Example model name in staging
+        model_name = "jira"
 
-        # Call the get_all_explores_by_model method
         response = self.looker_explores.get_all_explores_by_model(model_name)
 
-        # Check if the response status code is 200 (success)
         self.assertEqual(response.status_code, 200, "Expected status code 200 for fetching explores by model")
 
-        # Optionally parse the response and check structure
         explores_data = response.json()
         self.assertIsInstance(explores_data, list, "Expected explores data to be a list")
         if explores_data:
@@ -36,14 +32,11 @@ class TestLookerExploresIntegration(unittest.TestCase):
             self.assertIn("description", explore, "Each explore should have a 'description' field")
 
     def test_get_query_history(self):
-        # Replace 'model_name' and 'explore_name' with valid values for testing
-        model_name = "ecommerce"
-        explore_name = "order_items"
+        model_name = "jira"
+        explore_name = "jira"
 
-        # Call the get_query_history method
         response = self.looker_explores.get_query_history(model_name, explore_name)
 
-        # Check if the response is a dictionary containing expected fields
         self.assertIsInstance(response, dict, "Expected response to be a dictionary")
         self.assertIn("model", response, "Response should contain the 'model' field")
         self.assertIn("explore", response, "Response should contain the 'explore' field")
@@ -52,4 +45,3 @@ class TestLookerExploresIntegration(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    
