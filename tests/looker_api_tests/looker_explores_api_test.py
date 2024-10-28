@@ -48,4 +48,8 @@ class TestLookerExploresIntegration(unittest.TestCase):
         self.assertIn("model", response, "Response should contain the 'model' field")
         self.assertIn("explore", response, "Response should contain the 'explore' field")
         self.assertIn("fields", response, "Response should contain the 'fields' field")
-        
+
+
+if __name__ == "__main__":
+    unittest.main()
+    
