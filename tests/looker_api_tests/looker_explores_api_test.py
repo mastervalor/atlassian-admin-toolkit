@@ -34,4 +34,18 @@ class TestLookerExploresIntegration(unittest.TestCase):
             explore = explores_data[0]
             self.assertIn("name", explore, "Each explore should have a 'name' field")
             self.assertIn("description", explore, "Each explore should have a 'description' field")
-            
+
+    def test_get_query_history(self):
+        # Replace 'model_name' and 'explore_name' with valid values for testing
+        model_name = "ecommerce"
+        explore_name = "order_items"
+
+        # Call the get_query_history method
+        response = self.looker_explores.get_query_history(model_name, explore_name)
+
+        # Check if the response is a dictionary containing expected fields
+        self.assertIsInstance(response, dict, "Expected response to be a dictionary")
+        self.assertIn("model", response, "Response should contain the 'model' field")
+        self.assertIn("explore", response, "Response should contain the 'explore' field")
+        self.assertIn("fields", response, "Response should contain the 'fields' field")
+        
