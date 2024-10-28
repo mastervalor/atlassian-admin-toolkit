@@ -20,3 +20,5 @@ class TestLooksExploresIntegration(unittest.TestCase):
             self.assertIn("query_id", look, "Each look result should contain a 'query_id' field")
 
 
+if __name__ == "__main__":
+    unittest.main()
