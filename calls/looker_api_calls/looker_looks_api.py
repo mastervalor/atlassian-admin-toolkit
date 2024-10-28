@@ -1,5 +1,4 @@
 import requests
-import json
 from config import looker_base_url
 from calls.looker_api_calls.looker_token_api import LookerToken
 
