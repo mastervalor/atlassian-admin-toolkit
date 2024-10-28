@@ -22,3 +22,7 @@ class TestLookerUsersIntegration(unittest.TestCase):
         response_data = response.json()
         self.assertIn('is_disabled', response_data, "Response JSON should contain 'is_disabled' key")
         self.assertTrue(response_data['is_disabled'], "User should be marked as disabled in response")
+
+
+if __name__ == "__main__":
+    unittest.main()
