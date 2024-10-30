@@ -12,12 +12,10 @@ for user in read_file:
             creator_status = OktaUsers.get_user_status(user['created_by'])
             if creator_status == 'ACTIVE':
                 active_users.append({
-                    'User id': user['User id'],
-                    'Email': user['email'],
-                    'Name': user['User name'],
+                    'creator': user['created_by'],
                     'status': creator_status
                 })
-                print(user['email'], creator_status)
+                print(user['created_by'], creator_status)
 
         if user['last_updated_by']:
             updater_status = OktaUsers.get_user_status(user['last_updated_by'])
