@@ -56,4 +56,8 @@ class TestLookerDashboardIntegration(unittest.TestCase):
             dashboard = response[0]
             self.assertIn("id", dashboard, "Each dashboard result should contain an 'id' field")
             self.assertIn("title", dashboard, "Each dashboard result should contain a 'title' field")
-            
+
+
+if __name__ == "__main__":
+    unittest.main()
+    
