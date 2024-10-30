@@ -24,3 +24,20 @@ class TestLookerDashboardIntegration(unittest.TestCase):
             dashboard = dashboards[0]
             self.assertIn("id", dashboard, "Each dashboard should contain an 'id' field")
             self.assertIn("title", dashboard, "Each dashboard should contain a 'title' field")
+
+    def test_get_dashboard_by_id(self):
+        # Replace 'dashboard_id' with a valid dashboard ID in the staging environment
+        dashboard_id = "1"  # Example ID for testing
+
+        # Call the get_dashboard_by_id method
+        response = self.looker_dashboard.get_dashboard_by_id(dashboard_id)
+
+        # Check if the response status code is 200 (success) after handling potential token expiration
+        self.assertEqual(response.status_code, 200, "Expected status code 200 for fetching dashboard by ID")
+
+        # Verify the response contains the dashboard ID and other key details
+        dashboard_data = response.json()
+        self.assertIn("id", dashboard_data, "Response should contain 'id' field")
+        self.assertIn("title", dashboard_data, "Response should contain 'title' field")
+        self.assertEqual(str(dashboard_data["id"]), dashboard_id, "Dashboard ID in response should match requested ID")
+        
