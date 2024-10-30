@@ -17,6 +17,7 @@ for user in read_file:
         board['manager'] = manager
         board['manager_title'] = manager_title
         board['manager_status'] = manager_status
+        print(creator, creator_status)
 
     if user['last_updated_by']:
         updater = user['last_updated_by'].replace(' ', '.').lower()
@@ -27,6 +28,7 @@ for user in read_file:
         board['manager'] = manager
         board['manager_title'] = manager_title
         board['manager_status'] = manager_status
+        print(updater, updater_status)
 
     active_users.append(board)
 
