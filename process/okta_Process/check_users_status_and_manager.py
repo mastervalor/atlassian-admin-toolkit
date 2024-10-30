@@ -18,6 +18,12 @@ for user in read_file:
         board['manager_title'] = manager_title
         board['manager_status'] = manager_status
         print(creator, creator_status)
+    else:
+        board['creator'] = ' '
+        board['creator_status'] = ' '
+        board['manager'] = ' '
+        board['manager_title'] = ' '
+        board['manager_status'] = ' '
 
     if user['last_updated_by']:
         updater = user['last_updated_by'].replace(' ', '.').lower()
@@ -29,6 +35,12 @@ for user in read_file:
         board['manager_title'] = manager_title
         board['manager_status'] = manager_status
         print(updater, updater_status)
+    else:
+        board['updater'] = ' '
+        board['updater_status'] = ' '
+        board['manager'] = ' '
+        board['manager_title'] = ' '
+        board['manager_status'] = ' '
 
     active_users.append(board)
 
