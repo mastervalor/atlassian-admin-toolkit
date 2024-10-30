@@ -14,6 +14,9 @@ class OktaUsers:
         except KeyError:
             print(f'no manager found for: {email}')
             return None
+        except TypeError:
+            print(f'only found: {user_profile}')
+            return None
 
     @classmethod
     def get_user_id(cls, email):
@@ -42,7 +45,11 @@ class OktaUsers:
         if "@" not in email:
             email = email + '@getcruise.com'
         user_profile = OktaUsersCalls.users_profile(email)
-        user_title = user_profile['profile']['title']
+        try:
+            user_title = user_profile['profile']['title']
+        except TypeError:
+            print(f'only found: {user_profile}')
+            return None
         return user_title
 
     @classmethod
