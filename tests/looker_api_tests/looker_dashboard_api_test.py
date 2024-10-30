@@ -40,4 +40,20 @@ class TestLookerDashboardIntegration(unittest.TestCase):
         self.assertIn("id", dashboard_data, "Response should contain 'id' field")
         self.assertIn("title", dashboard_data, "Response should contain 'title' field")
         self.assertEqual(str(dashboard_data["id"]), dashboard_id, "Dashboard ID in response should match requested ID")
-        
+
+    def test_search_dashboards_for_explore(self):
+        # Replace 'explore_name' with a valid explore name for testing
+        explore_name = "order_items"  # Example explore name in staging
+
+        # Call the search_dashboards_for_explore method
+        response = self.looker_dashboard.search_dashboards_for_explore(explore_name)
+
+        # Check if the response is a list
+        self.assertIsInstance(response, list, "Expected response to be a list of dashboards")
+
+        # Optionally, check if the first result contains expected fields
+        if response:
+            dashboard = response[0]
+            self.assertIn("id", dashboard, "Each dashboard result should contain an 'id' field")
+            self.assertIn("title", dashboard, "Each dashboard result should contain a 'title' field")
+            
