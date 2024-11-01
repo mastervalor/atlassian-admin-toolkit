@@ -10,4 +10,4 @@ message_logic = MessageLogic()
 for svc in file:
     user_emails = ['parag.hardas@getcruise.com', 'david.cooke@getcruise.com',
                    'mourad.marzouk@getcruise.com', 'satchidanand.challapalli@getcruise.com',
-                   'sumaiah.syed@getcruise.com', 'swaroop.vimalkumar@getcruise.com']
+                   'swaroop.vimalkumar@getcruise.com']
