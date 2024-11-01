@@ -4,4 +4,5 @@ from logic.os_logic.os_logic import OSLogic
 os_logic = OSLogic(open_file='looker owners')
 
 file = os_logic.read_file()
-okta_user = OktaUsers()
+
+print(OktaUsers.get_user_email('adam.bowser'))
