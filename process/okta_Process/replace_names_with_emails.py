@@ -10,6 +10,11 @@ for row in file:
         creator = row['creator'].replace(' ', '.')
         creator_email = OktaUsers.get_user_email(creator)
         if creator_email is None:
-            print(f'Could not find {creator}')
+            print(f'Could not find creator: {creator}')
+
+    if row['creator_manager']:
+        manager_email = OktaUsers.get_user_email(row['creator_manager'])
+        if manager_email is None:
+            print(f"Could not find creator: {row['creator_manager']}")
 
 print(OktaUsers.get_user_email('adam.bowser'))
