@@ -34,6 +34,14 @@ for row in file:
         updater_email = OktaUsers.get_user_email(updater)
         emails['updater'] = updater_email
 
-    if row['updater_manager'] and '@' not in row['updater_manager'] and row['updater_manager']  != 'None':
-        manager_email = OktaUsers.get_user_email(row['updater_manager'])
+    if '@' in row['updater_manager']:
+        emails['updater_manager'] = row['updater_manager']
+    elif row['updater_manager'] == 'None' or not row['updater_manager']:
+        emails['updater_manager'] = 'None'
+    elif row['updater_manager']:
+        updater_manager_email = OktaUsers.get_user_email(row['updater_manager'])
+        emails['updater_manager'] = updater_manager_email
 
+    user_emails.append(emails)
+
+os_logic.write_to_file(user_emails)
