@@ -9,5 +9,7 @@ for row in file:
     if row['creator']:
         creator = row['creator'].replace(' ', '.')
         creator_email = OktaUsers.get_user_email(creator)
+        if creator_email is None:
+            print(f'Could not find {creator}')
 
 print(OktaUsers.get_user_email('adam.bowser'))
