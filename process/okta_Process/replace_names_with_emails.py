@@ -7,7 +7,7 @@ file = os_logic.read_file()
 
 for row in file:
     if row['creator']:
-        creator = row['creator'].replace(' ', '.')
+        creator = row['creator'].replace(' ', '.').lower()
         creator_email = OktaUsers.get_user_email(creator)
         if creator_email is None:
             print(f'Could not find creator: {creator}')
@@ -18,7 +18,7 @@ for row in file:
             print(f"Could not find creator's manager: {row['creator_manager']}")
 
     if row['updater']:
-        updater = row['updater'].replace(' ', '.')
+        updater = row['updater'].replace(' ', '.').lower()
         updater_email = OktaUsers.get_user_email(updater)
         if updater_email is None:
             print(f'Could not find updater: {updater}')
@@ -28,5 +28,3 @@ for row in file:
         if manager_email is None:
             print(f"Could not find updater manager: {row['updater_manager']}")
 
-
-print(OktaUsers.get_user_email('adam.bowser'))
