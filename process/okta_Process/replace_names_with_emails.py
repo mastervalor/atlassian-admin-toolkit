@@ -10,22 +10,14 @@ for row in file:
     if row['creator'] and '@' not in row['creator'] and row['creator'] != 'None':
         creator = row['creator'].replace(' ', '.').lower()
         creator_email = OktaUsers.get_user_email(creator)
-        if creator_email is None:
-            print(f'Could not find creator: {creator}')
 
     if row['creator_manager'] and '@' not in row['creator_manager'] and row['creator_manager'] != 'None':
         manager_email = OktaUsers.get_user_email(row['creator_manager'])
-        if manager_email is None:
-            print(f"Could not find creator's manager: {row['creator_manager']}")
 
     if row['updater'] and '@' not in row['updater'] and row['updater']  != 'None':
         updater = row['updater'].replace(' ', '.').lower()
         updater_email = OktaUsers.get_user_email(updater)
-        if updater_email is None:
-            print(f'Could not find updater: {updater}')
 
     if row['updater_manager'] and '@' not in row['updater_manager'] and row['updater_manager']  != 'None':
         manager_email = OktaUsers.get_user_email(row['updater_manager'])
-        if manager_email is None:
-            print(f"Could not find updater manager: {row['updater_manager']}")
 
