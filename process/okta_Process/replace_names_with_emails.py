@@ -25,9 +25,14 @@ for row in file:
         manager_email = OktaUsers.get_user_email(row['creator_manager'])
         emails['creator_manager'] = manager_email
 
-    if row['updater'] and '@' not in row['updater'] and row['updater']  != 'None':
+    if '@' in row['updater']:
+        emails['updater'] = row['updater']
+    elif row['updater'] == 'None' or not row['updater']:
+        emails['updater'] = 'None'
+    elif row['updater']:
         updater = row['updater'].replace(' ', '.').lower()
         updater_email = OktaUsers.get_user_email(updater)
+        emails['updater'] = updater_email
 
     if row['updater_manager'] and '@' not in row['updater_manager'] and row['updater_manager']  != 'None':
         manager_email = OktaUsers.get_user_email(row['updater_manager'])
