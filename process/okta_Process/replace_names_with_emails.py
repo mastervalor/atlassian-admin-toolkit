@@ -4,15 +4,26 @@ from logic.os_logic.os_logic import OSLogic
 os_logic = OSLogic(open_file='looker owners', write_file='looker owners emails')
 
 file = os_logic.read_file()
-user_emails = {}
+user_emails = []
 
 for row in file:
-    if row['creator'] and '@' not in row['creator'] and row['creator'] != 'None':
+    emails = {}
+    if '@' in row['creator']:
+        emails['creator'] = row['creator']
+    elif row['creator'] == 'None' or not row['creator']:
+        emails['creator'] = 'None'
+    elif row['creator']:
         creator = row['creator'].replace(' ', '.').lower()
         creator_email = OktaUsers.get_user_email(creator)
+        emails['creator'] = creator_email
 
-    if row['creator_manager'] and '@' not in row['creator_manager'] and row['creator_manager'] != 'None':
+    if '@' in row['creator_manager']:
+        emails['creator_manager'] = row['creator_manager']
+    elif row['creator_manager'] == 'None' or not row['creator_manager']:
+        emails['creator_manager'] = 'None'
+    elif row['creator_manager']:
         manager_email = OktaUsers.get_user_email(row['creator_manager'])
+        emails['creator_manager'] = manager_email
 
     if row['updater'] and '@' not in row['updater'] and row['updater']  != 'None':
         updater = row['updater'].replace(' ', '.').lower()
