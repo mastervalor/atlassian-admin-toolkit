@@ -16,16 +16,20 @@ for board in file:
     dashboard_id = board['dashboard_id']
     if board['Needed?'] == 'N':
         if board['creator_status'] == 'Active':
-            creator = board['creator']
+            user_emails.append(board['creator'])
+            creator = board['creator'].split("@")[0]
         elif board['creator_manager_status'] == 'ACTIVE':
-            creator = board['creator_manager']
+            user_emails.append(board['creator_manager'])
+            creator = board['creator_manager'].split("@")[0]
         else:
             creator = None
 
         if board['updater_status'] == 'Active':
-            updater = board['updater']
+            user_emails.append(board['updater'])
+            updater = board['updater'].split("@")[0]
         elif board['updater_manager_status'] == 'ACTIVE':
-            updater = board['updater_manager']
+            user_emails.append(board['updater_manager'])
+            updater = board['updater_manager'].split("@")[0]
         else:
             updater = None
 
@@ -33,16 +37,20 @@ for board in file:
 
     else:
         if board['creator_status'] == 'Active':
-            creator = board['creator']
+            user_emails.append(board['creator'])
+            creator = board['creator'].split("@")[0]
         elif board['creator_manager_status'] == 'ACTIVE':
-            creator = board['creator_manager']
+            user_emails.append(board['creator_manager'])
+            creator = board['creator_manager'].split("@")[0]
         else:
             creator = None
 
         if board['updater_status'] == 'Active':
-            updater = board['updater']
+            user_emails.append(board['updater'])
+            updater = board['updater'].split("@")[0]
         elif board['updater_manager_status'] == 'ACTIVE':
-            updater = board['updater_manager']
+            user_emails.append(board['updater_manager'])
+            updater = board['updater_manager'].split("@")[0]
         else:
             updater = None
 
