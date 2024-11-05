@@ -8,9 +8,9 @@ file = os_logic.read_file()
 message_logic = MessageLogic()
 
 for board in file:
-    # user_emails = ['parag.hardas@getcruise.com', 'david.cooke@getcruise.com',
-    #                'mourad.marzouk@getcruise.com', 'satchidanand.challapalli@getcruise.com',
-    #                'swaroop.vimalkumar@getcruise.com']
+    user_emails = ['parag.hardas@getcruise.com', 'david.cooke@getcruise.com',
+                   'mourad.marzouk@getcruise.com', 'satchidanand.challapalli@getcruise.com',
+                   'swaroop.vimalkumar@getcruise.com']
 
     dashboard_name = board['title']
     dashboard_id = board['dashboard_id']
@@ -29,7 +29,7 @@ for board in file:
         else:
             updater = None
 
-        message_block = looker_inactive_message_block(creator, updater, dashboard_name, dashboard_id)
+        blocks = looker_inactive_message_block(creator, updater, dashboard_name, dashboard_id)
 
     else:
         if board['creator_status'] == 'Active':
@@ -46,4 +46,6 @@ for board in file:
         else:
             updater = None
 
-        message_block = looker_message_block(creator, updater, dashboard_name, dashboard_id)
+        blocks = looker_message_block(creator, updater, dashboard_name, dashboard_id)
+
+    message_logic.send_group_message(user_emails, blocks=blocks)
