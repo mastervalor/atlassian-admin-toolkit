@@ -12,6 +12,8 @@ for board in file:
     #                'mourad.marzouk@getcruise.com', 'satchidanand.challapalli@getcruise.com',
     #                'swaroop.vimalkumar@getcruise.com']
     if board['Needed?'] == 'N':
-        if board['creator_manager_status'] == 'ACTIVE':
-            print(board['creator_manager'])
+        if board['creator'] == 'Active':
+            creator = board['creator']
+        elif board['creator_manager_status'] == 'ACTIVE':
+            creator = board['creator_manager']
 
