@@ -29,5 +29,21 @@ for board in file:
         else:
             updater = None
 
-        message_block = looker_inactive_message_block()
+        message_block = looker_inactive_message_block(creator, updater, dashboard_name, dashboard_id)
 
+    else:
+        if board['creator_status'] == 'Active':
+            creator = board['creator']
+        elif board['creator_manager_status'] == 'ACTIVE':
+            creator = board['creator_manager']
+        else:
+            creator = None
+
+        if board['updater_status'] == 'Active':
+            updater = board['updater']
+        elif board['updater_manager_status'] == 'ACTIVE':
+            updater = board['updater_manager']
+        else:
+            updater = None
+
+        message_block = looker_message_block(creator, updater, dashboard_name, dashboard_id)
