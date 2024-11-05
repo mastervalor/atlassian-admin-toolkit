@@ -16,4 +16,5 @@ for board in file:
             creator = board['creator']
         elif board['creator_manager_status'] == 'ACTIVE':
             creator = board['creator_manager']
-
+        else:
+            creator = None
