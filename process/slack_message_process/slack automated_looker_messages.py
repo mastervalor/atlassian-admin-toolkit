@@ -11,7 +11,7 @@ for board in file:
     # user_emails = ['parag.hardas@getcruise.com', 'david.cooke@getcruise.com',
     #                'mourad.marzouk@getcruise.com', 'satchidanand.challapalli@getcruise.com',
     #                'swaroop.vimalkumar@getcruise.com']
-    if board['creator_status'] == 'DEPROVISIONED':
+    if board['Needed?'] == 'N':
         if board['creator_manager_status'] == 'ACTIVE':
             print(board['creator_manager'])
 
