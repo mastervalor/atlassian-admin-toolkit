@@ -99,7 +99,7 @@ def looker_message_block(creator, updater, dashboard_name, dashboard_id):
     if creator and updater:
         greeting_text = f":wave: Hello {creator} and {updater},"
     else:
-        greeting_text = f":wave: Hello {creator or updater}"
+        greeting_text = f":wave: Hello {creator or updater},"
 
     blocks.append({
         "type": "section",
