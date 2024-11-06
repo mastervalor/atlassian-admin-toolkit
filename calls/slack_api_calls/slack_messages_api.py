@@ -30,3 +30,17 @@ class SlackMessageAPI:
             data['blocks'] = blocks
         response_data = self.api_handler.post(endpoint, data)
         return response_data
+
+    def get_existing_group_channel(self, user_ids):
+        """Checks for an existing group chat with the specified user IDs."""
+        endpoint = 'conversations.list'
+        params = {'types': 'private_channel', 'limit': 1000}  # Adjust limit as needed
+
+        response_data = self.api_handler.get(endpoint, params)
+        for channel in response_data.get('channels', []):
+            if set(channel.get('members', [])) == set(user_ids):
+                return channel['id']
+
+        # No existing group found with these users
+        return None
+    
