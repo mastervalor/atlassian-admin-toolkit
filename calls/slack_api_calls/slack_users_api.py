@@ -6,9 +6,15 @@ class SlackUserAPI:
         self.api_handler = SlackAPIHandling()
 
     def get_user_id(self, user_email):
+        """Fetches the Slack user ID by email, handling rate limits."""
         endpoint = 'users.lookupByEmail'
         params = {'email': user_email}
-        response_data = self.api_handler.get(endpoint, params)
-        return response_data['user']['id']
+
+        try:
+            response_data = self.api_handler.get(endpoint, params)
+            return response_data['user']['id']
+        except Exception as e:
+            print(f"Failed to get user ID for {user_email}: {e}")
+            return None
 
 
