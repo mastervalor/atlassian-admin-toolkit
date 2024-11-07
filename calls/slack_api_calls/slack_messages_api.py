@@ -43,4 +43,3 @@ class SlackMessageAPI:
 
         # No existing group found with these users
         return None
-    
