@@ -1,12 +1,12 @@
 from logic.jira_logic.group_logic import Groups
 from logic.jira_logic.user_logic import Users
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
 groups = Groups()
 users = Users()
 
 newFile = 'members not in app-jira'
-os_logic = OSLogic(write_file=newFile)
+csv_logic = CSVLogic(write_file=newFile)
 
 main_group = 'app-jira'
 groups_list = ['administrators', 'app-jira-access', 'app-jira-contractor-users', 'Cruise Employees', 'Drives Services',
@@ -24,4 +24,4 @@ print(missing_members)
 data_to_write = [{'usename': member['member'], 'group': member['group'],
                   'status': users.get_user_status(member['member'])} for member in missing_members]
 
-os_logic.write_to_file(data_to_write)
+csv_logic.write_to_file(data_to_write)
