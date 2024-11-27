@@ -1,8 +1,8 @@
 from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
-os_logic = OSLogic(open_file='lucid chart page ids')
-restricted_pages = os_logic.read_file()
+csv_logic = CSVLogic(open_file='lucid chart page ids')
+restricted_pages = csv_logic.read_file()
 conf_pages = ConfluencePageCalls()
 
 
