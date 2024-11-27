@@ -1,4 +1,4 @@
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 from logic.jira_logic.project_logic import Projects
 
 FINAL_LIST_OF_PROJECTS = []
@@ -22,10 +22,10 @@ def add_to_the_list(file):
             FINAL_LIST_OF_PROJECTS.append(row)
 
 
-jsm = OSLogic(open_file='JSM')
-extras = OSLogic(open_file='extras')
-software = OSLogic(open_file='Software standardization')
-unstandardized_projects = OSLogic(write_file='unstandardized projects')
+jsm = CSVLogic(open_file='JSM')
+extras = CSVLogic(open_file='extras')
+software = CSVLogic(open_file='Software standardization')
+unstandardized_projects = CSVLogic(write_file='unstandardized projects')
 data_to_write = []
 jsm_file = jsm.read_file()
 extra_file = extras.read_file()
