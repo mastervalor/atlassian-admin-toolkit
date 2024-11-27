@@ -1,10 +1,10 @@
 from logic.jira_logic.project_logic import Projects
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 import json
 
 projects = Projects()
-os_logic = OSLogic(open_file='Archived projects')
-file = os_logic.read_file()
+csv_logic = CSVLogic(open_file='Archived projects')
+file = csv_logic.read_file()
 project_list = []
 
 for project in file:
