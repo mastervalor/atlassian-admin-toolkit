@@ -1,9 +1,9 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
-os_logic = OSLogic(open_file='looker Final List', write_file='looker users')
+csv_logic = CSVLogic(open_file='looker Final List', write_file='looker users')
 
-read_file = os_logic.read_file()
+read_file = csv_logic.read_file()
 active_users = []
 
 for user in read_file:
@@ -44,4 +44,4 @@ for user in read_file:
 
     active_users.append(board)
 
-os_logic.write_to_file(active_users)
+csv_logic.write_to_file(active_users)
