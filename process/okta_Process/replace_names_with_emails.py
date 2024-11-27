@@ -1,9 +1,9 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
-os_logic = OSLogic(open_file='looker owners', write_file='looker owners emails')
+csv_logic = CSVLogic(open_file='looker owners', write_file='looker owners emails')
 
-file = os_logic.read_file()
+file = csv_logic.read_file()
 user_emails = []
 
 for row in file:
@@ -44,4 +44,4 @@ for row in file:
 
     user_emails.append(emails)
 
-os_logic.write_to_file(user_emails)
+csv_logic.write_to_file(user_emails)
