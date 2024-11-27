@@ -1,9 +1,9 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
 from logic.jira_logic.ticket_logic import Tickets
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
 tickets = Tickets()
-os_logic = OSLogic(write_file="inactive and their managers in capa")
+csv_logic = CSVLogic(write_file="inactive and their managers in capa")
 
 assignee_jql = 'project = "Enterprise CAPA" and assignee in inactiveUsers() and statusCategory != Done'
 reporter_jql = 'project = "Enterprise CAPA" and reporter in inactiveUsers() and statusCategory != Done'
@@ -36,4 +36,4 @@ for reporter in reporter_results:
         "Manager title": manager_title
     })
 
-os_logic.write_to_file(inactive_employees)
+csv_logic.write_to_file(inactive_employees)
