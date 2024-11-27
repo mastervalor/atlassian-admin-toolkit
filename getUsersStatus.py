@@ -1,9 +1,9 @@
 from logic.jira_logic.user_logic import Users
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 from logic.jira_logic.group_logic import Groups
 import csv, os
 
-os_logic = OSLogic(open_file='jsm users')
+csv_logic = CSVLogic(open_file='jsm users')
 user = Users()
 groups = Groups()
 newFile = 'all jsm users'
@@ -13,7 +13,7 @@ jira_servicedesk_users = groups.group_members('jira-servicedesk-users')
 it_Operations = groups.group_members('IT Operations')
 jira_administrators = groups.group_members('jira-administrators')
 servicedesk = groups.group_members('servicedesk')
-file = os_logic.read_file()
+file = csv_logic.read_file()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
