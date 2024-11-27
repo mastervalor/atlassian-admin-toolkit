@@ -1,9 +1,9 @@
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 from logic.atlassian_admin_logic.auth_policies_logic import AuthPolicies
 
 
-os_logic = OSLogic(open_file='old_policy_members')
-old_policy = os_logic.read_file()
+csv_logic = CSVLogic(open_file='old_policy_members')
+old_policy = csv_logic.read_file()
 auth_policies = AuthPolicies()
 new_policy = "3b93d6bc-1087-427f-b1a9-0dacc7bb837f"
 users = []
