@@ -1,9 +1,9 @@
 from logic.jira_logic.project_logic import Projects
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 
 project_logic = Projects()
-os_logic = OSLogic(open_file='Archived Projects final', write_file='all active projects')
-file = os_logic.read_file()
+csv_logic = CSVLogic(open_file='Archived Projects final', write_file='all active projects')
+file = csv_logic.read_file()
 
 archived_projects = []
 projects_table = []
@@ -19,4 +19,4 @@ for project in projects:
         projects_table.append(project)
 
 
-os_logic.write_to_file(projects_table)
+csv_logic.write_to_file(projects_table)
