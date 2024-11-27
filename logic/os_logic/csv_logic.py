@@ -4,6 +4,14 @@ import csv
 
 class CSVLogic:
     def __init__(self, open_file=None, write_file=None, append_file=None, columns=None):
+        """
+        Initializes the CSVLogic class with optional file names and columns.
+
+        :param open_file: Name of the CSV file to open for reading.
+        :param write_file: Name of the CSV file to open for writing.
+        :param append_file: Name of the CSV file to open for appending.
+        :param columns: List of column headers for the CSV file.
+        """
         self.open_file = open_file
         self.write_file = write_file
         self.append_file = append_file
@@ -11,6 +19,11 @@ class CSVLogic:
         self.columns = columns
 
     def read_file(self):
+        """
+        Reads a CSV file from the user's desktop and returns its contents as a list of dictionaries.
+
+        :return: List of dictionaries representing the CSV file's rows.
+        """
         file_path = '/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), self.open_file)
         try:
             with open(file_path, mode='r') as csv_file:
