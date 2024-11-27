@@ -1,9 +1,9 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 import re
 
-os_logic = OSLogic(open_file='Jira API Integration Tokens Inventory', write_file='Jira API Tokens Inventory completed')
-file = os_logic.read_file()
+csv_logic = CSVLogic(open_file='Jira API Integration Tokens Inventory', write_file='Jira API Tokens Inventory completed')
+file = csv_logic.read_file()
 accounts = []
 
 for row in file:
