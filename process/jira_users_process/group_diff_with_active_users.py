@@ -1,8 +1,5 @@
-import os
-import csv
-from logic.os_logic.os_logic import OSLogic
+from logic.os_logic.csv_logic import CSVLogic
 from logic.jira_logic.user_logic import Users
-from logic.jira_logic.group_logic import GroupsUsers
 from logic.okta_logic.okta_user_logic import OktaUsers
 
 # Initialize necessary classes
@@ -12,11 +9,11 @@ new_file = 'not in app-jira with status'
 open_file = 'not in app-jira'
 
 # Set up the OSLogic instance for reading and writing
-os_logic_read = OSLogic(open_file=open_file)
-os_logic_write = OSLogic(write_file=new_file, columns=['Username', 'access group', 'status', 'in okta'])
+csv_logic_read = CSVLogic(open_file=open_file)
+csv_logic_write = CSVLogic(write_file=new_file, columns=['Username', 'access group', 'status', 'in okta'])
 
 # Read the data from the existing CSV file
-csv_data = os_logic_read.read_file()
+csv_data = csv_logic_read.read_file()
 
 # Prepare data to be written to the new file
 data_to_write = []
@@ -40,4 +37,4 @@ for row in csv_data:
     print(f"User {row['Username']} is active: {status} and okta: {okta_status}")
 
 # Write the data to the new file
-os_logic_write.write_to_file(data_to_write)
+csv_logic_write.write_to_file(data_to_write)
