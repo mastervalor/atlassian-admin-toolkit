@@ -84,4 +84,3 @@ class JSONLogic:
             print(f"Error decoding JSON from file '{file_path}'.")
         except Exception as e:
             print(f"Error appending to file '{file_path}': {e}")
-            
