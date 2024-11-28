@@ -34,3 +34,22 @@ class JSONLogic:
         except json.JSONDecodeError:
             print(f"Error decoding JSON from file '{file_path}'.")
             return None
+
+    def write_file(self, data, output_file=None):
+        """
+        Writes the JSON data to a file on the user's desktop.
+
+        :param data: The JSON data to write.
+        :param output_file: The name of the output JSON file.
+        """
+        if output_file is None:
+            output_file = self.write_file or self.open_file
+
+        file_path = '/Users/{}/Desktop/{}.json'.format(os.environ.get('USER'), output_file)
+        try:
+            with open(file_path, mode='w') as json_file:
+                json.dump(data, json_file, indent=4)
+                print(f"File written to '{file_path}' successfully.")
+        except Exception as e:
+            print(f"Error writing to file '{file_path}': {e}")
+            
