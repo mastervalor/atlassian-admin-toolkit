@@ -52,4 +52,36 @@ class JSONLogic:
                 print(f"File written to '{file_path}' successfully.")
         except Exception as e:
             print(f"Error writing to file '{file_path}': {e}")
+
+    def append_to_file(self, data):
+        """
+        Appends JSON data to an existing JSON file on the user's desktop.
+
+        :param data: The JSON data to append.
+        """
+        file_path = '/Users/{}/Desktop/{}.json'.format(os.environ.get('USER'), self.append_file)
+        try:
+            existing_data = []
+            if os.path.exists(file_path):
+                with open(file_path, mode='r') as json_file:
+                    existing_data = json.load(json_file)
+
+            # Assuming the JSON file contains a list
+            if not isinstance(existing_data, list):
+                raise ValueError("Existing JSON data is not a list; cannot append.")
+
+            if isinstance(data, list):
+                existing_data.extend(data)
+            else:
+                existing_data.append(data)
+
+            with open(file_path, mode='w') as json_file:
+                json.dump(existing_data, json_file, indent=4)
+                print(f"Data appended to '{file_path}' successfully.")
+        except FileNotFoundError:
+            print(f"File '{file_path}' not found.")
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON from file '{file_path}'.")
+        except Exception as e:
+            print(f"Error appending to file '{file_path}': {e}")
             
