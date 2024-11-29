@@ -1,5 +1,5 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 import re
 
 csv_logic = CSVLogic(open_file='Jira API Integration Tokens Inventory', write_file='Jira API Tokens Inventory completed')
