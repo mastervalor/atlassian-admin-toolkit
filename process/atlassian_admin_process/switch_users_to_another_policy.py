@@ -1,4 +1,4 @@
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 from logic.atlassian_admin_logic.auth_policies_logic import AuthPolicies
 
 
