@@ -3,7 +3,7 @@ import csv
 import json
 
 
-class JSONLogic:
+class JSONManip:
     def __init__(self, open_file=None, write_file=None, append_file=None):
         """
         Initializes the JSONLogic class with optional file names.
