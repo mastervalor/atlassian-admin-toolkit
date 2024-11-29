@@ -1,5 +1,5 @@
 from logic.jira_logic.project_logic import Projects
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 import json
 
 projects = Projects()
