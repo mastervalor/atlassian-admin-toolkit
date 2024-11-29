@@ -1,5 +1,5 @@
 from logic.jira_logic.user_logic import Users
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 user = Users(is_staging=True)
 csv_logic = CSVLogic(open_file='username')
