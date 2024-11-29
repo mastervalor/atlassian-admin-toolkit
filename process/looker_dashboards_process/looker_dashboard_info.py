@@ -1,5 +1,5 @@
 from logic.looker_logic.looker_dashboards_logic import LookerDashboardLogic
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 
 csv_logic = CSVLogic(open_file='looker dashboards', write_file='looker dashboards full')
