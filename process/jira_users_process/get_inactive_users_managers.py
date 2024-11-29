@@ -1,6 +1,6 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
 from logic.jira_logic.ticket_logic import Tickets
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 tickets = Tickets()
 csv_logic = CSVLogic(write_file="inactive and their managers in capa")
