@@ -1,7 +1,7 @@
 from file_manip.json_file_manip import JSONManip
 
 
-class JSONLogic():
+class JSONLogic:
     def __init__(self, open_file=None, write_file=None, append_file=None):
         self.json_file_manip = JSONManip(open_file, write_file, append_file)
 
