@@ -1,6 +1,6 @@
 from logic.slack_logic.slack_messages_logic import MessageLogic
 from process.slack_message_process.slack_message_templates import api_message_block
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 csv_logic = CSVLogic(open_file='Jira API Integration Tokens Inventory')
 
