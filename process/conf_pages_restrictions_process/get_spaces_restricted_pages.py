@@ -1,5 +1,5 @@
 from logic.confluence_logic.space_logic import Spaces
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 # get pages Ids from a list of names
 spaces = Spaces()
