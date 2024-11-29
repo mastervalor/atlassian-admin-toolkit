@@ -1,4 +1,4 @@
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 from logic.jira_logic.user_logic import Users
 from logic.okta_logic.okta_user_logic import OktaUsers
 
