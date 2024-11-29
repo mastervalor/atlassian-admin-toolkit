@@ -1,5 +1,5 @@
 from logic.jira_logic.ticket_logic import Tickets
-from logic.os_logic.csv_logic import CSVLogic
+from file_manip.csv_file_manip import CSVLogic
 
 tickets = Tickets()
 csv_logic = CSVLogic(open_file='Design Intent Data')
