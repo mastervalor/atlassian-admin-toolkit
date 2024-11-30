@@ -20,3 +20,10 @@ class TestJSONLogic(unittest.TestCase):
 
         # Initialize JSONLogic
         self.json_logic = JSONLogic()
+
+    def test_count_occurrences(self):
+        search_term = 'customfield_'
+        count = self.json_logic.count_occurrences(self.sample_data, search_term)
+
+        expected_count = 6
+        self.assertEqual(count, expected_count)
