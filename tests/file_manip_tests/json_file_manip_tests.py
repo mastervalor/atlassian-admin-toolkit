@@ -74,4 +74,10 @@ class TestJSONManip(unittest.TestCase):
         data_to_append = {"key2": "value2"}
         json_manip.append_to_file(data_to_append)
 
-    
+        # Read back the file to check if data was appended correctly
+        with open(self.append_file_path, 'r') as f:
+            data = json.load(f)
+        expected_data = sample_dict.copy()
+        expected_data.update(data_to_append)
+        self.assertEqual(data, expected_data)
+        
