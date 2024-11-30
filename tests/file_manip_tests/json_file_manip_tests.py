@@ -52,3 +52,15 @@ class TestJSONManip(unittest.TestCase):
         with open(self.write_file_path, 'r') as f:
             data = json.load(f)
         self.assertEqual(data, data_to_write)
+
+    def test_append_to_file_list(self):
+        # Initialize JSONManip with the test append file
+        json_manip = JSONManip(append_file=self.append_file_name, base_dir=self.test_dir)
+        data_to_append = [4, 5, 6]
+        json_manip.append_to_file(data_to_append)
+        # Read back the file to check if data was appended correctly
+        with open(self.append_file_path, 'r') as f:
+            data = json.load(f)
+        self.assertEqual(data, self.sample_list + data_to_append)
+
+    
