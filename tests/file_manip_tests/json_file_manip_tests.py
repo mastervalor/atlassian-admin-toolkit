@@ -43,4 +43,12 @@ class TestJSONManip(unittest.TestCase):
         data = json_manip.read_file()
         self.assertEqual(data, self.sample_data)
 
-    
+    def test_write_file(self):
+        # Initialize JSONManip with the test write file
+        json_manip = JSONManip(write_file=self.write_file_name, base_dir=self.test_dir)
+        data_to_write = {"new_key": "new_value"}
+        json_manip.write_file(data_to_write)
+        # Read back the file to check if data was written correctly
+        with open(self.write_file_path, 'r') as f:
+            data = json.load(f)
+        self.assertEqual(data, data_to_write)
