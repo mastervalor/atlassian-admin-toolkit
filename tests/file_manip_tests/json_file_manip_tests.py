@@ -29,4 +29,12 @@ class TestJSONManip(unittest.TestCase):
         with open(self.append_file_path, 'w') as f:
             json.dump(self.sample_list, f)
 
+    def tearDown(self):
+        # Clean up test files and directories
+        for file_path in [self.open_file_path, self.write_file_path, self.append_file_path]:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        if os.path.exists(self.test_dir):
+            os.rmdir(self.test_dir)
+
     
