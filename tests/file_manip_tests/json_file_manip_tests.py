@@ -80,4 +80,14 @@ class TestJSONManip(unittest.TestCase):
         expected_data = sample_dict.copy()
         expected_data.update(data_to_append)
         self.assertEqual(data, expected_data)
-        
+
+    def test_append_to_file_mismatch(self):
+        # Test appending data when existing data is a list and new data is a dict (should raise ValueError)
+        json_manip = JSONManip(append_file=self.append_file_name, base_dir=self.test_dir)
+        data_to_append = {"key": "value"}
+        with self.assertRaises(ValueError):
+            json_manip.append_to_file(data_to_append)
+
+
+if __name__ == '__main__':
+    unittest.main()
