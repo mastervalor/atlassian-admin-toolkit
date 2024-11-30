@@ -33,4 +33,9 @@ class TestJSONLogic(unittest.TestCase):
         count = self.json_logic.count_occurrences(self.sample_data, search_term)
         self.assertEqual(count, 0)
 
-    
+    def test_count_occurrences_partial_match(self):
+        search_term = 'field'
+        count = self.json_logic.count_occurrences(self.sample_data, search_term)
+
+        expected_count = 10
+        self.assertEqual(count, expected_count)
