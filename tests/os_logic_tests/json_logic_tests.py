@@ -40,6 +40,6 @@ class TestJSONLogic(unittest.TestCase):
         expected_count = 10
         self.assertEqual(count, expected_count)
 
-        
+
 if __name__ == '__main__':
     unittest.main()
