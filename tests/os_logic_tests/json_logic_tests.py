@@ -27,3 +27,10 @@ class TestJSONLogic(unittest.TestCase):
 
         expected_count = 6
         self.assertEqual(count, expected_count)
+
+    def test_count_occurrences_no_match(self):
+        search_term = 'nonexistent_term'
+        count = self.json_logic.count_occurrences(self.sample_data, search_term)
+        self.assertEqual(count, 0)
+
+    
