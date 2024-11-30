@@ -37,4 +37,10 @@ class TestJSONManip(unittest.TestCase):
         if os.path.exists(self.test_dir):
             os.rmdir(self.test_dir)
 
+    def test_read_file(self):
+        # Initialize JSONManip with the test open file
+        json_manip = JSONManip(open_file=self.open_file_name, base_dir=self.test_dir)
+        data = json_manip.read_file()
+        self.assertEqual(data, self.sample_data)
+
     
