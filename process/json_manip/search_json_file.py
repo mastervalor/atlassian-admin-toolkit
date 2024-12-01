@@ -12,4 +12,17 @@ if data:
 else:
     print("Failed to read data from 'automation-rules.json'")
 
+if data:
+    search_pattern = r'customfield_\d+'
+
+    matches = json_logic.find_occurrences(data, search_pattern)
+
+    unique_matches = set(matches)
+
+    print(f"Found the following custom fields in 'automation-rules.json':")
+    for match in unique_matches:
+        print(match)
+else:
+    print("Failed to read data from 'automation-rules.json'")
+
 
