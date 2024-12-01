@@ -39,3 +39,39 @@ class JSONLogic:
         # Other data types are ignored
 
         return count
+
+    def find_occurrences(self, data, search_pattern):
+        """
+        Recursively finds all occurrences of 'search_pattern' in keys and string values,
+        and returns a list of full matches.
+
+        :param data: The JSON data to search.
+        :param search_pattern: The regex pattern to search for in keys and string values.
+        :return: A list of full matches of 'search_pattern'.
+        """
+        matches = []
+        pattern = re.compile(search_pattern)
+
+        if isinstance(data, dict):
+            for key, value in data.items():
+                # Find matches in the key
+                key_matches = pattern.findall(key)
+                matches.extend(key_matches)
+
+                # Find matches in the value if it's a string
+                if isinstance(value, str):
+                    value_matches = pattern.findall(value)
+                    matches.extend(value_matches)
+
+                # Recursively search in the value if it's a dict or list
+                elif isinstance(value, (dict, list)):
+                    matches.extend(self.find_occurrences(value, search_pattern))
+                # Other data types are ignored
+        elif isinstance(data, list):
+            for item in data:
+                matches.extend(self.find_occurrences(item, search_pattern))
+        elif isinstance(data, str):
+            value_matches = pattern.findall(data)
+            matches.extend(value_matches)
+
+        return matches
