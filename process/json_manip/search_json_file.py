@@ -21,7 +21,8 @@ if data:
 
     print(f"Found the following custom fields in 'automation-rules.json':")
     for match in unique_matches:
-        print(match)
+        field_id = match.split('customfield_')[1]
+        print(field_id)
 else:
     print("Failed to read data from 'automation-rules.json'")
 
