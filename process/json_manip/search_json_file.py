@@ -12,6 +12,8 @@ total_occurrences = json_logic.count_occurrences(data, search_term)
 
 print(f"Total occurrences of '{search_term}' in 'automation-rules.json': {total_occurrences}")
 
+fields_mapping = {row['serverId']: row['cloudId'] for row in fields_file}
+
 
 search_pattern = r'customfield_\d+'
 
@@ -22,4 +24,5 @@ unique_matches = set(matches)
 print(f"Found the following custom fields in 'automation-rules.json':")
 for match in unique_matches:
     field_id = match.split('customfield_')[1]
-    print(field_id)
+    cloud_id = fields_mapping.get(field_id)
+    print(f"The cloud ID for the server ID {field_id} is: {cloud_id}")
