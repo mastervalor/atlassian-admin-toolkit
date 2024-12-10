@@ -102,4 +102,20 @@ class JSONLogic:
                 elif isinstance(value, (dict, list)):
                     # Recursively process nested structures
                     self.replace_values(value, value_mapping, search_pattern)
-                    
+        elif isinstance(data, list):
+            # Traverse list
+            for index, item in enumerate(data):
+                if isinstance(item, str):
+                    # Replace in string values
+                    matches = pattern.findall(item)
+                    for match in matches:
+                        field_id = match.split('customfield_')[1]
+                        cloud_id = value_mapping.get(field_id)
+                        if cloud_id:
+                            item = item.replace(match, f"customfield_{cloud_id}")
+                    data[index] = item
+                elif isinstance(item, (dict, list)):
+                    # Recursively process nested structures
+                    self.replace_values(item, value_mapping, search_pattern)
+
+        return data
