@@ -65,6 +65,31 @@ class JSONManip:
         except Exception as e:
             print(f"Error writing to file '{file_path}': {e}")
 
+    def write_spaceless_file(self, data, output_file=None):
+        """
+        Writes the JSON data to a file on the user's desktop or specified path.
+
+        :param data: The JSON data to write.
+        :param output_file: The name of the output JSON file (without `.json` extension).
+        """
+        # Determine the file path to write to
+        if output_file:
+            file_path = os.path.join(self.base_dir, f"{output_file}.json")
+        elif self.write_file_path:
+            file_path = self.write_file_path
+        elif self.open_file:
+            file_path = self.open_file
+        else:
+            raise ValueError("No valid file path specified for writing.")
+
+        try:
+            with open(file_path, mode='w') as json_file:
+                # Write JSON data without pretty printing to minimize file size
+                json.dump(data, json_file, separators=(',', ':'))  # Compact JSON
+                print(f"File written to '{file_path}' successfully.")
+        except Exception as e:
+            print(f"Error writing to file '{file_path}': {e}")
+
     def append_to_file(self, data):
         """
         Appends JSON data to an existing JSON file on the user's desktop.
