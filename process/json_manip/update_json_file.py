@@ -1,7 +1,7 @@
 from logic.os_logic.json_logic import JSONLogic
 from file_manip.csv_file_manip import CSVLogic
 
-json_logic = JSONLogic(open_file='automation-rules', write_file='automation-rules-updates')
+json_logic = JSONLogic(open_file='Modified_updated_rules copy', write_file='Modified_updated_rules updated')
 csv_files = CSVLogic(open_file='Classic-CustomField')
 data = json_logic.json_file_manip.read_file()
 fields_file = csv_files.read_file()
