@@ -15,7 +15,7 @@ class JSONManip:
         """
         self.base_dir = base_dir or os.path.expanduser("~/Desktop")
         self.open_file = self._get_file_path(open_file)
-        self.write_file = self._get_file_path(write_file)
+        self.write_file_path = self._get_file_path(write_file)
         self.append_file = self._get_file_path(append_file)
 
     def _get_file_path(self, filename):
@@ -45,15 +45,19 @@ class JSONManip:
 
     def write_file(self, data, output_file=None):
         """
-        Writes the JSON data to a file on the user's desktop.
+        Writes the JSON data to a file on the user's desktop or specified path.
 
         :param data: The JSON data to write.
-        :param output_file: The name of the output JSON file.
+        :param output_file: The name of the output JSON file (without `.json` extension).
         """
-        if output_file is None:
-            output_file = self.write_file or self.open_file
+        # Determine the file path to write to
+        if output_file:
+            file_path = os.path.join(self.base_dir, f"{output_file}.json")
+        elif self.write_file_path:
+            file_path = self.write_file_path
+        else:
+            raise ValueError("No valid file path specified for writing.")
 
-        file_path = '/Users/{}/Desktop/{}.json'.format(os.environ.get('USER'), output_file)
         try:
             with open(file_path, mode='w') as json_file:
                 json.dump(data, json_file, indent=4)
