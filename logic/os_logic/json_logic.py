@@ -75,3 +75,31 @@ class JSONLogic:
             matches.extend(value_matches)
 
         return matches
+
+    def replace_values(self, data, value_mapping, search_pattern):
+        """
+            Recursively traverses the JSON data and replaces occurrences of 'customfield_<ID>'
+            with the corresponding 'cloud_id' from fields_mapping.
+
+            :param data: The JSON data to process.
+            :param fields_mapping: A dictionary mapping server IDs to cloud IDs.
+            :param search_pattern: The regex pattern to search for 'customfield_<ID>'.
+            :return: The updated JSON data with replacements.
+        """
+        pattern = re.compile(search_pattern)
+        if isinstance(data, dict):
+            # Traverse dictionary
+            for key, value in data.items():
+                if isinstance(value, str):
+                    # Replace in string values
+                    matches = pattern.findall(value)
+                    for match in matches:
+                        field_id = match.split('customfield_')[1]
+                        cloud_id = value_mapping.get(field_id)
+                        if cloud_id:
+                            value = value.replace(match, f"customfield_{cloud_id}")
+                    data[key] = value
+                elif isinstance(value, (dict, list)):
+                    # Recursively process nested structures
+                    self.replace_values(value, value_mapping, search_pattern)
+                    
