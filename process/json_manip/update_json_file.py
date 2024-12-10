@@ -4,26 +4,25 @@ from file_manip.csv_file_manip import CSVLogic
 json_logic = JSONLogic(open_file='automation-rules', write_file='automation-rules-updates')
 csv_files = CSVLogic(open_file='Classic-CustomField')
 data = json_logic.json_file_manip.read_file()
-automation_rules = json_logic.json_file_manip.write_file()
 fields_file = csv_files.read_file()
 
-search_term = 'customfield_'
+# Ensure data was loaded successfully
+if data is None or not fields_file:
+    print("Failed to load JSON or CSV file.")
+    exit()
 
-total_occurrences = json_logic.count_occurrences(data, search_term)
-
-print(f"Total occurrences of '{search_term}' in 'automation-rules.json': {total_occurrences}")
-
+# Preprocess the CSV data into a dictionary for faster lookups
 fields_mapping = {row['serverId']: row['cloudId'] for row in fields_file}
 
-
+# Define a search pattern for custom fields
 search_pattern = r'customfield_\d+'
 
-matches = json_logic.find_occurrences(data, search_pattern)
+# Replace custom fields in the JSON data
+updated_data = json_logic.replace_values(data, fields_mapping, search_pattern)
 
-unique_matches = set(matches)
+# Print the updated JSON data
+print("Updated JSON Data:")
+print(updated_data)
 
-print(f"Found the following custom fields in 'automation-rules.json':")
-for match in unique_matches:
-    field_id = match.split('customfield_')[1]
-    cloud_id = fields_mapping.get(field_id)
-    print(f"The cloud ID for the server ID {field_id} is: {cloud_id}")
+# Optionally, write the updated data back to the JSON file
+json_logic.json_file_manip.write_file(updated_data)
