@@ -25,22 +25,6 @@ class Jira:
 
         return response
 
-    def assign_permission_scheme(self, key):
-        url = self.jira + 'project/' + key + '/permissionscheme'
-
-        headers = {
-            "Accept": "application/json"
-        }
-
-        response = json.loads(requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            auth=self.token
-        ).text)
-
-        return response
-
     def restore_project(self, key):
         url = self.jira + 'project/' + key + '/restore'
 
