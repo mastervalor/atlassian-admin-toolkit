@@ -124,3 +124,20 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def restore_project(self, key):
+        url = self.jira + 'project/' + key + '/restore'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+
