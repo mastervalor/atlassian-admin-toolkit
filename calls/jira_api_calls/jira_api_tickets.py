@@ -27,3 +27,23 @@ class TicketsJiraCalls:
         ).text)
 
         return response
+
+    def jql(self, pref, payload):
+        url = self.jira + 'search' + pref
+
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'jql': payload,
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
+
