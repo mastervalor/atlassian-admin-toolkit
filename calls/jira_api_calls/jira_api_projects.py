@@ -159,3 +159,23 @@ class ProjectJiraCalls:
             project_owners.append([key, response['lead']['name']])
 
         return project_owners
+
+    def project_owner(self, key):
+
+        url = self.jira + 'project/' + key
+        headers = {"Accept": "application/json"}
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+        try:
+            owner = response['lead']['name']
+            status = response['lead']['active']
+        except KeyError:
+            owner = None
+            status = None
+
+        return owner, status
+    
