@@ -178,4 +178,3 @@ class ProjectJiraCalls:
             status = None
 
         return owner, status
-    
