@@ -114,7 +114,7 @@ class Projects:
 
     def get_archived_projects(self):
         archived_projects = []
-        projects = self.jira.get_projects_with_archived()
+        projects = self.jira_projects.get_projects_with_archived()
         for project in projects:
             if project['archived']:
                 archived_projects.append(project)
