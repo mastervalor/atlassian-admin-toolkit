@@ -1,8 +1,8 @@
-from call import Jira
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 import csv
 import os
 
-jira = Jira()
+tickets = TicketsJiraCalls()
 openFile = 'Projects - projects to archive'
 assingees = {"mourad.marzouk": 0, "patricia.pattin": 0, "ron.erlandson": 0}
 
@@ -71,5 +71,5 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 ]
             }
         }
-        response = jira.create_ticket(payload)
+        response = tickets.create_ticket(payload)
         print(response, assignee, row['Name'], approver)
