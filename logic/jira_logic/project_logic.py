@@ -13,8 +13,8 @@ class Projects:
 
     def get_project_users_by_role(self, key, role):
         role_id = self.project_roles[role]
-        users = self.jira.get_project_groups(key, role_id)
-        groups = self.jira.get_project_groups(key, role_id)
+        users = self.jira_projects.get_project_groups(key, role_id)
+        groups = self.jira_projects.get_project_groups(key, role_id)
         admins = []
         try:
             for user in users['actors']:
@@ -42,7 +42,7 @@ class Projects:
 
     def get_project_admins_group(self, key):
         role_id = self.project_roles['Administrators']
-        groups = self.jira.get_project_groups(key, role_id)
+        groups = self.jira_projects.get_project_groups(key, role_id)
         for group in groups['actors']:
             if '-administrator' in group['displayName']:
                 return group['displayName']
@@ -51,7 +51,7 @@ class Projects:
 
     def get_project_users_group(self, key):
         role_id = self.project_roles['users']
-        groups = self.jira.get_project_groups(key, role_id)
+        groups = self.jira_projects.get_project_groups(key, role_id)
         standard_group = ''
         for group in groups['actors']:
             if '-user' in group['displayName']:
@@ -67,7 +67,7 @@ class Projects:
 
     def get_project_agents_group(self, key):
         role_id = self.project_roles['agents']
-        groups = self.jira.get_project_groups(key, role_id)
+        groups = self.jira_projects.get_project_groups(key, role_id)
         for group in groups['actors']:
             if '-agent' in group['displayName']:
                 return group['displayName']
@@ -76,7 +76,7 @@ class Projects:
 
     def get_project_developers_group(self, key):
         role_id = self.project_roles['Developers']
-        groups = self.jira.get_project_groups(key, role_id)
+        groups = self.jira_projects.get_project_groups(key, role_id)
         standard_group = ''
         for group in groups['actors']:
             if '-developer' in group['displayName']:
