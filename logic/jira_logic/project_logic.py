@@ -1,11 +1,13 @@
 from calls.jira import Jira
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
+from logic.jira_logic.group_logic import Groups
 
 
 class Projects:
     def __init__(self, is_staging=False):
         self.jira = Jira(is_staging)
+        self.jira_group_logic = Groups()
         self.jira_groups = GroupJiraCalls()
         self.jira_projects = ProjectJiraCalls()
         self.project_roles = {'Administrators': '10002', 'Developers': '10001', 'users': '10000', 'agents': '10301',
@@ -30,7 +32,7 @@ class Projects:
                     if group['name'] == 'Cruise Engineering':
                         print(f"There is an admins group in {key} called {group['name']}")
                     else:
-                        members = self.jira_groups.group_members(group['name'])
+                        members = self.jira_group_logic.group_members(group['name'])
                         for member in members:
                             if member not in admins:
                                 admins.append(member)
