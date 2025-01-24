@@ -85,7 +85,7 @@ class Tickets:
         ticket_list = []
 
         while total >= maxResults:
-            tickets = self.jira.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+            tickets = self.tickets.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
 
             for ticket in tickets['issues']:
                 key = ticket['key']
@@ -105,7 +105,7 @@ class Tickets:
         assignee_list = []
 
         while total >= maxResults:
-            tickets = self.jira.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+            tickets = self.tickets.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
 
             for ticket in tickets['issues']:
                 key = ticket['fields']['assignee']['emailAddress']
@@ -125,7 +125,7 @@ class Tickets:
         reporter_list = []
 
         while total >= maxResults:
-            tickets = self.jira.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
+            tickets = self.tickets.jql(f'?startAt={startAt}&maxResults={maxResults}', query)
 
             for ticket in tickets['issues']:
                 key = ticket['fields']['reporter']['emailAddress']
@@ -169,7 +169,7 @@ class Tickets:
             }
         }
 
-        response = self.jira.edit_ticket(key, payload)
+        response = self.tickets.edit_ticket(key, payload)
 
         return response
 
@@ -181,7 +181,7 @@ class Tickets:
         for key, values in fields.items():
             payload["fields"][key] = values
 
-        response = self.jira.edit_ticket(issue, payload)
+        response = self.tickets.edit_ticket(issue, payload)
 
         print(response.text)
         return response
