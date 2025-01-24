@@ -9,3 +9,19 @@ class WorkflowJiraCalls:
         self.token = staging_auth if is_staging else auth
         self.jira_agile = jira_agile_dev if is_staging else jira_agile
         self.jira = jira_staging if is_staging else jira
+
+    def get_workflows(self):
+        url = self.jira + "workflow"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
