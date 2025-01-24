@@ -1,10 +1,10 @@
-from calls.jira import Jira
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 import json
 
 
 class Tickets:
     def __init__(self):
-        self.jira = Jira()
+        self.tickets = TicketsJiraCalls()
 
     def build_ticket_payload(self, ticket_info):
         payload = {
@@ -51,7 +51,7 @@ class Tickets:
             }
         }
 
-        response = self.jira.create_ticket(payload)
+        response = self.tickets.create_ticket(payload)
         print(response)
 
     def build_values_list(self, values):
