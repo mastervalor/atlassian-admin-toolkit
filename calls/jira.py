@@ -26,7 +26,6 @@ class Jira:
         return response
 
 
-
     def get_active_projects(self):
         url = self.jira + 'project'
 
