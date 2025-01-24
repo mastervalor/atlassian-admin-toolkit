@@ -9,25 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def jql(self, pref, payload):
-        url = self.jira + 'search' + pref
-
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'jql': payload,
-        }
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return response
-
     def project_owners(self, keys):
         project_owners = []
 
