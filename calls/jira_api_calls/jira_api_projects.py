@@ -92,3 +92,19 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def get_project_permissionscheme(self, key):
+        url = self.jira + 'project/' + key + '/permissionscheme?expand=permissions'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
