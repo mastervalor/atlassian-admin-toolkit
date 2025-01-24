@@ -9,25 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def project_owner(self, key):
-
-        url = self.jira + 'project/' + key
-        headers = {"Accept": "application/json"}
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            auth=self.token
-        ).text)
-        try:
-            owner = response['lead']['name']
-            status = response['lead']['active']
-        except KeyError:
-            owner = None
-            status = None
-
-        return owner, status
-
     def edit_ticket(self, key, payload):
         url = self.jira + 'issue/' + key
         headers = {
