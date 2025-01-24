@@ -1,7 +1,7 @@
 import json
 from calls. jira_api_calls.jira_api_projects import ProjectJiraCalls
 
-jira = Jira()
+projects = ProjectJiraCalls()
 archive_list = []
 
 jql = ('project = "Corporate Engineering" and summary ~ "does not meet the new requirements, and will be targeted for '
@@ -15,11 +15,11 @@ for ticket in tickets['issues']:
     part = part.split(" ")[0]
     archive_list.append(part)
 
-projects = jira.get_active_projects()
+projects = projects.get_active_projects()
 
 for project in projects:
     if project['key'] not in archive_list:
-        owner, status = jira.project_owner(project['key'])
+        owner, status = projects.project_owner(project['key'])
         print(status)
 
 
