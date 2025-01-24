@@ -1,8 +1,11 @@
 from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
+from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 import csv
 import os
 
 tickets = TicketsJiraCalls()
+projects = ProjectJiraCalls()
+
 openFile = 'Projects - projects to archive'
 assingees = {"mourad.marzouk": 0, "patricia.pattin": 0, "ron.erlandson": 0}
 
@@ -10,7 +13,7 @@ assingees = {"mourad.marzouk": 0, "patricia.pattin": 0, "ron.erlandson": 0}
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
-        name, status = jira.project_owner(row['key'])
+        name, status = projects.project_owner(row['key'])
         if not status:
             assignee = 'mourad.marzouk'
             assingees['mourad.marzouk'] += 1
