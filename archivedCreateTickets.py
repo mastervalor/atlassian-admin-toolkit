@@ -1,8 +1,9 @@
-from call import Jira, Okta
+from calls.okta import Okta
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 import csv
 import os
 
-jira = Jira()
+tickets = TicketsJiraCalls()
 openFile = 'Projects - projects to archive'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
@@ -77,7 +78,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                         }
                     }
 
-                    response = jira.create_ticket(payload)
+                    response = tickets.create_ticket(payload)
                     print(response)
                     break
         else:
@@ -125,5 +126,5 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                 }
             }
 
-            response = jira.create_ticket(payload)
+            response = tickets.create_ticket(payload)
             print(response)
