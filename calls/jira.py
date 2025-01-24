@@ -25,27 +25,6 @@ class Jira:
 
         return response
 
-    def get_projects_with_archived(self):
-        url = self.jira + 'project'
-
-        headers = {
-            "Accept": "application/json"
-        }
-
-        query = {
-            'includeArchived': True,
-        }
-
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return response
-
     def get_project_permissionscheme(self, key):
         url = self.jira + 'project/' + key + '/permissionscheme?expand=permissions'
 
