@@ -1,0 +1,11 @@
+import requests
+from auth import auth, staging_auth
+import json
+from config import jira, jira_staging, jira_agile, jira_agile_dev
+
+
+class WorkflowJiraCalls:
+    def __init__(self, is_staging=False):
+        self.token = staging_auth if is_staging else auth
+        self.jira_agile = jira_agile_dev if is_staging else jira_agile
+        self.jira = jira_staging if is_staging else jira
