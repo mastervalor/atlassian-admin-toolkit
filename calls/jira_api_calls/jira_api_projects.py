@@ -141,3 +141,21 @@ class ProjectJiraCalls:
 
         return response
 
+    def project_owners(self, keys):
+        project_owners = []
+
+        for key in keys:
+            url = self.jira + 'project/' + key
+
+            headers = {"Accept": "application/json"}
+
+            response = json.loads(requests.request(
+                "GET",
+                url,
+                headers=headers,
+                auth=self.token
+            ).text)
+
+            project_owners.append([key, response['lead']['name']])
+
+        return project_owners
