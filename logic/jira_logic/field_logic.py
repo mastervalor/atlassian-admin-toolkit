@@ -1,11 +1,11 @@
-from calls.jira import Jira
+from calls.jira_api_calls.jira_api_custom_fields import CustomFieldsJiraCalls
 import urllib.parse
 import json
 
 
 class Fields:
     def __init__(self):
-        self.jira = Jira()
+        self.custom_fields = CustomFieldsJiraCalls()
 
     def field_metrics(self):
         field_metrics = []
@@ -24,6 +24,6 @@ class Fields:
         return field_metrics
 
     def field_options(self, field_id, context_id):
-        field_options = self.jira.get_custom_field_context(field_id, context_id)
+        field_options = self.custom_fields.get_custom_field_context(field_id, context_id)
 
         return field_options
