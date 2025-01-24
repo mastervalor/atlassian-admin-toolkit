@@ -9,25 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def project_owners(self, keys):
-        project_owners = []
-
-        for key in keys:
-            url = self.jira + 'project/' + key
-
-            headers = {"Accept": "application/json"}
-
-            response = json.loads(requests.request(
-                "GET",
-                url,
-                headers=headers,
-                auth=self.token
-            ).text)
-
-            project_owners.append([key, response['lead']['name']])
-
-        return project_owners
-
     def project_owner(self, key):
 
         url = self.jira + 'project/' + key
