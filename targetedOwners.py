@@ -1,6 +1,5 @@
 import json
-
-from call import Jira
+from calls. jira_api_calls.jira_api_projects import ProjectJiraCalls
 
 jira = Jira()
 archive_list = []
