@@ -50,21 +50,6 @@ class Jira:
 
         return response
 
-    def get_ticket(self, key):
-        url = self.jira + 'issue/' + key + '?notifyUsers=false'
-
-        headers = {
-            "Accept": "application/json",
-        }
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            auth=self.token
-        ).text)
-
-        return response
-
     def plugins(self):
         url = self.jira + 'plugins/'
 
