@@ -47,3 +47,19 @@ class TicketsJiraCalls:
 
         return response
 
+    def edit_ticket(self, key, payload):
+        url = self.jira + 'issue/' + key
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        response = requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            json=payload,
+            auth=self.token
+        )
+
+        return response
+
