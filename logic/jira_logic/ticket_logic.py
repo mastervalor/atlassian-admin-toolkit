@@ -74,7 +74,7 @@ class Tickets:
         link_types = link_types_str.split(', ')
 
         for issue, link_type in zip(linked_issues, link_types):
-            link_response = self.jira.add_issue_link(ticket_key, issue, link_type)
+            link_response = self.tickets.add_issue_link(ticket_key, issue, link_type)
             print(
                 f"Ticket: {ticket_key}, link response code: {link_response.status_code} and response: {link_response.text}")
 
@@ -139,7 +139,7 @@ class Tickets:
         return reporter_list
 
     def assign_ticket(self, ticket, assignee):
-        response = self.jira.assign_ticket(ticket, assignee)
+        response = self.tickets.assign_ticket(ticket, assignee)
 
         if response.status_code == 204:
             print(f"Issue {ticket} successfully assigned to {assignee}.")
