@@ -8,3 +8,19 @@ class SystemJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+
+    def plugins(self):
+        url = self.jira + 'plugins/'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+    
