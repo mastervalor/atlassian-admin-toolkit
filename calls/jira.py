@@ -9,32 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def add_issue_link(self, inward_issue_key, outward_issue_key, link_type):
-        url = self.jira + 'issueLink'
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "type": {
-                "name": link_type
-            },
-            "inwardIssue": {
-                "key": inward_issue_key
-            },
-            "outwardIssue": {
-                "key": outward_issue_key
-            }
-        }
-        response = requests.request(
-            "POST",
-            url,
-            headers=headers,
-            json=payload,
-            auth=self.token
-        )
-        return response
-
     def get_my_permissions(self):
         url = self.jira + 'mypermissions'
 
