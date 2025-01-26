@@ -103,3 +103,24 @@ class TicketsJiraCalls:
             auth=self.token
         )
         return response
+
+    def assign_ticket(self, key, username):
+        url = self.jira + f'issue/{key}/assignee'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "name": username
+        }
+
+        response = requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            json=payload,
+            auth=self.token
+        )
+
+        return response
