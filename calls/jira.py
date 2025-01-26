@@ -29,26 +29,6 @@ class Jira:
 
         return response
 
-    def archive_project(self, key):
-        url = self.jira + 'project/' + key + '/archive'
-
-        headers = {
-            'Content-Type': 'application/json'
-        }
-
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            auth=self.token
-        )
-
-        if response.status_code == 200:
-            return response.json()
-        elif response.status_code == 202:
-            return {"message": "Request accepted and processed successfully, but no immediate response."}
-        else:
-            return {"error": f"Request failed with status code: {response.status_code}", "content": response.text}
 
     def assign_ticket(self, key, username):
         url = self.jira + f'issue/{key}/assignee'
