@@ -1,4 +1,5 @@
 from calls.jira_api_calls.jira_api_custom_fields import CustomFieldsJiraCalls
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 import urllib.parse
 import json
 
@@ -6,15 +7,16 @@ import json
 class Fields:
     def __init__(self):
         self.custom_fields = CustomFieldsJiraCalls()
+        self.tickets = TicketsJiraCalls()
 
     def field_metrics(self):
         field_metrics = []
-        fields = self.jira.all_fields()
+        fields = self.custom_fields.all_fields()
         for field in fields['values']:
             if 'issuesWithValue' not in field or field['issuesWithValue'] == 0:
                 jql = f"'{field['name']}' is not EMPTY"
                 try:
-                    results = self.jira.jql("", jql)
+                    results = self.tickets.jql("", jql)
                     field['issuesWithValue'] = results['total']
                 except KeyError:
                     print(field['name'], results['errorMessages'])
