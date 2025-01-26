@@ -29,27 +29,6 @@ class Jira:
 
         return response
 
-    def unarchive_project(self, key):
-        url = self.jira + 'project/' + key + '/restore'
-
-        headers = {
-            'Content-Type': 'application/json'
-        }
-
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            auth=self.token
-        )
-
-        if response.status_code == 200:
-            return response.json()  # Use response.json() for automatic parsing
-        elif response.status_code == 202:
-            return {"message": "Request accepted and processed successfully, but no immediate response."}
-        else:
-            return {"error": f"Request failed with status code: {response.status_code}", "content": response.text}
-
     def archive_project(self, key):
         url = self.jira + 'project/' + key + '/archive'
 
