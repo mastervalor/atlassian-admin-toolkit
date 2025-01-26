@@ -148,7 +148,7 @@ class Projects:
         responses = {}
 
         for key in keys:
-            responses[key] = self.jira.unarchive_project(key)
+            responses[key] = self.jira_projects.unarchive_project(key)
 
         return responses
 
@@ -156,7 +156,7 @@ class Projects:
         responses = {}
 
         for key in keys:
-            responses[key] = self.jira.archive_project(key)
+            responses[key] = self.jira_projects.archive_project(key)
 
         return responses
 
