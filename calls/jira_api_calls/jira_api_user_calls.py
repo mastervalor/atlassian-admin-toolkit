@@ -65,4 +65,17 @@ class UserJiraCalls:
 
         return response
 
+    def get_my_permissions(self):
+        url = self.jira + 'mypermissions'
 
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
