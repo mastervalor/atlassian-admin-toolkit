@@ -9,22 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def all_fields(self):
-        url = self.jira + "customFields?maxResults=2200"
-
-        headers = {
-            "Accept": "application/json"
-        }
-
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            auth=self.token
-        ).text)
-
-        return response
-
     def set_project_workflow_scheme(self, key):
         url = self.jira + 'project/' + key + '/workflowscheme'
 
