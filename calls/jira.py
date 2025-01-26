@@ -9,22 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def set_project_workflow_scheme(self, key):
-        url = self.jira + 'project/' + key + '/workflowscheme'
-
-        headers = {
-            "Accept": "application/json"
-        }
-
-        response = json.loads(requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            auth=self.token
-        ).text)
-
-        return response
-
     def post_issue_type_scheme(self, scheme, keys):
         url = self.jira + 'issuetypescheme/' + scheme + '/associations'
 
