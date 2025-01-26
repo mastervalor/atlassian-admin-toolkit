@@ -77,4 +77,4 @@ class TicketsJiraCalls:
         ).text)
 
         return response
-    
+
