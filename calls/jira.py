@@ -29,28 +29,6 @@ class Jira:
 
         return response
 
-
-    def assign_ticket(self, key, username):
-        url = self.jira + f'issue/{key}/assignee'
-
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "name": username
-        }
-
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            json=payload,
-            auth=self.token
-        )
-
-        return response
-
     def find_users_by_string(self, string, max_result, start_at):
         url = self.jira + 'user/search'
 
