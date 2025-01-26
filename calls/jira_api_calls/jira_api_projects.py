@@ -178,3 +178,20 @@ class ProjectJiraCalls:
             status = None
 
         return owner, status
+
+    def set_project_workflow_scheme(self, key):
+        url = self.jira + 'project/' + key + '/workflowscheme'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+    
