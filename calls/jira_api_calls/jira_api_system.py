@@ -23,4 +23,3 @@ class SystemJiraCalls:
         ).text)
 
         return response
-    
