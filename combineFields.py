@@ -31,6 +31,3 @@ for key in keys:
     }
     edit = tickets.edit_ticket(key, payload)
     print(edit)
-
-
-#print(json.dumps(query, sort_keys=True, indent=4, separators=(",", ": ")))
