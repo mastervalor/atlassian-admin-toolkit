@@ -1,13 +1,13 @@
 import json
-from call import Jira
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 
-jira = Jira()
+tickets = TicketsJiraCalls()
 
 jql = ('project in (POL,LTSS,FINTECH,CRP,MDG,PROCURETEC,OPSTECH,PTT,CUSTTECH,DCOPS,EAI,EIAM,ENTNET,ITAPP,ITCPE,ITINF,'
        'ITOPS,ITAM,APPSEC,SECOPS,CORPSEC,TRUST,AVSEC,PLATAUTH,SCS1,THREAT,PRIVACY,SECRETS) and ("Business '
        'Justification" is not EMPTY or "Value Proposition" is not EMPTY) AND issuetype = Epic and description is EMPTY')
 
-query = jira.jql('?startAt=0&maxResults=1000', jql)
+query = tickets.jql('?startAt=0&maxResults=1000', jql)
 
 keys = []
 for key in query['issues']:
@@ -29,7 +29,7 @@ for key in keys:
             'description': new_description
         }
     }
-    edit = jira.edit_ticket(key, payload)
+    edit = tickets.edit_ticket(key, payload)
     print(edit)
 
 
