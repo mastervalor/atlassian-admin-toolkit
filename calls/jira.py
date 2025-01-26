@@ -9,22 +9,6 @@ class Jira:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def edit_ticket(self, key, payload):
-        url = self.jira + 'issue/' + key
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            json=payload,
-            auth=self.token
-        )
-
-        return response
-
     def add_issue_link(self, inward_issue_key, outward_issue_key, link_type):
         url = self.jira + 'issueLink'
         headers = {
