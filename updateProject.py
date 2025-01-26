@@ -1,10 +1,10 @@
-from call import Jira
+from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
 import json
 
-jira = Jira()
+user = UserJiraCalls()
 permission_key = "CREATE_ISSUE"
 
-data = jira.get_my_permissions()
+data = user.get_my_permissions()
 
 if permission_key in data['permissions']:
         permission_info = data['permissions'][permission_key]
@@ -24,7 +24,3 @@ if permission_key in data['permissions']:
             print(f"You do not have '{permission_key}' permission.")
 else:
     print(f"Permission '{permission_key}' not found in the response.")
-
-
-
-# print(json.dumps(permissions, sort_keys=True, indent=4, separators=(",", ": ")))
