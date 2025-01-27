@@ -1,8 +1,9 @@
-from call import Okta, call
+from logic.okta_logic.okta_user_logic import OktaUsers
 import csv
 import os
 import concurrent.futures
 
+okta_users = OktaUsers()
 newfile = "App-jira members 3"
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mode='w') as new_csv:
@@ -14,7 +15,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     while start <= total:
         group = call(f'group/member?startAt={start}', 'members', 'app-jira')
         for member in group['values']:
-            user = Okta.users_id(member['emailAddress'])
+            user = okta_users.get_user_id(member['emailAddress'])
             if user is False:
                 writer.writerow([f"Failed on {member['emailAddress']} because not groups"])
                 print(f"Failed on {member['emailAddress']} because not groups")
