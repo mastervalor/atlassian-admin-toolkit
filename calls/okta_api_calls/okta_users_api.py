@@ -24,3 +24,19 @@ class OktaUsersCalls:
         except KeyError:
             return False
 
+    @classmethod
+    def get_user_groups(cls, user_id):
+        """
+        Handles the API call to fetch groups for a given user.
+        """
+        groups_url = f'https://cruise.okta.com/api/v1/users/{user_id}/groups'
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+        response = requests.get(groups_url, headers=headers, timeout=9000)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f'Error fetching groups: {response.status_code} - {response.text}')
