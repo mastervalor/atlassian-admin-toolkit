@@ -1,4 +1,5 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
+from calls import call
 import csv
 import os
 import concurrent.futures
@@ -20,7 +21,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
                 writer.writerow([f"Failed on {member['emailAddress']} because not groups"])
                 print(f"Failed on {member['emailAddress']} because not groups")
                 continue
-            groups = Okta.get_user_groups(user)
+            groups = OktaUsers.user_groups(user)
             if "app-jira" in groups:
                 writer.writerow([member['emailAddress'], "Okta"])
                 print(member['emailAddress'], "Okta")
