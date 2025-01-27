@@ -1,23 +1,24 @@
-from calls.okta import Okta
 from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
+from logic.okta_logic.okta_user_logic import OktaUsers
 import csv
 import os
 
 tickets = TicketsJiraCalls()
+okta_users = OktaUsers()
 openFile = 'Projects - projects to archive'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
-        user = Okta.users_id((row['username'] + '@getcruise.com'))
+        user = okta_users.get_user_id((row['username'] + '@getcruise.com'))
         if user is False:
             print("couldn't find ")
-        manager = Okta.users_id(user['profile']['manager'] + '@getcruise.com')
+        manager = okta_users.get_user_id(user['profile']['manager'] + '@getcruise.com')
         status = True
         while status:
             if manager['status'] == 'DEPROVISIONED':
                 print(manager['profile']['email'] + ' ' + manager['status'])
-                manager = Okta.users_id(manager['profile']['manager'] + '@getcruise.com')
+                manager = okta_users.get_user_id(manager['profile']['manager'] + '@getcruise.com')
             else:
                 status = False
         print(row['username'] + "'s manager:" + manager['profile']['manager'] + manager['status'] + manager['profile']['title'])
@@ -27,7 +28,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
             name_list = reports.split("; ")
             for report in name_list:
                 email = f"{report.lower().replace(' ', '.')}@getcruise.com"
-                looking = Okta.users_id(email)
+                looking = okta_users.get_user_id(email)
                 if 'Executive Assistant' in looking['profile']['title'] or 'Executive Business' in looking['profile']['title']:
                     print(f"{row['username']}'s manger is the vp of {manager['profile']['title']}")
                     username = report.lower().replace(' ', '.')
