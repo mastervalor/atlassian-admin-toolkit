@@ -1,13 +1,13 @@
 from logic.jira_logic.project_logic import Projects
-from calls.jira import Jira
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 from file_manip.csv_file_manip import CSVLogic
 import csv
 import os
 import urllib.parse
 
 projects = Projects()
+tickets = TicketsJiraCalls()
 csv_logic = CSVLogic()
-jira = Jira()
 res = 'Priorities copy'
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='r+') as new_csv:
@@ -17,7 +17,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='
 
     for i in reader:
         encoded = urllib.parse.quote(i['Name'])
-        results = jira.jql(f'priority="{encoded}"', 'search')
+        results = tickets.jql(f'priority="{encoded}"', 'search')
         try:
             i['Tickets'] = results['total']
             rows.append(i)
