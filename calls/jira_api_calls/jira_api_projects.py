@@ -236,3 +236,23 @@ class ProjectJiraCalls:
             return {"message": "Request accepted and processed successfully, but no immediate response."}
         else:
             return {"error": f"Request failed with status code: {response.status_code}", "content": response.text}
+
+    def post_issue_type_scheme(self, scheme, keys):
+        url = self.jira + 'issuetypescheme/' + scheme + '/associations'
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        payload = {
+            'idsOrKeys': keys
+        }
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            headers=headers,
+            json=payload,
+            auth=self.token
+        ).text)
+
+        return response
