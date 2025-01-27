@@ -8,8 +8,8 @@ class OktaGroups:
     def compare_users_groups(cls, user1, user2):
         user1_id = OktaUsers.get_user_id(user1)
         user2_id = OktaUsers.get_user_id(user2)
-        user1_groups = set(OktaUsers.get_user_groups(user1_id))
-        user2_groups = set(OktaUsers.get_user_groups(user2_id))
+        user1_groups = set(OktaUsers.user_groups(user1_id))
+        user2_groups = set(OktaUsers.user_groups(user2_id))
 
         return user1_groups.difference(user2_groups)
 
