@@ -29,29 +29,6 @@ class Jira:
 
         return response
 
-    def find_users_by_string(self, string, max_result, start_at):
-        url = self.jira + 'user/search'
-
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-
-        query = {
-            'username': string,
-            "startAt": start_at,
-            'maxResults': max_result
-        }
-
-        users = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=self.token
-        ).text)
-
-        return users
 
     def update_ticket(self, key, payload):
         url = self.jira + 'issue/' + key
