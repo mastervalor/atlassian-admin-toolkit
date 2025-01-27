@@ -6,21 +6,6 @@ import json
 class Okta:
 
     @classmethod
-    def get_user_groups(cls, user_id):
-        groups_url = f'https://cruise.okta.com/api/v1/users/{user_id}/groups'
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-        response = requests.get(groups_url, headers=headers, timeout=9000)
-        if response.status_code == 200:
-            groups = response.json()
-            return [group['profile']['name'] for group in groups]
-        else:
-            raise Exception(f'Error fetching groups: {response.status_code} - {response.text}')
-
-    @classmethod
     def okta_call(cls, email):
         url = 'https://cruise.okta.com/api/v1/users'
         email = email
