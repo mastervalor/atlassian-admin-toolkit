@@ -140,7 +140,7 @@ class Projects:
     def change_issue_type_scheme(self, key, scheme):
         keys = key if isinstance(key, list) else [key]
 
-        response = self.jira.post_issue_type_scheme(scheme, keys)
+        response = self.jira_projects.post_issue_type_scheme(scheme, keys)
 
         return response
 
