@@ -84,3 +84,20 @@ class OktaUsers:
             return user_profile['profile']['email']
         else:
             return None
+
+    @classmethod
+    def user_groups(cls, user_id):
+        """
+                Logic function to fetch group data via API and process it into group names.
+                """
+        try:
+            groups_data = OktaUsersCalls.get_user_groups(user_id)
+
+            # Long-form for loop to extract group names
+            group_names = []
+            for group in groups_data:
+                group_names.append(group['profile']['name'])
+
+            return group_names
+        except Exception as e:
+            raise Exception(f"Failed to get user groups: {str(e)}")
