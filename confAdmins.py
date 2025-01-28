@@ -1,6 +1,7 @@
 import csv
 import os
-from call import Okta, conf_call
+from calls.okta_api_calls.okta_users_api import OktaUsersCalls
+from call import conf_call
 
 admins = ['administrators', 'app-confluence-admin', 'con-coyote-creek', 'con-coyote-creek-confluence', 'system-administrators']
 newFile = 'Conf-admins'
@@ -13,6 +14,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
 
         for i in response['results']:
             email = f'{i["username"]}@getcruise.com'
-            manager = Okta.okta_call(email)
+            manager = OktaUsersCalls.get_user_manager(email)
             writer.writerow([email, j, 'Jira Administrator', manager])
             print(i['username'], email, j, 'jira admin', manager)
