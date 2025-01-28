@@ -6,32 +6,6 @@ import json
 class Okta:
 
     @classmethod
-    def okta_groups(cls, name):
-        url = f'https://cruise.okta.com/api/v1/groups?q={name}'
-
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-
-        response = requests.get(url, headers=headers)
-
-        id = json.loads(response.text)[0]['id']
-
-        url = f'https://cruise.okta.com/api/v1/groups/{id}/users'
-
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-
-        response = requests.get(url, headers=headers)
-
-        return json.loads(response.text)
-
-    @classmethod
     def get_group_id(cls, name):
         url = 'https://cruise.okta.com/api/v1/groups'
         headers = {
