@@ -29,4 +29,4 @@ class OktaGroups:
     def get_group_users_by_name(cls, name):
         group_id = OktaGroupCalls.get_group_id(name)
         group_users = OktaGroupCalls.get_group_users(group_id)
-        
+        return group_users
