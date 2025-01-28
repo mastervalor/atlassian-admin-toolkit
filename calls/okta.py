@@ -5,17 +5,6 @@ import json
 
 class Okta:
 
-    @classmethod
-    def add_user_to_group(cls, user_id, group_id):
-        url = f"https://cruise.okta.com/api/v1/groups/{group_id}/users/{user_id}"
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-        response = requests.put(url, headers=headers)
-        return response.status_code
-
         # example
         # for j in admins:
         #     try:
