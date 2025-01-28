@@ -20,3 +20,16 @@ class OktaGroupCalls:
 
         return json.loads(response.text)[0]['id']
 
+    @classmethod
+    def get_group_users(cls, group_id):
+        url = okta_base_url + f'groups/{id}/users'
+
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+
+        response = requests.get(url, headers=headers)
+
+        return json.loads(response.text)
