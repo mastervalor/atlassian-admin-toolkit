@@ -6,29 +6,6 @@ import json
 class Okta:
 
     @classmethod
-    def okta_call(cls, email):
-        url = 'https://cruise.okta.com/api/v1/users'
-        email = email
-        params = {'filter': 'profile.email eq "{0}"'.format(email)}
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-
-        response = requests.get(url, headers=headers, params=params)
-        try:
-            manager = json.loads(response.text)[0]['profile']['manager']
-            if not manager:
-                return 'empty'
-            else:
-                return manager
-        except KeyError:
-            return 'No Manager'
-        except IndexError:
-            return 'Nothing for this one'
-
-    @classmethod
     def okta_groups(cls, name):
         url = f'https://cruise.okta.com/api/v1/groups?q={name}'
 
