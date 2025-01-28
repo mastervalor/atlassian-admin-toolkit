@@ -29,7 +29,7 @@ class OktaUsersCalls:
         """
         Handles the API call to fetch groups for a given user.
         """
-        groups_url = okta_base_url + f'/users/{user_id}/groups'
+        groups_url = okta_base_url + f'users/{user_id}/groups'
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -41,5 +41,24 @@ class OktaUsersCalls:
         else:
             raise Exception(f'Error fetching groups: {response.status_code} - {response.text}')
 
-    def get_user_manager(cls):
+    @classmethod
+    def get_user_manager(cls, email):
+        url = okta_base_url + 'users'
+        params = {'filter': 'profile.email eq "{0}"'.format(email)}
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
 
+        response = requests.get(url, headers=headers, params=params)
+        try:
+            manager = json.loads(response.text)[0]['profile']['manager']
+            if not manager:
+                return 'empty'
+            else:
+                return manager
+        except KeyError:
+            return 'No Manager'
+        except IndexError:
+            return 'Nothing for this one'
