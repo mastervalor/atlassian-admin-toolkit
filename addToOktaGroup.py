@@ -2,6 +2,7 @@ import os
 import csv
 from call import Okta
 
+
 openFile = 'not in app-jira'
 group_id = Okta.get_group_id('app-jira')
 newFile = 'updated missing members'
