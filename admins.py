@@ -1,6 +1,8 @@
 import csv
 import os
-from call import call, Okta
+from call import call
+from calls.okta_api_calls.okta_users_api import OktaUsersCalls
+
 
 sys_admins = ['con-coyote-creek', 'app-jira-system-admin', 'system-administrators']
 admins = ['app-jira-admin', 'app-jira-tpm-admin', 'jira-service-accounts-limited-admin', 'jira-administrators']
@@ -14,7 +16,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         response = call(f'group/member?groupname={j}', 'get')
 
         for i in response['values']:
-            manager = Okta.okta_call(i['emailAddress'])
+            manager = OktaUsersCalls.get_user_manager(i['emailAddress'])
             if manager != 'No Manager' and manager != 'Nothing for this one':
                 writer.writerow([i['emailAddress'], j, 'Jira Administrator', manager])
             print(i['displayName'], i['emailAddress'], j, 'jira admin', manager)
@@ -23,7 +25,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         response = call(f'group/member?groupname={j}', 'get')
 
         for i in response['values']:
-            manager = Okta.okta_call(i['emailAddress'])
+            manager = OktaUsersCalls.get_user_manager(i['emailAddress'])
             if manager != 'No Manager' and manager != 'Nothing for this one':
                 writer.writerow([i['emailAddress'], j, 'System Administrator', manager])
             print(i['displayName'], i['emailAddress'], j, 'System Administrator', manager)
@@ -31,7 +33,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     response = call(f'group/member?groupname={site}', 'get')
 
     for i in response['values']:
-        manager = Okta.okta_call(i['emailAddress'])
+        manager = OktaUsersCalls.get_user_manager(i['emailAddress'])
         if manager != 'No Manager' and manager != 'Nothing for this one':
             writer.writerow([i['emailAddress'], site, 'Jira Administrator', manager])
         print(i['displayName'], i['emailAddress'], site, 'Jira Administrator', manager)
