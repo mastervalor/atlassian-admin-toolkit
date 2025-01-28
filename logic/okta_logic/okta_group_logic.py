@@ -18,7 +18,7 @@ class OktaGroups:
     def add_user_to_groups(cls, user, groups):
         user_id = OktaUsers.get_user_id(user)
         for group in groups:
-            group_id = Okta.get_group_id(group)
+            group_id = OktaGroupCalls.get_group_id(group)
             if "Failed to retrieve group ID" in group_id or "Group not found" in group_id:
                 print(f"Error: {group_id} for group: {group}. Skipping...")
                 continue
