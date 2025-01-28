@@ -6,25 +6,6 @@ import json
 class Okta:
 
     @classmethod
-    def get_group_id(cls, name):
-        url = 'https://cruise.okta.com/api/v1/groups'
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': okta_token
-        }
-
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            groups = json.loads(response.text)
-            for group in groups:
-                if group['profile']['name'] == name:
-                    return group['id']
-            return "Group not found."
-        else:
-            return f"Failed to retrieve group ID. Status code: {response.status_code}"
-
-    @classmethod
     def add_user_to_group(cls, user_id, group_id):
         url = f"https://cruise.okta.com/api/v1/groups/{group_id}/users/{user_id}"
         headers = {
