@@ -18,7 +18,14 @@ class OktaGroupCalls:
 
         response = requests.get(url, headers=headers)
 
-        return json.loads(response.text)[0]['id']
+        if response.status_code == 200:
+            groups = json.loads(response.text)
+            for group in groups:
+                if group['profile']['name'] == name:
+                    return group['id']
+            return "Group not found."
+        else:
+            return f"Failed to retrieve group ID. Status code: {response.status_code}"
 
     @classmethod
     def get_group_users(cls, group_id):
