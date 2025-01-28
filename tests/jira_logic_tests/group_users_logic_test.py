@@ -5,10 +5,9 @@ from logic.jira_logic.group_logic import Groups
 
 class TestGroupsUsers(unittest.TestCase):
     def setUp(self):
-        # Patch the 'jira' attribute in the Groups class
-        patcher = patch.object(Groups, 'jira', new_callable=MagicMock)
-        self.addCleanup(patcher.stop)
-        self.mock_jira = patcher.start()
+        self.mock_jira = MagicMock()
+        self.groups_users = Groups()
+        self.groups_users.jira = self.mock_jira
 
     def test_remove_default_admins(self):
         # Arrange
