@@ -1,16 +1,14 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch, MagicMock
 from logic.jira_logic.group_logic import Groups
-from calls.jira import Jira
 
 
 class TestGroupsUsers(unittest.TestCase):
     def setUp(self):
-        # Set up the mock Jira instance
-        self.mock_jira = MagicMock(spec=Jira)
-        # Initialize the GroupsUsers instance with the mocked Jira
-        self.groups_users = Groups()
-        self.groups_users.jira = self.mock_jira
+        # Patch the 'jira' attribute in the Groups class
+        patcher = patch.object(Groups, 'jira', new_callable=MagicMock)
+        self.addCleanup(patcher.stop)
+        self.mock_jira = patcher.start()
 
     def test_remove_default_admins(self):
         # Arrange
