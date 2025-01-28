@@ -1,5 +1,6 @@
 from calls.okta import Okta
 from logic.okta_logic.okta_user_logic import OktaUsers
+from calls.okta_api_calls.okta_group_api import OktaGroupCalls
 
 
 class OktaGroups:
@@ -23,3 +24,11 @@ class OktaGroups:
                 continue
             result = Okta.add_user_to_group(user_id, group_id)
             print(f'User: {user} being added to group: {group} got result code: {result}')
+
+    @classmethod
+    def get_group_users_by_name(cls, name):
+        group_id = OktaGroupCalls.get_group_id(name)
+
+
+
+
