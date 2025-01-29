@@ -10,21 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def group_members(self, pref):
-        url = self.conf_base + pref
-        print(url)
-        headers = {
-            "Authorization": self.token,
-            "Content-Type": "application/json"}
-
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-        ).text)
-
-        return response
-
     def conf_call(self, pref):
         url = self.conf_url + pref
 
