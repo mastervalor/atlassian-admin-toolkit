@@ -24,3 +24,18 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
+
+    def user_groups(self, pref):
+        url = self.cloud_v1 + f"user/memberof?username={pref}"
+
+        headers = {
+            "Authorization": self.token,
+            "Content-Type": "application/json"}
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+        ).text)
+
+        return response
