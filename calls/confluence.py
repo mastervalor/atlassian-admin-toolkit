@@ -10,21 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def get_user(self, username):
-        url = self.conf_url + f'user?username={username}'
-        headers = {
-            "Authorization": self.token,
-            "Content-Type": "application/json"}
-        print(url)
-        print(headers)
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-        ).text)
-
-        return response
-
     def user_groups(self, pref):
         url = confluence + f"user/memberof?username={pref}"
 
