@@ -2,7 +2,7 @@ import json
 import os
 import csv
 import getpass
-from call import Jira
+from calls.confluence_api_calls.conf_api_users import ConfluenceUsersCalls
 
 newFile = "Jira Group Match"
 openFile = "app-jira members"
@@ -10,7 +10,7 @@ fileName = "app-jira-group-memberships-20230712"
 
 # Get the current username
 username = getpass.getuser()
-jira = Jira()
+conf_users = ConfluenceUsersCalls()
 
 # Specify the file path
 file_path = '/Users/{}/Desktop/{}.json'.format(username, fileName)
@@ -24,7 +24,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
             json_data = json.load(json_file)
             json_groups = set(json_data.keys())
         for user in csv_reader:
-            response = jira.user_groups(user['username'])
+            response = conf_users.user_groups(user['username'])
             filtered_groups = []
             try:
                 for group in response:
