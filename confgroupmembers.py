@@ -1,9 +1,9 @@
 import json
 import csv
 import os
-from call import Confluence
+from calls.confluence_api_calls.conf_api_groups import ConfluenceGroupsCalls
 
-set_up = Confluence()
+conf_groups = ConfluenceGroupsCalls()
 pref = "/rest/api/group/app-confluence/member?expand=status"
 newFile = "app-confluence members"
 
@@ -11,7 +11,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['username'])
     while True:
-        response = set_up.group_members(pref)
+        response = conf_groups.group_members(pref)
         if "next" not in response['_links']:
             break
         for member in response['results']:
