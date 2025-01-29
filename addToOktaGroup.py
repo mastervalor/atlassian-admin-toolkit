@@ -1,10 +1,11 @@
 import os
 import csv
-from call import Okta
+from logic.okta_logic.okta_group_logic import OktaGroupCalls
+from logic.okta_logic.okta_user_logic import OktaUsers
 
 
 openFile = 'not in app-jira'
-group_id = Okta.get_group_id('app-jira')
+group_id = OktaGroupCalls.get_group_id('app-jira')
 newFile = 'updated missing members'
 addedFile = 'members added'
 
@@ -17,7 +18,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
             writer = csv.writer(new_csv)
             writer.writerow(['Username', 'access group', 'status'])
             for row in csv_reader:
-                user = Okta.users_id(row['Username'] + '@getcruise.com')
+                user = OktaUsers.get_user_id(row['Username'] + '@getcruise.com')
                 if user is False:
                     writer.writerow([row['Username'], row['access group'], 'Not in okta'])
                     print(f"couldn't find {row['Username']}")
@@ -25,6 +26,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), m
                     writer.writerow([row['Username'], row['access group'], 'DEPROVISIONED'])
                     print(f"{row['Username']} is no longer active")
                 else:
-                    response = Okta.add_user_to_group(user['id'], group_id)
+                    response = OktaGroupCalls.add_user_to_group(user['id'], group_id)
                     writer2.writerow([row['Username'], row['access group'], user['id'], "added to app-jira"])
                     print(f"{row['Username']} is active and their id is {user['id']}, status of add: {response}")
