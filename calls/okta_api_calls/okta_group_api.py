@@ -43,7 +43,7 @@ class OktaGroupCalls:
 
     @classmethod
     def add_user_to_group(cls, user_id, group_id):
-        url = okta_base_url +  f"groups/{group_id}/users/{user_id}"
+        url = okta_base_url + f"groups/{group_id}/users/{user_id}"
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
