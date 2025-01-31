@@ -10,27 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def get_page(self, page_id):
-        url = self.conf_url + f'content/{page_id}?expand=body.storage,version,ancestors'
-        headers = {
-            'Authorization': self.token,
-            'Content-Type': 'application/json'
-        }
-
-        response = requests.request(
-            "GET",
-            url,
-            headers=headers
-        )
-
-        if response.status_code == 200:
-            return json.loads(response.text)
-
-        else:
-            print('Failed to retrieve page.')
-            print('Response:', response.text)
-            return None
-
     def delete_page(self, page_id):
         url = self.conf_url + f"content/{page_id}"
 
