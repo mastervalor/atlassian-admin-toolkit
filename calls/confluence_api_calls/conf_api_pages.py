@@ -108,3 +108,20 @@ class ConfluencePageCalls:
 
         return restrictions_data
 
+    def get_child_pages_recursive(self, pref):
+        url = f'content/{pref}/child/page?limit=500&expand=version'
+        response = self.conf_call(url)
+
+        pages = response["results"]
+        page_dicts = []
+
+        for page in pages:
+            page_dict = {
+                "id": page["id"],
+                "title": page["title"],
+                "children": self.get_child_pages_recursive(page["id"])
+            }
+            print(page['id'])
+            page_dicts.append(page_dict)
+
+        return page_dicts
