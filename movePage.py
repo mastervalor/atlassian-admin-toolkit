@@ -1,7 +1,7 @@
-from call import Confluence
+from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
 import json
 
-set_up = Confluence(is_staging=True)
+set_up = ConfluencePageCalls(is_staging=True)
 response = set_up.move_page('493159641', 4, 493159811)
 
 # "ancestors": [
