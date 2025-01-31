@@ -1,4 +1,3 @@
-from calls.confluence import Confluence
 from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
 from bs4 import BeautifulSoup
 
