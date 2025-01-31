@@ -10,39 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def create_content(self, page_type, space_key, title, content, ancestors):
-        url = self.conf_url + 'content'
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': self.token
-        }
-
-        payload = json.dumps({
-            'type': page_type,
-            'title': title,
-            'space': {'key': space_key},
-            "ancestors": [
-                {
-                    "id": ancestors
-                }
-            ],
-            'body': {
-                'storage': {
-                    'value': content,
-                    'representation': 'storage'
-                }
-            }
-        })
-
-        response = json.loads(requests.request(
-            "POST",
-            url,
-            data=payload,
-            headers=headers
-        ).text)
-
-        return response
-
     def update_content(self, page_id, page_type, title, content, version):
         url = self.conf_url + f'content/{page_id}'
         headers = {
