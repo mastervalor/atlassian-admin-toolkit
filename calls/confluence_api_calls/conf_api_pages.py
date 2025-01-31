@@ -234,3 +234,24 @@ class ConfluencePageCalls:
             print(response.text)
             return False
         return True
+
+    def get_page(self, page_id):
+        url = self.cloud_v1 + f'content/{page_id}?expand=body.storage,version,ancestors'
+        headers = {
+            'Authorization': self.token,
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.request(
+            "GET",
+            url,
+            headers=headers
+        )
+
+        if response.status_code == 200:
+            return json.loads(response.text)
+
+        else:
+            print('Failed to retrieve page.')
+            print('Response:', response.text)
+            return None
