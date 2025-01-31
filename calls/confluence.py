@@ -10,23 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def conf_call(self, pref):
-        url = self.conf_url + pref
-
-        headers = {
-            "Authorization": self.token,
-            "Content-Type": "application/json"}
-
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-        ).text)
-        print(response)
-        return response
-
-
-
     def move_page(self, pref, version, ancestors):
         url = self.conf_url + f'content/{pref}'
 
