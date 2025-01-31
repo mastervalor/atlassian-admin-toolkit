@@ -10,42 +10,6 @@ class Confluence:
         self.conf_url = confluence_staging if is_staging else confluence
         self.conf_base = conf_base
 
-    def update_content(self, page_id, page_type, title, content, version):
-        url = self.conf_url + f'content/{page_id}'
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': self.token
-        }
-
-        payload = json.dumps({
-            'type': page_type,
-            'title': title,
-            'version': {
-                'number': version + 1
-            },
-            'body': {
-                'storage': {
-                    'value': content,
-                    'representation': 'storage'
-                }
-            }
-        })
-
-        response = json.loads(requests.request(
-            "PUT",
-            url,
-            data=payload,
-            headers=headers
-        ).text)
-
-        if response.status_code == 200:
-            print(f"Page '{title}' updated successfully!")
-        else:
-            print(f"Failed to update page. Status code: {response.status_code}")
-            print(response.text)
-            return False
-        return True
-
     def get_page(self, page_id):
         url = self.conf_url + f'content/{page_id}?expand=body.storage,version,ancestors'
         headers = {
