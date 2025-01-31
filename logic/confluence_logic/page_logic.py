@@ -9,7 +9,7 @@ class Pages:
 
     def create_page(self, space_key, title, content, ancestors):
         page_type = 'page'
-        result = self.conf.create_content(page_type, space_key, title, content, ancestors)
+        result = self.conf_pages.create_content(page_type, space_key, title, content, ancestors)
 
         return result
 
@@ -64,7 +64,7 @@ class Pages:
 
     def update_approver_in_page(self, page_id, project_key_to_find, new_approver):
         # Get the page content
-        page_data = self.conf.get_page(page_id)
+        page_data = self.conf_pages.get_page(page_id)
 
         if not page_data:
             return
@@ -83,14 +83,14 @@ class Pages:
             updated = self.update_table_row(table, project_key_to_find, new_approver)
             if updated:
                 updated_page_content = str(soup)
-                self.conf.update_content(page_id, page_type, title, updated_page_content, version)
+                self.conf_pages.update_content(page_id, page_type, title, updated_page_content, version)
             else:
                 print("No update needed; approver already correct.")
         else:
             print("Table not found in the page content.")
 
     def clear_page_content(self, page_id):
-        page_data = self.conf.get_page(page_id)
+        page_data = self.conf_pages.get_page(page_id)
         if not page_data:
             return False
 
@@ -98,7 +98,7 @@ class Pages:
         page_title = page_data['title']
         page_type = page_data['type']
 
-        if self.conf.update_content(page_id, page_type, page_title, "", current_version):
+        if self.conf_pages.update_content(page_id, page_type, page_title, "", current_version):
             print(f"Content of page '{page_id}' cleared successfully!")
             return True
         else:
@@ -106,22 +106,22 @@ class Pages:
             return False
 
     def get_page_version(self, page_id):
-        page_data = self.conf.get_page(page_id)
+        page_data = self.conf_pages.get_page(page_id)
         return page_data['version']['number']
 
     def get_page_type(self, page_id):
-        page_type = self.conf.get_page(page_id)
+        page_type = self.conf_pages.get_page(page_id)
         return page_type['type']
 
     def update_page(self, page_id, page_title, content):
         page_version = self.get_page_version(page_id)
         page_type = self.get_page_type(page_id)
 
-        response = self.conf.update_content(page_id, page_type, page_title, content, page_version)
+        response = self.conf_pages.update_content(page_id, page_type, page_title, content, page_version)
         return response
 
     def delete_page(self, page_id):
-        response = self.conf.delete_page(page_id)
+        response = self.conf_pages.delete_page(page_id)
         return response
 
     def add_user_edit_to_pages_restriction(self, page_ids, account_id):
