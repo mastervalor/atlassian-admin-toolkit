@@ -255,3 +255,25 @@ class ConfluencePageCalls:
             print('Failed to retrieve page.')
             print('Response:', response.text)
             return None
+
+    def delete_page(self, page_id):
+        url = self.cloud_v1 + f"content/{page_id}"
+
+        headers = {
+            'Authorization': self.token,
+            'Content-Type': 'application/json'
+        }
+
+        response = json.loads(requests.request(
+            "DELETE",
+            url,
+            headers=headers
+        ).text)
+
+        if response.status_code == 200:
+            print(f"Page '{page_id}' deleted successfully!")
+        else:
+            print(f"Failed to delete page. Status code: {response.status_code}")
+            print(response.text)
+            return False
+        return True
