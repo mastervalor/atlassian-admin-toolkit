@@ -134,3 +134,34 @@ class ConfluencePageCalls:
             page_dicts.append(page_dict)
 
         return page_dicts
+
+    def move_page(self, pref, version, ancestors):
+        url = self.cloud_v1 + f'content/{pref}'
+
+        headers = {
+            "Authorization": self.token,
+            "Content-Type": "application/json"}
+
+        payload = json.dumps({
+            "version": {
+                "number": version,
+            },
+            "title": "testing more page",
+            "space": {
+                "key": "T2"
+            },
+            "type": "page",
+            "ancestors": [
+                {
+                    "id": ancestors
+                }
+            ]})
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            data=payload,
+            headers=headers
+        ).text)
+
+        return response
