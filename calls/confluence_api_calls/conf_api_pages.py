@@ -198,3 +198,39 @@ class ConfluencePageCalls:
         ).text)
 
         return response
+
+    def update_content(self, page_id, page_type, title, content, version):
+        url = self.cloud_v1 + f'content/{page_id}'
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': self.token
+        }
+
+        payload = json.dumps({
+            'type': page_type,
+            'title': title,
+            'version': {
+                'number': version + 1
+            },
+            'body': {
+                'storage': {
+                    'value': content,
+                    'representation': 'storage'
+                }
+            }
+        })
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            data=payload,
+            headers=headers
+        ).text)
+
+        if response.status_code == 200:
+            print(f"Page '{title}' updated successfully!")
+        else:
+            print(f"Failed to update page. Status code: {response.status_code}")
+            print(response.text)
+            return False
+        return True
