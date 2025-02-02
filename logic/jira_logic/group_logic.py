@@ -23,10 +23,10 @@ class Groups:
         while total >= max_results:
             if inactive:
                 members = self.jira_groups.get_group(f'?includeInactiveUsers=true&startAt={start_at}'
-                                                    f'&maxResults={max_results}', group)
+                                                     f'&maxResults={max_results}', group)
             else:
                 members = self.jira_groups.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
-                                                    f'&maxResults={max_results}', group)
+                                                     f'&maxResults={max_results}', group)
 
             try:
                 for member in members['values']:
@@ -66,7 +66,7 @@ class Groups:
 
         while total >= max_results:
             members = self.jira_groups.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
-                                                f'&maxResults={max_results}', group)
+                                                 f'&maxResults={max_results}', group)
 
             for member in members['values']:
                 members_list.append(member['name'])
