@@ -256,3 +256,26 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def add_group_by_role(self, group, role, project_key):
+        url = self.jira + f'project/{project_key}/role/{role}'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        payload = json.dumps({
+            "group": [
+                group
+            ]
+        })
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
