@@ -1,8 +1,8 @@
-from call import Jira
+from logic.jira_logic.field_logic import Fields
 import json
 
-jira = Jira()
+fields = Fields()
 
-response = jira.get_customField_context(29700, 37300)
+response = fields.field_options(29700, 37300)
 
 print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
