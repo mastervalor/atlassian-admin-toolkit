@@ -1,6 +1,5 @@
 import csv
 import os
-from call import call
 from calls.okta_api_calls.okta_users_api import OktaUsersCalls
 
 
