@@ -162,3 +162,7 @@ class Projects:
         projects = self.jira_projects.get_active_projects()
         number_of_projects = len(projects)
         return number_of_projects
+
+    def add_group_admins_to_project(self, group, project_key):
+        response = self.jira_projects.add_group_by_role(group, '10002', project_key)
+        return response
