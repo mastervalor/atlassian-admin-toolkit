@@ -166,3 +166,7 @@ class Projects:
     def add_group_admins_to_project(self, group, project_key):
         response = self.jira_projects.add_group_by_role(group, '10002', project_key)
         return response
+
+    def add_group_to_project_by_role(self, group, role, project_key):
+        response = self.jira_projects.add_group_by_role(group, role, project_key)
+        return response
