@@ -38,5 +38,3 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         if manager != 'No Manager' and manager != 'Nothing for this one':
             writer.writerow([i['emailAddress'], site, 'Jira Administrator', manager])
         print(i['displayName'], i['emailAddress'], site, 'Jira Administrator', manager)
-
-# print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
