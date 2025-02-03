@@ -1,5 +1,6 @@
 import requests
 from auth import auth
+from logic.jira_logic.project_logic import Projects
 import json
 from group import check_group
 import csv
@@ -22,31 +23,10 @@ def call(ext):
     return response
 
 
-def post(group, key, id):
-    url = f"https://lucidmotors.atlassian.net/rest/api/3/project/{key}/role/{id}"
-
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
-
-    payload = json.dumps({
-        "group": [group]
-    })
-
-    response = requests.request(
-        "POST",
-        url,
-        data=payload,
-        headers=headers,
-        auth=auth
-    )
-    return response
-
-
 projectRoles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
 projectType = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
 projects = call('project')
+project_logic = Projects()
 
 for i in projects:
     if i['name'].startswith("[dead]") or i['name'].startswith("{Archived}") or i['name'].startswith("{ARCHIVE}") \
@@ -56,7 +36,7 @@ for i in projects:
         for (t, l) in zip(projectType, projectRoles):
             group = f'okta_jira_{i["key"]}_{t}'
             if check_group(group):
-                response = post(group, i['key'], l)
+                response = project_logic.add_group_to_project_by_role(group, l, i['key'])
                 if response.status_code == 200:
                     print(f"This group: {group}, was added to project: {i['key']} with the role of {t}")
                 elif response.status_code == 400:
