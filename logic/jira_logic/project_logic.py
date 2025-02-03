@@ -107,7 +107,6 @@ class Projects:
             'Project type': self.get_project_type(key)
         }
 
-        print(project)
         return project
 
     def get_archived_projects(self):
@@ -118,6 +117,15 @@ class Projects:
                 archived_projects.append(project)
 
         return archived_projects
+
+    def get_active_all_project_keys(self):
+        active_projects = []
+        projects = self.jira_projects.get_active_projects()
+        for project in projects:
+            if project['key']:
+                active_projects.append(project['key'])
+
+        return active_projects
 
     def get_project_owners_and_status(self):
         project_owners = []
