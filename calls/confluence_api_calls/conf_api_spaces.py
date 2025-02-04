@@ -91,4 +91,3 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
-        
