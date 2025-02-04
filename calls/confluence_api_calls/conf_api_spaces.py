@@ -73,3 +73,22 @@ class ConfluenceSpaceCalls:
             print(f"Failed to parse JSON: {e}")
             print(f"Response Text: {response.text}")
             return None
+
+    def set_space_permissions(self, key, payload):
+        url = self.cloud_v2 + f'space/{key}/permission'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
+        
