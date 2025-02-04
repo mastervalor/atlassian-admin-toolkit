@@ -1,8 +1,9 @@
-from call import call
 import csv
 import os
+from logic.jira_logic.group_logic import Groups
 
 admins = 'Jira admins copy'
+groups = Groups()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), admins), mode='r+') as new_csv:
     reader = csv.DictReader(new_csv)
@@ -10,7 +11,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), admins), mod
     rows = []
 
     for i in reader:
-        response = call(f'group/member?groupname={i["Group Name"]}', 'get')
+        response = groups.group_members(i["Group Name"])
         i['Members'] = response['total']
         rows.append(i)
         print(i)
