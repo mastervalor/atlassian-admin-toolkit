@@ -1,3 +1,4 @@
+import json
 from calls.confluence_api_calls.conf_api_spaces import ConfluenceSpaceCalls
 from calls.confluence_api_calls.conf_api_pages import ConfluencePageCalls
 
@@ -109,3 +110,22 @@ class Spaces:
 
         return restricted_pages
 
+    def set_space_permissions_by_groups_roles(self, key, group, role, target):
+        payload = json.dumps({
+            "subject": {
+                "type": "group",
+                "identifier": group
+            },
+            "operations": {
+                "key": role,
+                "target": target
+            },
+            "_links": {}
+        })
+
+        response = self.conf_spaces.set_space_permissions(key, payload)
+
+        if response['statusCode'] == 400:
+            print(f"Group: {group} in space: {key} with role {role, target}: {response}")
+
+        return response
