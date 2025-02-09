@@ -76,3 +76,18 @@ class Groups:
             max_results += 50
             # print(startAt, maxResults)
         return members_list
+
+    def get_all_groups(self):
+        min = 0
+        max = 100
+        total = 100
+        groups = []
+        while max <= total:
+            response = get_groups(min, max)
+            for i in response['values']:
+                groups.append(i['name'])
+            min += 100
+            max += 100
+            total = response['total']
+
+        return groups
