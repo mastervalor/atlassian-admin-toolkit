@@ -83,7 +83,7 @@ class Groups:
         total = 100
         groups = []
         while max <= total:
-            response = get_groups(min, max)
+            response = self.jira_groups.get_groups(min, max)
             for i in response['values']:
                 groups.append(i['name'])
             min += 100
