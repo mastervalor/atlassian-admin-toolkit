@@ -19,20 +19,4 @@ def get_groups(min, max):
 
     # print(json.dumps(response, sort_keys=True, indent=4, separators=(",", ": ")))
     return response
-
-
-def get_all_groups():
-    min = 0
-    max = 100
-    total = 100
-    groups = []
-    while max <= total:
-        response = get_groups(min, max)
-        for i in response['values']:
-            groups.append(i['name'])
-        min += 100
-        max += 100
-        total = response['total']
-
-    return groups
     # print(groups)
