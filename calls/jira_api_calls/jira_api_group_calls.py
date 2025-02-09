@@ -44,3 +44,19 @@ class GroupJiraCalls:
         ).text)
 
         return response
+
+    def get_groups(self, starting, ending):
+        url = self.jira + f'group/bulk?mstart={starting}&limit={ending}'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
