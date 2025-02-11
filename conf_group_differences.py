@@ -2,7 +2,7 @@ import json
 import os
 import csv
 import getpass
-from calls.confluence_api_calls.conf_api_users import ConfluenceUsersCalls
+from logic.confluence_logic.user_logic import ConfGroupLogic
 
 newFile = "Jira Group Match"
 openFile = "app-jira members"
@@ -10,7 +10,7 @@ fileName = "app-jira-group-memberships-20230712"
 
 # Get the current username
 username = getpass.getuser()
-conf_user = ConfluenceUsersCalls()
+conf_user = ConfGroupLogic()
 
 # Specify the file path
 file_path = '/Users/{}/Desktop/{}.json'.format(username, fileName)
@@ -23,7 +23,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         with open(file_path, 'r') as json_file:
             json_data = json.load(json_file)
         for user in csv_reader:
-            response = conf_user.user_groups(user['username'])
+            response = conf_user.get_users_groups(user['username'])
             # Extract group names from the API response and create a dict
             try:
                 api_groups = {group['name'] for group in response['results']}
