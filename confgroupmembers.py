@@ -1,8 +1,8 @@
 import csv
 import os
-from calls.confluence_api_calls.conf_api_groups import ConfluenceGroupsCalls
+from logic.confluence_logic.groups_logic import ConfGroupLogic
 
-conf_groups = ConfluenceGroupsCalls()
+conf_groups = ConfGroupLogic()
 group = 'app-confluence'
 expand = "status"
 newFile = "app-confluence members"
@@ -11,7 +11,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['username'])
     while True:
-        response = conf_groups.group_members(group, expand)
+        response = conf_groups.get_group_members_with_status(group, expand)
         if "next" not in response['_links']:
             break
         for member in response['results']:
