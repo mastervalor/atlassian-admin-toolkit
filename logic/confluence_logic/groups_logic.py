@@ -6,11 +6,9 @@ class ConfGroupLogic:
         self.conf_groups = ConfluenceGroupsCalls(is_staging=True) if is_staging else ConfluenceGroupsCalls()
 
     def get_group_members(self, name):
-        pref = f''
         members = self.conf_groups.group_members(name)
+        return members
 
-
-
-    def get_group_members_with_status(self, name):
-
-
+    def get_group_members_with_status(self, name, expanded):
+        members_with_status = self.conf_groups.group_members(name, expanded)
+        return members_with_status
