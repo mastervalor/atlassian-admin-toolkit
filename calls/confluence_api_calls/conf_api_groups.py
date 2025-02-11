@@ -10,8 +10,8 @@ class ConfluenceGroupsCalls:
         self.cloud_v2 = conf_cloud_v2_dev if is_staging else conf_cloud_v2
         self.token = conf_cloud_dev_token
 
-    def group_members(self, pref):
-        url = self.cloud_v1 + pref
+    def group_members(self, name, expanded=False):
+        url = self.cloud_v1 + f'group/{name}/member/?expand={expanded}' if expanded else f'group/{name}/member'
         headers = {
             "Authorization": self.token,
             "Content-Type": "application/json"}
