@@ -129,3 +129,7 @@ class Spaces:
             print(f"Group: {group} in space: {key} with role {role, target}: {response}")
 
         return response
+
+    def get_space_permissions(self, key):
+        response = self.conf_spaces.get_space_permissions(key)
+        return response
