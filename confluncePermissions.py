@@ -1,6 +1,3 @@
-import requests
-from auth import auth
-import json
 import csv
 import os
 from group import get_group_users
@@ -14,7 +11,7 @@ READ_ONLY = []
 def add_perm(group_name, role_name):
     if group_name == "administrators":
         return False
-    if (group_name.startswith('cc-') or group_name.startswith('dept-') or \
+    if (group_name.startswith('cc-') or group_name.startswith('dept-') or
             group_name.startswith('grp-') or group_name.startswith('okta_') or group_name.startswith('division') or
             group_name == 'engineering'):
         if 'page create' in role_name or 'attachment create' in role_name or 'blogpost create' in role_name:
