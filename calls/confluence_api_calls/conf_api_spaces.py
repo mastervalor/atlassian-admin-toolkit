@@ -91,3 +91,20 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
+
+    def get_space_permissions(self, key, expand=False):
+        url = self.cloud_v2 + f'space/{key}/permission?expand={expand}' if expand else f'space/{key}/permission'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
