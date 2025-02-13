@@ -1,13 +1,15 @@
 import csv
 import os
-from group import get_group_users
 from logic.confluence_logic.space_logic import Spaces
+from logic.confluence_logic.groups_logic import ConfGroupLogic
 
 
 
 EDITORS = []
 COMMENTORS = []
 READ_ONLY = []
+conf_group_logic = ConfGroupLogic()
+conf_space_logic = Spaces()
 
 
 def add_perm(group_name, role_name):
@@ -22,7 +24,7 @@ def add_perm(group_name, role_name):
         elif 'space read' in role_name:
             READ_ONLY.append(group_name)
     else:
-        emails = get_group_users(group_name)
+        emails = conf_group_logic.get_group_users_email(group_name)
         for email in emails:
             if 'page create' in role_name or 'attachment create' in role_name or 'blogpost create' in role_name:
                 EDITORS.append(email)
@@ -44,7 +46,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') a
     with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for space in csv_reader:
-            response = call(space['Space Key'])
+            response = conf_space_logic.get_space_permissions(space['Space Key'])
             EDITORS = []
             COMMENTORS = []
             READ_ONLY = []
