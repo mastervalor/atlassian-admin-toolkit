@@ -1,3 +1,6 @@
+import requests
+from auth import auth
+import json
 import csv
 import os
 from group import get_group_users
@@ -8,26 +11,42 @@ COMMENTORS = []
 READ_ONLY = []
 
 
-def add_perm(group_name, role_name):
-    if group_name == "administrators":
+def call(key):
+    url = f"https://lucidmotors.atlassian.net/wiki/rest/api/space/{key}?expand=permissions"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = json.loads(requests.request(
+        "GET",
+        url,
+        headers=headers,
+        auth=auth
+    ).text)
+
+    return response
+
+
+def add_perm(group, role):
+    if group == "administrators":
         return False
-    if (group_name.startswith('cc-') or group_name.startswith('dept-') or
-            group_name.startswith('grp-') or group_name.startswith('okta_') or group_name.startswith('division') or
-            group_name == 'engineering'):
-        if 'page create' in role_name or 'attachment create' in role_name or 'blogpost create' in role_name:
-            EDITORS.append(group_name)
-        elif 'comment create' in role_name:
-            COMMENTORS.append(group_name)
-        elif 'space read' in role_name:
-            READ_ONLY.append(group_name)
+    if group.startswith('cc-') or group.startswith('dept-') or \
+            group.startswith('grp-') or group.startswith('okta_') or group.startswith('division') or group == 'engineering':
+        if 'page create' in role or 'attachment create' in role or 'blogpost create' in role:
+            EDITORS.append(group)
+        elif 'comment create' in role:
+            COMMENTORS.append(group)
+        elif 'space read' in role:
+            READ_ONLY.append(group)
     else:
-        emails = get_group_users(group_name)
+        emails = get_group_users(group)
         for email in emails:
-            if 'page create' in role_name or 'attachment create' in role_name or 'blogpost create' in role_name:
+            if 'page create' in role or 'attachment create' in role or 'blogpost create' in role:
                 EDITORS.append(email)
-            elif 'comment create' in role_name:
+            elif 'comment create' in role:
                 COMMENTORS.append(email)
-            elif 'space read' in role_name:
+            elif 'space read' in role:
                 READ_ONLY.append(email)
 
 
