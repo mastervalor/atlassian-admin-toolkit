@@ -23,3 +23,22 @@ class ConfluenceGroupsCalls:
         ).text)
 
         return response
+
+    def get_group(self, pref, group):
+        url = self.cloud_v1 + 'group/member' + pref
+
+        headers = {
+            "Accept": "application/json"
+        }
+        query = {
+            'groupname': group
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=self.token
+        ).text)
+
+        return response
