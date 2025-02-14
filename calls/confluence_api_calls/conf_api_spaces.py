@@ -108,3 +108,19 @@ class ConfluenceSpaceCalls:
         ).text)
 
         return response
+
+    def get_space_groups(self, key, role_id):
+        url = self.cloud_v2 + 'space/' + key + '/role/' + role_id
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
