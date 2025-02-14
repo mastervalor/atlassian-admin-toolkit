@@ -29,13 +29,13 @@ def call(ext, id=''):
     return response
 
 
-projectRoles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
-projectType = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
-newFile = 'project role groups and users 3'
+project_roles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
+project_type = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
+new_file = 'project role groups and users 3'
 conf_groups = ConfGroupLogic()
 conf_space_logic = Spaces()
 
-with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') as new_csv:
+with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') as new_csv:
     writer = csv.writer(new_csv)
     writer.writerow(['jira', 'Project key', 'Role', 'Cost Center'])
     projects = call('project')
@@ -44,7 +44,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') a
                 or ("archived" in i and i['archived'] == 'True'):
             continue
         else:
-            for (a, r) in zip(projectRoles, projectType):
+            for (a, r) in zip(project_roles, project_type):
                 groupName = call(f'project/{i["key"]}/role/{a}')
                 if 'actors' in groupName:
                     emails = []
