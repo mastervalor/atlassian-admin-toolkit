@@ -133,3 +133,7 @@ class Spaces:
     def get_space_permissions(self, key):
         response = self.conf_spaces.get_space_permissions(key)
         return response
+
+    def get_space_groups_by_roles(self, key, role):
+        groups = self.conf_spaces.get_space_groups(key, role)
+        return groups
