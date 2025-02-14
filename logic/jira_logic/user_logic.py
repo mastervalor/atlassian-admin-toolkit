@@ -56,4 +56,3 @@ class Users:
             max_results += 50
 
         return users_found
-
