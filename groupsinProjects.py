@@ -54,7 +54,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') a
                                     x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
                                 costCenters.append(x['displayName'])
                             else:
-                                names = get_group_users( x['displayName'])
+                                names = conf_groups.get_group_users_email(x['displayName'])
                                 if 'errorMessages' in names:
                                     user = call('/user', x['actorUser']['accountId'])
                                     try:
