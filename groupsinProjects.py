@@ -4,6 +4,7 @@ import json
 import csv
 import os
 from logic.confluence_logic.groups_logic import ConfGroupLogic
+from logic.confluence_logic.space_logic import Spaces
 
 
 def call(ext, id=''):
@@ -32,6 +33,7 @@ projectRoles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
 projectType = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
 newFile = 'project role groups and users 3'
 conf_groups = ConfGroupLogic()
+conf_space_logic = Spaces()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
