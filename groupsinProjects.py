@@ -5,6 +5,7 @@ import csv
 import os
 from logic.confluence_logic.groups_logic import ConfGroupLogic
 from logic.confluence_logic.space_logic import Spaces
+from logic.jira_logic.project_logic import Projects
 
 
 def call(ext, id=''):
@@ -34,6 +35,7 @@ project_type = ['developers', 'admins', 'agents', 'users', 'customers', 'supplie
 new_file = 'project role groups and users 3'
 conf_groups = ConfGroupLogic()
 conf_space_logic = Spaces()
+jira_project_logic = Projects()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') as new_csv:
     writer = csv.writer(new_csv)
@@ -44,8 +46,8 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') 
                 or ("archived" in i and i['archived'] == 'True'):
             continue
         else:
-            for (a, r) in zip(project_roles, project_type):
-                groupName = call(f'project/{i["key"]}/role/{a}')
+            for (role, p_type) in zip(project_roles, project_type):
+                groupName = jira_project_logic.get_project_users_by_role(i["key"], role)
                 if 'actors' in groupName:
                     emails = []
                     costCenters = []
@@ -62,12 +64,12 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') 
                                     try:
                                         users.append(user['emailAddress'])
                                     except KeyError:
-                                        print(x['actorUser']['accountId'], x['displayName'], i['key'], a)
+                                        print(x['actorUser']['accountId'], x['displayName'], i['key'], role)
                                 if 'values' in names:
                                     for y in names['values']:
                                         try:
                                             emails.append(y['emailAddress'])
                                         except KeyError:
-                                            print(y['accountId'], y['displayName'], i['key'], a)
+                                            print(y['accountId'], y['displayName'], i['key'], role)
                     if costCenters or emails or users:
-                        writer.writerow(['jira', i['key'], r, costCenters + emails + users])
+                        writer.writerow(['jira', i['key'], p_type, costCenters + emails + users])
