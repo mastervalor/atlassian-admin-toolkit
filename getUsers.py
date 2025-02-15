@@ -1,9 +1,9 @@
-from calls.jira_api_calls.jira_api_user_calls import UserJiraCalls
+from logic.jira_logic.user_logic import Users
 import csv
 import os
 
 
-jira_users = UserJiraCalls()
+jira_users = Users()
 openFile = 'owners of done tickets'
 newfile = "Inactive project leads"
 
@@ -13,7 +13,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
-            status = jira_users.get_user(i['Project lead'])
+            status = jira_users.get_user_by_username(i['Project lead'])
             if not status['active']:
                 print(i['Project lead'], i['Project Key'], status['active'])
                 writer.writerow([i['Project lead'], i['Project Key'], status['active']])
