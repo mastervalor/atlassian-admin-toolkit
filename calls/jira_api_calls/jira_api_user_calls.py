@@ -9,14 +9,11 @@ class UserJiraCalls:
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
 
-    def get_user(self, payload, pref=''):
+    def get_user(self, query, pref=''):
         url = self.jira + 'user' + pref
 
         headers = {
             "Accept": "application/json"
-        }
-        query = {
-            'username': payload,
         }
 
         response = json.loads(requests.request(
