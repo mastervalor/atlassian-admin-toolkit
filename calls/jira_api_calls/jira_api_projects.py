@@ -56,7 +56,7 @@ class ProjectJiraCalls:
 
         return response
 
-    def get_active_projects(self):
+    def get_projects(self):
         url = self.jira + 'project'
 
         headers = {
