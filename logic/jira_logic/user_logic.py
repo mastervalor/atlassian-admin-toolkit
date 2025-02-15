@@ -9,7 +9,7 @@ class Users:
         self.jira_groups = GroupJiraCalls(is_staging=True) if is_staging else GroupJiraCalls()
 
     def user_groups(self, user):
-        groups = self.jira_users.get_user(user, '?expand=groups')
+        groups = self.get_user_by_username(user, '?expand=groups')
         user_groups = []
 
         for group in groups['groups']['items']:
@@ -18,14 +18,14 @@ class Users:
         return user_groups
 
     def get_user_status(self, user):
-        user_profile = self.jira_users.get_user(user)
+        user_profile = self.get_user_by_username(user)
         if user_profile['active']:
             return 'Active'
         else:
             return 'Inactive'
 
     def get_user_applications(self, user):
-        user_profile = self.jira_users.get_user(user, '?expand=applicationRoles')
+        user_profile = self.get_user_by_username(user, '?expand=applicationRoles')
         roles = []
         for role in user_profile['applicationRoles']['items']:
             roles.append(role['name'])
@@ -56,10 +56,10 @@ class Users:
             max_results += 50
 
         return users_found
-    
-    def get_user_by_username(self, username):
+
+    def get_user_by_username(self, username, pref=''):
         query = {
             'username': username,
         }
-        user = self.jira_users.get_user(query)
+        user = self.jira_users.get_user(query, pref)
         return user
