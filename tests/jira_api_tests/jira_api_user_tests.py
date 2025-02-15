@@ -7,8 +7,10 @@ class TestUserJiraCalls(unittest.TestCase):
         self.jira_user_calls = UserJiraCalls(is_staging=True)
 
     def test_get_user(self):
-        user = 'mourad.marzouk'
-        response = self.jira_user_calls.get_user(user)
+        query = {
+            'username': 'mourad.marzouk',
+        }
+        response = self.jira_user_calls.get_user(query)
         self.assertEqual(response['emailAddress'], 'mourad.marzouk@getcruise.com')
 
     def test_delete_user(self):
