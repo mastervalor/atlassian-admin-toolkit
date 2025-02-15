@@ -56,3 +56,10 @@ class Users:
             max_results += 50
 
         return users_found
+    
+    def get_user_by_username(self, username):
+        query = {
+            'username': username,
+        }
+        user = self.jira_users.get_user(query)
+        return user
