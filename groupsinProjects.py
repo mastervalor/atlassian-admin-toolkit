@@ -8,29 +8,6 @@ from logic.confluence_logic.space_logic import Spaces
 from logic.jira_logic.project_logic import Projects
 from logic.jira_logic.user_logic import Users
 
-
-def call(ext, id=''):
-    url = "https://lucidmotors.atlassian.net/rest/api/3/" + ext
-
-    headers = {
-        "Accept": "application/json"
-    }
-    query = ''
-
-    if id:
-        query = {
-            'accountId': id
-        }
-    response = json.loads(requests.request(
-        "GET",
-        url,
-        headers=headers,
-        params=query,
-        auth=auth
-    ).text)
-    return response
-
-
 project_roles = ['10001', '10002', '10301', '10000', '10300', '10425', '10432']
 project_type = ['developers', 'admins', 'agents', 'users', 'customers', 'suppliers', 'read-only']
 new_file = 'project role groups and users 3'
@@ -58,7 +35,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') 
                         else:
                             names = conf_groups.get_group_users_email(x['displayName'])
                             if 'errorMessages' in names:
-                                user = call('/user', x['actorUser']['accountId'])
+                                user = user_logic.get_user_by_id(x['actorUser']['accountId'])
                                 try:
                                     users.append(user['emailAddress'])
                                 except KeyError:
