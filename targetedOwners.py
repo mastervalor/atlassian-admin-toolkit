@@ -17,7 +17,7 @@ for ticket in tickets['issues']:
     part = part.split(" ")[0]
     archive_list.append(part)
 
-projects = projects.get_active_projects()
+projects = projects.get_projects()
 
 for project in projects:
     if project['key'] not in archive_list:
