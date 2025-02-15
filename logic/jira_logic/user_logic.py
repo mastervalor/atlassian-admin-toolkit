@@ -63,3 +63,10 @@ class Users:
         }
         user = self.jira_users.get_user(query, pref)
         return user
+
+    def get_user_by_id(self, user_id, pref=''):
+        query = {
+            'accountId': user_id
+        }
+        user = self.jira_users.get_user(query, pref)
+        return user
