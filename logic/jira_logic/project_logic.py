@@ -171,6 +171,19 @@ class Projects:
         number_of_projects = len(projects)
         return number_of_projects
 
+    def get_active_projects(self):
+        projects = self.jira_projects.get_projects()
+        active_projects = []
+        for project in projects:
+            if (project['name'].startswith("[dead]") or project['name'].startswith("{Archived}")
+                    or project['name'].startswith("{ARCHIVE}")
+                    or ("archived" in project and project['archived'] == 'True')):
+                continue
+            else:
+                active_projects.append(project)
+
+        return active_projects
+
     def add_group_admins_to_project(self, group, project_key):
         response = self.jira_projects.add_group_by_role(group, '10002', project_key)
         return response
