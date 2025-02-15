@@ -40,36 +40,32 @@ jira_project_logic = Projects()
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), new_file), mode='w') as new_csv:
     writer = csv.writer(new_csv)
     writer.writerow(['jira', 'Project key', 'Role', 'Cost Center'])
-    projects = call('project')
-    for i in projects:
-        if i['name'].startswith("[dead]") or i['name'].startswith("{Archived}") or i['name'].startswith("{ARCHIVE}") \
-                or ("archived" in i and i['archived'] == 'True'):
-            continue
-        else:
-            for (role, p_type) in zip(project_roles, project_type):
-                groupName = jira_project_logic.get_project_users_by_role(i["key"], role)
-                if 'actors' in groupName:
-                    emails = []
-                    costCenters = []
-                    users = []
-                    for x in groupName['actors']:
-                        if x['displayName'] != 'administrators':
-                            if x['displayName'].startswith('CC-') or x['displayName'].startswith('DEPT-') or \
-                                    x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
-                                costCenters.append(x['displayName'])
-                            else:
-                                names = conf_groups.get_group_users_email(x['displayName'])
-                                if 'errorMessages' in names:
-                                    user = call('/user', x['actorUser']['accountId'])
+    projects = jira_project_logic.get_active_projects()
+    for project in projects:
+        for (role, p_type) in zip(project_roles, project_type):
+            groupName = jira_project_logic.get_project_users_by_role(i["key"], role)
+            if 'actors' in groupName:
+                emails = []
+                costCenters = []
+                users = []
+                for x in groupName['actors']:
+                    if x['displayName'] != 'administrators':
+                        if x['displayName'].startswith('CC-') or x['displayName'].startswith('DEPT-') or \
+                                x['displayName'].startswith('grp-') or x['displayName'].startswith('okta_'):
+                            costCenters.append(x['displayName'])
+                        else:
+                            names = conf_groups.get_group_users_email(x['displayName'])
+                            if 'errorMessages' in names:
+                                user = call('/user', x['actorUser']['accountId'])
+                                try:
+                                    users.append(user['emailAddress'])
+                                except KeyError:
+                                    print(x['actorUser']['accountId'], x['displayName'], i['key'], role)
+                            if 'values' in names:
+                                for y in names['values']:
                                     try:
-                                        users.append(user['emailAddress'])
+                                        emails.append(y['emailAddress'])
                                     except KeyError:
-                                        print(x['actorUser']['accountId'], x['displayName'], i['key'], role)
-                                if 'values' in names:
-                                    for y in names['values']:
-                                        try:
-                                            emails.append(y['emailAddress'])
-                                        except KeyError:
-                                            print(y['accountId'], y['displayName'], i['key'], role)
-                    if costCenters or emails or users:
-                        writer.writerow(['jira', i['key'], p_type, costCenters + emails + users])
+                                        print(y['accountId'], y['displayName'], project['key'], role)
+                if costCenters or emails or users:
+                    writer.writerow(['jira', project['key'], p_type, costCenters + emails + users])
