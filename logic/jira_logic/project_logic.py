@@ -120,7 +120,7 @@ class Projects:
 
     def get_active_all_project_keys(self):
         active_projects = []
-        projects = self.jira_projects.get_active_projects()
+        projects = self.jira_projects.get_projects()
         for project in projects:
             if project['key']:
                 active_projects.append(project['key'])
@@ -167,7 +167,7 @@ class Projects:
         return responses
 
     def get_active_projects_total(self):
-        projects = self.jira_projects.get_active_projects()
+        projects = self.jira_projects.get_projects()
         number_of_projects = len(projects)
         return number_of_projects
 
