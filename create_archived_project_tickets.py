@@ -1,9 +1,9 @@
-from logic.os_logic import OSLogic
+from file_manip.csv_file_manip import CSVLogic
 from logic.jira_logic.ticket_logic import Tickets
 
 tickets = Tickets()
-os_logic = OSLogic(open_file='Archived projects')
-file = os_logic.read_file()
+csv_logic = CSVLogic(open_file='Archived projects')
+file = csv_logic.read_file()
 
 for row in file:
     ticket_info = {'parent ticket': 'CORPENG-9593',
