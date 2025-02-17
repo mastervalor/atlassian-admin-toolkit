@@ -15,9 +15,6 @@ project_logic = Projects()
 key = str(input("What is the project key? "))
 
 url = "https://lucidmotors.atlassian.net/rest/api/2/project/" + key + "/properties"
-# url = "https://lucidmotors-sandbox-693.atlassian.net/rest/api/2/project/DRM/properties"
-
-auth = HTTPBasicAuth("mouradmarzouk@lucidmotors.com", "10U1uDLf8VHUU6EYb8m3CE0E")
 
 headers = {
     "Accept": "application/json"
