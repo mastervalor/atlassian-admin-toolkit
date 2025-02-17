@@ -14,22 +14,6 @@ user_logic = Users()
 project_logic = Projects()
 key = str(input("What is the project key? "))
 
-url = "https://lucidmotors.atlassian.net/rest/api/2/project/" + key + "/properties"
-
-headers = {
-    "Accept": "application/json"
-}
-
-response = requests.request(
-    "GET",
-    url,
-    headers=headers,
-    auth=auth
-)
-if response.status_code != 200:
-    print("Sorry that's not an exciting project key, please try again. Good bye")
-    quit()
-
 prefix = 'approvers-'
 
 fileName = str(
