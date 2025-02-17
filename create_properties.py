@@ -5,11 +5,13 @@ import os
 from datetime import date
 from os import path
 from logic.jira_logic.user_logic import Users
+from logic.jira_logic.project_logic import Projects
 
 import requests
 from requests.auth import HTTPBasicAuth
 
 user_logic = Users()
+project_logic = Projects()
 key = str(input("What is the project key? "))
 
 url = "https://lucidmotors.atlassian.net/rest/api/2/project/" + key + "/properties"
