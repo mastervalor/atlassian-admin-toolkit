@@ -4,25 +4,12 @@ import json
 import os
 from datetime import date
 from os import path
+from logic.jira_logic.user_logic import Users
 
 import requests
 from requests.auth import HTTPBasicAuth
 
-
-def check(userid):
-    url = "https://lucidmotors.atlassian.net/rest/api/2/user?accountId=" + userid
-    # url = "https://lucidmotors-sandbox-693.atlassian.net/rest/api/2/user?accountId=" + userid
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        auth=auth
-    )
-    json_data = response.json()
-    if 'displayName' in json_data.keys():
-        return json_data['displayName']
-
-
+user_logic = Users()
 key = str(input("What is the project key? "))
 
 url = "https://lucidmotors.atlassian.net/rest/api/2/project/" + key + "/properties"
@@ -78,17 +65,17 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), fileName), mode='r') 
 
         print(propertyKeyLoad)
 
-        eap = rule["Engenieering approver Primary"]
-        eas = rule["Engenieering approver Secondary"]
-        bap = rule["Build approver Primary"]
-        bas = rule["Build approver Secondary "]
+        eap = user_logic.get_user_by_id(rule["Engenieering approver Primary"])
+        eas = user_logic.get_user_by_id(rule["Engenieering approver Secondary"])
+        bap = user_logic.get_user_by_id(rule["Build approver Primary"])
+        bas = user_logic.get_user_by_id(rule["Build approver Secondary "])
 
         # ====== updated property =====
 
-        eapn = str(check(eap))
-        easn = str(check(eas))
-        bapn = str(check(bap))
-        basn = str(check(bas))
+        eapn = str(eap['displayName'])
+        easn = str(eas['displayName'])
+        bapn = str(bap['displayName'])
+        basn = str(bas['displayName'])
 
         final_property = dict([
             ('engineeringapproverprimary', eap),
