@@ -191,3 +191,7 @@ class Projects:
     def add_group_to_project_by_role(self, group, role, project_key):
         response = self.jira_projects.add_group_by_role(group, role, project_key)
         return response
+
+    def get_project_properties(self, project_key):
+        response = self.jira_projects.get_project_properties(project_key)
+        return response
