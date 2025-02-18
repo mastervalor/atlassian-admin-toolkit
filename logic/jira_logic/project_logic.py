@@ -199,3 +199,11 @@ class Projects:
             quit()
         else:
             return response
+
+    def set_project_properties(self, project_key, property_key):
+        response = self.jira_projects.set_project_properties(project_key, property_key)
+        if response.status_code != 200:
+            print("Sorry that's not an exciting project key, please try again. Good bye")
+            quit()
+        else:
+            return response
