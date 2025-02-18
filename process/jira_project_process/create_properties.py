@@ -1,14 +1,11 @@
 import csv
 import getpass
-import json
 import os
 from datetime import date
 from os import path
 from logic.jira_logic.user_logic import Users
 from logic.jira_logic.project_logic import Projects
 
-import requests
-from requests.auth import HTTPBasicAuth
 
 user_logic = Users()
 project_logic = Projects()
