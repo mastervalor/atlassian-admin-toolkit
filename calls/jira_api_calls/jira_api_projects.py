@@ -296,9 +296,9 @@ class ProjectJiraCalls:
 
         return response
 
-    def set_project_properties(self, project_key, data):
-        data = json.dumps(data, sort_keys=True)
-        url = self.jira + f"project/{project_key}/properties"
+    def set_project_properties(self, project_key, property_key):
+        data = json.dumps(property_key, sort_keys=True)
+        url = self.jira + f"project/{project_key}/properties/{property_key}"
 
         headers = {
             "Accept": "application/json"
