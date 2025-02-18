@@ -23,30 +23,17 @@ if not path.exists('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), fileName)):
     print("Sorry that file name doesn't exist, try again")
     quit()
 
-
 with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), fileName), mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for rule in csv_reader:
         if rule["Componant"]:
-            propertykey = prefix + rule["Build Phase"] + '--' + rule["Build Area"] + '--' + rule["Componant"]
+            property_key = prefix + rule["Build Phase"] + '--' + rule["Build Area"] + '--' + rule["Componant"]
         else:
-            propertykey = prefix + rule["Build Phase"] + '--' + rule["Build Area"]
-        propertykey = propertykey.lower()
-        propertykey = propertykey.replace(' ', '_')
+            property_key = prefix + rule["Build Phase"] + '--' + rule["Build Area"]
+        property_key = property_key.lower()
+        property_key = property_key.replace(' ', '_')
 
-        urlP = url + "/" + propertykey
-
-        propertyKeyLoad = json.dumps(propertykey, sort_keys=True)
-
-        response = requests.request(
-            "PUT",
-            urlP,
-            data=propertyKeyLoad,
-            headers=headers,
-            auth=auth
-        )
-
-        print(propertyKeyLoad)
+        project_logic.set_project_properties(key, property_key)
 
         eap = user_logic.get_user_by_id(rule["Engenieering approver Primary"])
         eas = user_logic.get_user_by_id(rule["Engenieering approver Secondary"])
@@ -72,14 +59,4 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.getlogin(), fileName), mode='r') 
             ('zdateupdated', date.today().strftime("%m/%d/%Y")),
             ('zdateupdatedname', getpass.getuser())])
 
-        payload = json.dumps(final_property, sort_keys=True)
-
-        response = requests.request(
-            "PUT",
-            urlP,
-            data=payload,
-            headers=headers,
-            auth=auth
-        )
-
-        print(payload)
+        project_logic.set_project_properties(key, final_property)
