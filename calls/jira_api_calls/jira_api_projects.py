@@ -295,3 +295,21 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def set_project_properties(self, project_key, data):
+        data = json.dumps(data, sort_keys=True)
+        url = self.jira + f"project/{project_key}/properties"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "PUT",
+            url,
+            data=data,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
