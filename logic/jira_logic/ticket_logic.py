@@ -213,7 +213,7 @@ class Tickets:
             if "error" in response:
                 results.append({"comment_id": comment_id, "status": "failed", "details": response["error"]})
             else:
-                results.append({"comment_id": comment_id, "status": "deleted", "message": response["message"]})
+                results.append({"comment_id": comment_id, "status": "deleted"})
 
         return results
 
