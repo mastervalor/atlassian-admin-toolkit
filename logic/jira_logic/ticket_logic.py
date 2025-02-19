@@ -194,3 +194,11 @@ class Tickets:
                 users_comments.append(comment)
 
         return users_comments
+
+    def get_users_comment_ids(self, user_name, ticket_key):
+        users_comments = self.get_all_users_comments(user_name, ticket_key)
+        comment_ids = []
+        for comment in users_comments:
+            comment_ids.append(comment['id'])
+
+        return comment_ids
