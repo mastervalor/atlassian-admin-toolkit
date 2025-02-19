@@ -1,9 +1,11 @@
 #!/usr/bin/python
-import re, subprocess
-import requests
-from requests.auth import HTTPBasicAuth
-from auth import auth
 import json
+import re
+import subprocess
+
+import requests
+
+from auth import auth
 
 cmd = 'acli --action renderRequest --request /secure/admin/workflows/ListWorkflows.jspa'
 
