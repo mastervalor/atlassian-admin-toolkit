@@ -1,56 +1,24 @@
 #!/usr/bin/python
-import json
 import re
 import subprocess
+from logic.jira_logic.workflow_logic import WorkflowLogic
 
-import requests
-
-from auth import auth
 
 cmd = 'acli --action renderRequest --request /secure/admin/workflows/ListWorkflows.jspa'
 
 response = subprocess.check_output(cmd.split()).decode("utf-8")
-
+workflow_logic = WorkflowLogic()
 count = 0
+name_substring = "NTBD"
 
 
 for line in response.splitlines():
-    str = "NTBD"
-    matchdelete = re.search('<a data-operation="delete" class="trigger-dialog" id="del_(.*)" href="DeleteWorkflow\.jspa', line)
-    if matchdelete:
-        if str not in matchdelete.group(1):
-            name = matchdelete.group(1)
-
-            url = "https://lucidmotors.atlassian.net/rest/api/3/workflow/search?workflowName=" + name
-
-            auth = auth
-            headers = {
-
-                "Accept": "application/json"
-
-            }
-            workflow = requests.request(
-                "GET",
-                url,
-                headers=headers,
-                auth=auth
-            ).text
-
-            workflow = json.loads(workflow)
-
-            id = workflow['values'][0]['id']['entityId']
-
-            url = "https://lucidmotors.atlassian.net/rest/api/3/workflow/" + id
-
-            auth = auth
-
-            response = requests.request(
-                "DELETE",
-                url,
-                auth=auth
-            )
-
-            print(response.text)
+    match_delete = re.search('<a data-operation="delete" class="trigger-dialog" id="del_(.*)" href="DeleteWorkflow\.jspa', line)
+    if match_delete:
+        if name_substring not in match_delete.group(1):
+            workflow_name = match_delete.group(1)
+            
+            workflow_id = workflow_logic.get_workflow_id(workflow_name)
+            response = workflow_logic.delete_workflow(workflow_id)
 
         count += 1
-
