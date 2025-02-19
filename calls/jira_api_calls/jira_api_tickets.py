@@ -146,11 +146,11 @@ class TicketsJiraCalls:
         headers = {
             "Accept": "application/json",
         }
-        response = json.loads(requests.request(
-            "GET",
+        response = requests.request(
+            "DELETE",
             url,
             headers=headers,
             auth=self.token
-        ).text)
+        ).text
 
         return response
