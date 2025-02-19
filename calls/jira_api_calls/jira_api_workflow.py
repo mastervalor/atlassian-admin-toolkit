@@ -25,3 +25,19 @@ class WorkflowJiraCalls:
         ).text)
 
         return response
+
+    def delete_workflow(self, workflow_id):
+        url = self.jira + f"workflow/{workflow_id}"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "DELETE",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
