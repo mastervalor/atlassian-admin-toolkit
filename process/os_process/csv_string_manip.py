@@ -22,4 +22,3 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), file), mode=
     writer.writeheader()
     writer.writerows(rows)
     new_csv.flush()
-    
