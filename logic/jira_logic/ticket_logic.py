@@ -204,7 +204,16 @@ class Tickets:
         return comment_ids
 
     def delete_user_comments(self, ticket_key, comment_ids):
+        """Deletes multiple comments from a Jira issue and returns results."""
+        results = []
+
         for comment_id in comment_ids:
             response = self.tickets.delete_ticket_comment(ticket_key, comment_id)
-            return response
+
+            if "error" in response:
+                results.append({"comment_id": comment_id, "status": "failed", "details": response["error"]})
+            else:
+                results.append({"comment_id": comment_id, "status": "deleted", "message": response["message"]})
+
+        return results
 
