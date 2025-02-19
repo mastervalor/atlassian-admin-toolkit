@@ -185,3 +185,12 @@ class Tickets:
 
         print(response.text)
         return response
+
+    def get_all_users_comments(self, user_name, ticket_key):
+        comments = self.tickets.get_ticket_comments(ticket_key)['comments']
+        users_comments = []
+        for comment in comments:
+            if comment['author']['displayName'] == user_name:
+                users_comments.append(comment)
+
+        return users_comments
