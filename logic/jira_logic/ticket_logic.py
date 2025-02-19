@@ -202,3 +202,9 @@ class Tickets:
             comment_ids.append(comment['id'])
 
         return comment_ids
+
+    def delete_user_comments(self, ticket_key, comment_ids):
+        for comment_id in comment_ids:
+            response = self.tickets.delete_ticket_comment(ticket_key, comment_id)
+            return response
+
