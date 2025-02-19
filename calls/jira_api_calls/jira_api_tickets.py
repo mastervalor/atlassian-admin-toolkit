@@ -139,3 +139,18 @@ class TicketsJiraCalls:
         ).text)
 
         return response
+
+    def delete_ticket_comment(self, ticket_key, comment_id):
+        url = self.jira + f'issue/{ticket_key}/comment/{comment_id}'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
