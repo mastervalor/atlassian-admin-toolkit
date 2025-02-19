@@ -124,3 +124,18 @@ class TicketsJiraCalls:
         )
 
         return response
+
+    def get_ticket_comments(self, ticket_key):
+        url = self.jira + f'issue/{ticket_key}/comment'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
