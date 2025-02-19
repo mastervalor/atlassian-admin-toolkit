@@ -41,3 +41,18 @@ class WorkflowJiraCalls:
         ).text)
 
         return response
+
+    def get_workflow_by_name(self, workflow_name):
+        url = self.jira + f'workflow/search?workflowName={workflow_name}'
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
