@@ -95,3 +95,17 @@ class Groups:
     def add_member(self, group, user):
         response = self.jira_groups.add_member_to_group(group, user)
         return response
+
+    def add_members_to_group(self, group, users):
+        """Adds multiple users to a Jira group and returns the results."""
+        results = []
+
+        for user in users:
+            response = self.jira_groups.add_member_to_group(group, user)
+
+            if "error" in response:
+                results.append({"user": user, "status": "failed", "details": response["error"]})
+            else:
+                results.append({"user": user, "status": "added", "message": response["message"]})
+
+        return results
