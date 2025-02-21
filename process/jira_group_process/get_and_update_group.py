@@ -16,5 +16,5 @@ for group in groups:
     for value in json.loads(response)['values']:
         account_ids.append(value['accountId'])
 
-     results = group_logic.add_members_to_group(group, account_ids)
+    results = group_logic.add_members_to_group(group, account_ids)
     print(results)
