@@ -1,28 +1,9 @@
 import requests
 from auth import auth
 import json
+from logic.jira_logic.group_logic import Groups
 
-
-def call(x):
-    url = "https://lucidmotors.atlassian.net/rest/api/3/group/member"
-
-    headers = {
-        "Accept": "application/json"
-    }
-
-    query = {
-        'groupname': x
-    }
-
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        params=query,
-        auth=auth
-    ).text
-
-    return response
+group_logic = Groups()
 
 
 def put(x):
@@ -54,9 +35,9 @@ def put(x):
 groups = ['QUAL-General-Factory-Paint', 'QUAL-General-Factory-BIW', 'QUAL-General-Factory-GA',
           'QUAL-General-Factory-Powertrain', 'QUAL-Incoming-Quality', 'QUAL-PDI', 'QUAL-LCPA']
 ids = []
-for x in groups:
-    response = call(x)
-    for i in json.loads(response)['values']:
-        put(i['accountId'])
+for group in groups:
+    response = group_logic.group_members(group)
+    for value in json.loads(response)['values']:
+        put(value['accountId'])
 
 print(ids)
