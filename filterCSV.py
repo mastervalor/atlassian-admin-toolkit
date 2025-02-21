@@ -1,15 +1,6 @@
-import csv
-import os
 import pandas as pd
 
 file = 'Projects metrics 2'
-
-# with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), file), mode='r') as new_file:
-#     csv_reader = csv.DictReader(new_file)
-#     for i in csv_reader:
-#         print(i['Total Tickets'])
-#         if i['TotalTickets'] <= 100:
-#             print(i['TotalTickets'])
 
 
 def filter_months_before(target_month, target_year, csv_file):
