@@ -60,3 +60,30 @@ class GroupJiraCalls:
         ).text)
 
         return response
+
+    def add_member_to_group(self, group, user):
+        url = self.jira + f'group/user'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        query = {
+            'groupname': group
+        }
+
+        payload = json.dumps({
+            "accountId": user
+        })
+
+        response = requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers,
+            params=query,
+            auth=auth
+        )
+
+        return response
