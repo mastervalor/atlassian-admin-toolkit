@@ -91,3 +91,7 @@ class Groups:
             total = response['total']
 
         return groups
+
+    def add_member(self, group, user):
+        response = self.jira_groups.add_member_to_group(group, user)
+        return response
