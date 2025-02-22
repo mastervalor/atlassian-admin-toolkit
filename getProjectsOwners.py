@@ -1,8 +1,8 @@
-from call import Jira
+from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 import csv
 import os
 
-jira = Jira()
+jira = ProjectJiraCalls()
 openFile = 'final file'
 newFile = 'with owners'
 
