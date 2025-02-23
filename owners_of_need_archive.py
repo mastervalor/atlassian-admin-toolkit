@@ -1,4 +1,3 @@
-from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 from logic.jira_logic.project_logic import Projects
 from logic.jira_logic.ticket_logic import Tickets
 import csv
@@ -14,7 +13,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['Project Key', 'Project lead'])
     keys = tickets.get_ticket_keys_from_jql('updatedDate <= startOfDay(-730d) and statusCategory = Done')
-    owners = projects.project_owners(keys)
+    owners = projects.get_owner_of_projects(keys)
     for owner in owners:
         writer.writerow([owner[0], owner[1]])
         print(owner[0], owner[1])
@@ -23,7 +22,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile2), m
     writer = csv.writer(new_csv)
     writer.writerow(['Project Key', 'Project lead'])
     keys = tickets.get_ticket_keys_from_jql('updatedDate <= startOfDay(-730d) and statusCategory != Done')
-    owners = projects.project_owners(keys)
+    owners = projects.get_owner_of_projects(keys)
     for owner in owners:
         writer.writerow([owner[0], owner[1]])
         print(owner[0], owner[1])
