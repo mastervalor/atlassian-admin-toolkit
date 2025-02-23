@@ -40,7 +40,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
                     owner, owner_status = project_logic.get_project_owner_with_status(key)
                     assignee = i['fields']['assignee']['name']
                     try:
-                        status = jira.get_project(key)['archived']
+                        status = project_logic.get_project(key)['archived']
                     except KeyError:
                         status = True
                     if status:
