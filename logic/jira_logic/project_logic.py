@@ -211,3 +211,11 @@ class Projects:
     def get_project_owner(self, project_key):
         owner = self.jira_projects.project_owner(project_key)
         return owner[0]
+
+    def get_owner_of_projects(self, project_list):
+        project_owners = []
+
+        for project in project_list:
+            project_owners.append(self.jira_projects.project_owner(project))
+
+        return project_owners
