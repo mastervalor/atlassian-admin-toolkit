@@ -1,8 +1,8 @@
-import json
+from logic.jira_logic.project_logic import Projects
 from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 
-projects = ProjectJiraCalls()
+project_logic = Projects()
 ticket_calls = TicketsJiraCalls()
 archive_list = []
 
@@ -17,11 +17,11 @@ for ticket in tickets['issues']:
     part = part.split(" ")[0]
     archive_list.append(part)
 
-projects = projects.get_projects()
+projects = project_logic.get_active_projects()
 
 for project in projects:
     if project['key'] not in archive_list:
-        owner, status = projects.project_owner(project['key'])
+        owner, status = project_logic.get_project_owner_with_status(project['key'])
         print(status)
 
 # print(json.dumps(projects, sort_keys=True, indent=4, separators=(",", ": ")))
