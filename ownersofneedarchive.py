@@ -1,9 +1,10 @@
 from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
+from logic.jira_logic.project_logic import Projects
 from logic.jira_logic.ticket_logic import Tickets
 import csv
 import os
 
-projects = ProjectJiraCalls()
+projects = Projects()
 tickets = Tickets()
 
 newFile = "owners of done tickets"
