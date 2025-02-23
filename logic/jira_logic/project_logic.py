@@ -223,3 +223,7 @@ class Projects:
     def get_project_owner_with_status(self, project_key):
         owner = self.jira_projects.project_owner(project_key)
         return owner
+
+    def get_project(self, project_key):
+        project = self.jira_projects.get_project(project_key)
+        return project
