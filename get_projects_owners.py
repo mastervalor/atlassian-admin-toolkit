@@ -1,8 +1,8 @@
-from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
+from logic.jira_logic.project_logic import Projects
 import csv
 import os
 
-jira = ProjectJiraCalls()
+jira = Projects()
 openFile = 'final file'
 newFile = 'with owners'
 
@@ -15,7 +15,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             print(row['Key'])
-            manager = jira.project_owner(row['Key'])
+            manager = jira.get_project_owner(row['Key'])
             print(manager)
             writer.writerow([row['Name'], row['Key'], row['Project Type'], manager[0], manager[1],
                              'Active', 'Standard'])
