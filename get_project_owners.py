@@ -1,8 +1,8 @@
 import os
 import csv
-from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
+from logic.jira_logic.project_logic import Projects
 
-projects = ProjectJiraCalls()
+projects = Projects()
 newFile = 'final owners'
 openFile = 'unowned projects'
 
@@ -12,6 +12,6 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
     with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), openFile), mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for i in csv_reader:
-            owner = projects.project_owner(i['Key'])
+            owner = projects.get_project_owner(i['Key'])
             writer.writerow([owner[0]])
             print(owner[0])
