@@ -219,3 +219,7 @@ class Projects:
             project_owners.append(self.jira_projects.project_owner(project))
 
         return project_owners
+
+    def get_project_owner_with_status(self, project_key):
+        owner = self.jira_projects.project_owner(project_key)
+        return owner
