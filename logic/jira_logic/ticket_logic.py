@@ -217,3 +217,20 @@ class Tickets:
 
         return results
 
+    def get_tickets_from_jql(self, query):
+        start_at = 0
+        max_results = 1000
+        total = 1001
+        ticket_list = []
+
+        while total >= max_results:
+            tickets = self.tickets.jql(f'?startAt={start_at}&maxResults={max_results}', query)
+
+            for ticket in tickets['issues']:
+                ticket_list.append(ticket)
+
+            total = tickets['total']
+            start_at += 1000
+            max_results += 1000
+
+        return ticket_list
