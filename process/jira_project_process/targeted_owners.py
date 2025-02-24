@@ -1,5 +1,4 @@
 from logic.jira_logic.project_logic import Projects
-from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 
 project_logic = Projects()
