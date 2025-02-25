@@ -1,7 +1,9 @@
-from logic.jira_logic.user_logic import Users
+import csv
+import os
+
 from file_manip.csv_file_manip import CSVLogic
 from logic.jira_logic.group_logic import Groups
-import csv, os
+from logic.jira_logic.user_logic import Users
 
 csv_logic = CSVLogic(open_file='jsm users')
 user = Users()
