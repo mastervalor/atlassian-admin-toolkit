@@ -7,14 +7,13 @@ prefix = 'approvers-'
 
 env = 'prod'
 
-urlresponse = subprocess.check_output(['acli', env, '-a', 'getServerInfo'])
-m = re.search('url: (.+)', urlresponse)
+url_response = subprocess.check_output(['acli', env, '-a', 'getServerInfo'])
+m = re.search('url: (.+)', url_response)
 url = m.group(1)
 
 cmdbase = 'acli ' + env + ' --action renderRequest --requestType GET --type application/json --request'
 cmdreq = '/rest/api/2/project/' + project + '/properties/'
 
-# print cmdbase + cmdreq
 
 response = subprocess.check_output(cmdbase.split() + [cmdreq])
 
@@ -24,13 +23,15 @@ response = response.split("\n",1)[1]
 properties = json.loads(response)
 
 for prop in properties['keys']:
-    propurl = prop['self'].replace(url,'')
-    if re.search('properties/approvers-', propurl):
-        response = subprocess.check_output(cmdbase.split() + [propurl])
+    prop_url = prop['self'].replace(url,'')
+    if re.search('properties/approvers-', prop_url):
+        response = subprocess.check_output(cmdbase.split() + [prop_url])
         response = response.split("\n",1)[1]
 
-        property = json.loads(response)
+        project_property = json.loads(response)
 
-# u'buildapproversecondary': u'5d8317439581710c3032ac97', u'engineeringapproverprimary': u'557058:d5dad836-eb67-42b1-ab5f-2b410679d099', u'buildapproverprimary': u'5cc8aeebcbbec211ec62a0ec', u'engineeringapproversecondary': u'557058:2430e675-3447-4a5d-a063-31d69db53987
-
-        print("{}\t{}\t{}\t{}\t{}".format(property['key'], property['value']['engineeringapproverprimary'], property['value']['engineeringapproversecondary'], property['value']['buildapproverprimary'], property['value']['buildapproversecondary'], ))
+        print("{}\t{}\t{}\t{}\t{}".format(project_property['key'],
+                                          project_property['value']['engineeringapproverprimary'],
+                                          project_property['value']['engineeringapproversecondary'],
+                                          project_property['value']['buildapproverprimary'],
+                                          project_property['value']['buildapproversecondary'], ))
