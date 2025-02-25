@@ -1,14 +1,14 @@
 from logic.jira_logic.project_logic import Projects
-from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
+from logic.jira_logic.ticket_logic import Tickets
 
 project_logic = Projects()
-ticket_calls = TicketsJiraCalls()
+ticket_calls = Tickets()
 archive_list = []
 
 jql = ('project = "Corporate Engineering" and summary ~ "does not meet the new requirements, and will be targeted for '
        'archiving" and status in ("Waiting for Response", Backlog, "In Progress")')
 
-tickets = ticket_calls.jql('?startAt=0&maxResults=100', jql)
+tickets = ticket_calls.get_tickets_from_jql(jql)
 
 for ticket in tickets['issues']:
     description = ticket['fields']['description']
