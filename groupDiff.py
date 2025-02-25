@@ -1,7 +1,5 @@
-import json
 import os
 import csv
-import getpass
 from logic.jira_logic.group_logic import Groups
 
 groups = Groups()
