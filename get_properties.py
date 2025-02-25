@@ -1,5 +1,6 @@
-import json, re, subprocess, urllib
-from collections import OrderedDict
+import json
+import re
+import subprocess
 
 project = 'DR'
 prefix = 'approvers-'
