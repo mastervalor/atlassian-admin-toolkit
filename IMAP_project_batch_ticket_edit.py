@@ -1,7 +1,6 @@
 import requests
 import os
 import csv
-from auth import auth
 
 jira_base_url = "https://jira.robot.car/rest/api/2/"
 # fill in first string with username, and second string with token comma seperated,
