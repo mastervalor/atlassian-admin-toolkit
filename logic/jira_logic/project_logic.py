@@ -231,4 +231,8 @@ class Projects:
         return project
 
     def get_inactive_assignees_and_reporters_in_project(self, project_key):
+        payload = (f'project = {project_key} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution '
+                   f'is EMPTY')
+
+        tickets = self.jira_tickets.jql('', payload)
 
