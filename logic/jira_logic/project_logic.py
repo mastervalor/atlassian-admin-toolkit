@@ -1,5 +1,6 @@
 from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
+from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 from logic.jira_logic.group_logic import Groups
 
 
@@ -8,6 +9,7 @@ class Projects:
         self.jira_group_logic = Groups()
         self.jira_groups = GroupJiraCalls()
         self.jira_projects = ProjectJiraCalls()
+        self.jira_tickets = TicketsJiraCalls()
         self.project_roles = {'Administrators': '10002', 'Developers': '10001', 'users': '10000', 'agents': '10301',
                               'customers': '10300'}
 
@@ -227,3 +229,6 @@ class Projects:
     def get_project(self, project_key):
         project = self.jira_projects.get_project(project_key)
         return project
+
+    def get_inactive_assignees_and_reporters_in_project(self, project_key):
+
