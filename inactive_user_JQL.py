@@ -4,53 +4,6 @@ import json
 import concurrent.futures
 import time
 
-
-def call(pref, apiAction, payload=''):
-    url = "https://lucidmotors.atlassian.net/rest/api/3/" + pref
-
-    if apiAction == 'get':
-        headers = {"Accept": "application/json"}
-        response = requests.request(
-            "GET",
-            url,
-            headers=headers,
-            auth=auth
-        ).text
-
-        return json.loads(response)
-    elif apiAction == 'search':
-        url = "https://lucidmotors.atlassian.net/rest/api/3/search"
-        headers = {
-            "Accept": "application/json"
-        }
-
-        query = {
-            'jql': f'project = {pref} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution is EMPTY'
-        }
-
-        response = requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=auth
-        ).text
-
-        return json.loads(response)
-    elif apiAction == 'put':
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-        requests.request(
-            "PUT",
-            url,
-            data=payload,
-            headers=headers,
-            auth=auth
-        )
-
-
 def inactive(i):
     id = call(i, 'search')
     status = id['fields']['status']['name']
