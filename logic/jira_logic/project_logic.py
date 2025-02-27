@@ -231,8 +231,21 @@ class Projects:
         return project
 
     def get_inactive_assignees_and_reporters_in_project(self, project_key):
-        payload = (f'project = {project_key} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution '
-                   f'is EMPTY')
+        payload = (
+            f'project = {project_key} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution '
+            f'is EMPTY')
 
-        tickets = self.jira_tickets.jql('', payload)
+        tickets = self.jira_tickets.jql('', payload)['issues']
+        assignee_list = []
+        reporter_list = []
+        for ticket in tickets:
+            if ticket['fields']['reporter']:
+                reporter = ticket['fields']['reporter']
+                if not reporter['active']:
+                    reporter_list.append(reporter['name'])
+            if ticket['fields']['assignee']:
+                assignee = ticket['fields']['assignee']
+                if not assignee['active']:
+                    reporter_list.append(assignee['name'])
 
+        return assignee_list, reporter_list
