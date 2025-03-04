@@ -231,21 +231,30 @@ class Projects:
         return project
 
     def get_inactive_assignees_and_reporters_in_project(self, project_key):
-        payload = (
-            f'project = {project_key} and (assignee in inactiveUsers() or reporter in inactiveUsers()) and resolution '
-            f'is EMPTY')
+        """
+        Fetches all issues in a project with inactive assignees or reporters.
 
+        :param project_key: Jira project key.
+        :return: Two lists of inactive assignees and reporters.
+        """
+        payload = f'project = {project_key} AND (assignee in inactiveUsers() OR reporter in inactiveUsers()) AND resolution is EMPTY'
         tickets = self.jira_tickets.jql('', payload)['issues']
+
         assignee_list = []
         reporter_list = []
+
         for ticket in tickets:
-            if ticket['fields']['reporter']:
-                reporter = ticket['fields']['reporter']
-                if not reporter['active']:
-                    reporter_list.append(reporter['name'])
-            if ticket['fields']['assignee']:
-                assignee = ticket['fields']['assignee']
-                if not assignee['active']:
-                    reporter_list.append(assignee['name'])
+            issue_key = ticket['key']
+            fields = ticket['fields']
+
+            # Check Reporter
+            if fields.get('reporter') and not fields['reporter']['active']:
+                reporter = fields['reporter']
+                reporter_list.append((issue_key, reporter['accountId']))
+
+            # Check Assignee
+            if fields.get('assignee') and not fields['assignee']['active']:
+                assignee = fields['assignee']
+                assignee_list.append((issue_key, assignee['accountId']))
 
         return assignee_list, reporter_list
