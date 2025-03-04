@@ -125,6 +125,27 @@ class TicketsJiraCalls:
 
         return response
 
+    def assign_reporter_ticket(self, key, username):
+        url = self.jira + f'issue/{key}/reporter'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "name": username
+        }
+
+        response = requests.request(
+            "PUT",
+            url,
+            headers=headers,
+            json=payload,
+            auth=self.token
+        )
+
+        return response
+
     def get_ticket_comments(self, ticket_key):
         url = self.jira + f'issue/{ticket_key}/comment'
 
