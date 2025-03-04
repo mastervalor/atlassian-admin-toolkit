@@ -237,7 +237,8 @@ class Projects:
         :param project_key: Jira project key.
         :return: Two lists of inactive assignees and reporters.
         """
-        payload = f'project = {project_key} AND (assignee in inactiveUsers() OR reporter in inactiveUsers()) AND resolution is EMPTY'
+        payload = (f'project = {project_key} AND (assignee in inactiveUsers() OR reporter in inactiveUsers()) AND '
+                   f'resolution is EMPTY')
         tickets = self.jira_tickets.jql('', payload)['issues']
 
         assignee_list = []
