@@ -65,5 +65,5 @@ project_logic = Projects()
 #
 # print(f'Finished in {t2 - t1} seconds')
 
-tickets = project_logic.get_inactive_assignees_and_reporters_in_project('XPRT')
-print(tickets)
+assignees, reporters = project_logic.get_inactive_assignees_and_reporters_in_project('XPRT')
+print(assignees, reporters)
