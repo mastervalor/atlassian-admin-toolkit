@@ -2,6 +2,8 @@ from calls.jira_api_calls.jira_api_group_calls import GroupJiraCalls
 from calls.jira_api_calls.jira_api_projects import ProjectJiraCalls
 from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 from logic.jira_logic.group_logic import Groups
+from logic.jira_logic.user_logic import Users
+from logic.jira_logic.ticket_logic import Tickets
 
 
 class Projects:
@@ -10,6 +12,8 @@ class Projects:
         self.jira_groups = GroupJiraCalls()
         self.jira_projects = ProjectJiraCalls()
         self.jira_tickets = TicketsJiraCalls()
+        self.user_logic = Users()
+        self.ticket_logic = Tickets()
         self.project_roles = {'Administrators': '10002', 'Developers': '10001', 'users': '10000', 'agents': '10301',
                               'customers': '10300'}
 
@@ -259,3 +263,29 @@ class Projects:
                 assignee_list.append((issue_key, assignee['accountId']))
 
         return assignee_list, reporter_list
+
+    def reassign_inactive_users(self, project_key):
+        """
+        Reassigns inactive users (assignees and reporters) to their manager.
+
+        :param project_key: Jira project key.
+        """
+        assignees, reporters = self.get_inactive_assignees_and_reporters_in_project(project_key)
+
+        for issue_key, account_id in assignees:
+            user_profile = self.user_logic.get_user_by_id(account_id)
+            manager_id = user_profile.get('value', {}).get('manager')
+
+            if manager_id:
+                self.ticket_logic.assign_ticket(issue_key, manager_id)
+            else:
+                print(f"The Assignee in {issue_key} does not have a listed manager.")
+
+        for issue_key, account_id in reporters:
+            user_profile = self.user_logic.get_user_by_id(account_id)
+            manager_id = user_profile.get('value', {}).get('manager')
+
+            if manager_id:
+                self.ticket_logic.assign_reporter_ticket(issue_key, manager_id)
+            else:
+                print(f"The Reporter in {issue_key} does not have a listed manager.")
