@@ -152,6 +152,20 @@ class Tickets:
         else:
             print(f"Error: Unexpected response code {response.status_code}. Response: {response.text}")
 
+    def assign_reporter_ticket(self, ticket, reporter):
+        response = self.tickets.assign_ticket(ticket, reporter)
+
+        if response.status_code == 204:
+            print(f"Issue {ticket} successfully assigned to {reporter}.")
+        elif response.status_code == 400:
+            print("Error: Problem with the received user representation.")
+        elif response.status_code == 401:
+            print("Error: Calling user does not have permission to assign the issue.")
+        elif response.status_code == 404:
+            print("Error: Either the issue or the user does not exist.")
+        else:
+            print(f"Error: Unexpected response code {response.status_code}. Response: {response.text}")
+
     def clear_field(self, key, field):
         """
             Clears the values from a field of a Jira issue.
