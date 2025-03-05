@@ -5,65 +5,13 @@ from logic.jira_logic.project_logic import Projects
 
 project_logic = Projects()
 
-# def inactive(i):
-#     id = call(i, 'search')
-#     status = id['fields']['status']['name']
-#     if status != ('Done' or 'Canceled' or 'Resolved'):
-#         assignee = id['fields']['assignee']['active']
-#         reporter = id['fields']['reporter']['active']
-#         if not assignee:
-#             accountId = id['fields']['assignee']['accountId']
-#             upref = f'user/properties/lucidmotors-userProfile?accountId={accountId}'
-#             try:
-#                 manager = call(upref, 'get')['value']['manager']
-#             except KeyError:
-#                 print(f'The Assignee in QUAL-{i} does not have a listed manager')
-#             payload = json.dumps({
-#                 "fields": {
-#                     "assignee": {
-#                         "accountId": manager
-#                     }
-#                 }
-#             })
-#             call(pref, 'put', payload)
-#             print(f'Assignee was changed on Qual-{i} to {manager}')
-#         if not reporter:
-#             accountId = id['fields']['reporter']['accountId']
-#             upref = f'user/properties/lucidmotors-userProfile?accountId={accountId}'
-#             try:
-#                 manager = call(upref, 'get')['value']['manager']
-#             except KeyError:
-#                 print(f'The Reporter in QUAL-{i} does not have a listed manager')
-#             payload = json.dumps({
-#                 "fields": {
-#                     "reporter": {
-#                         "accountId": manager
-#                     }
-#                 }
-#             })
-#             call(pref, 'put', payload)
-#             print(f'Reporter was changed on Qual-{i} to {manager}')
-#     else:
-#         print(f'nothing needed on qual-{i}')
-#         return
-#
-#
-# pref = 'project'
-# response = call(pref, 'get')
-# projects = []
-#
-# for i in response:
-#     if "{Archived}" not in i['name']:
-#         projects.append(i['key'])
-#
-# t1 = time.perf_counter()
-#
-# with concurrent.futures.ThreadPoolExecutor() as executor:
-#     executor.map(inactive, projects)
-#
-# t2 = time.perf_counter()
-#
-# print(f'Finished in {t2 - t1} seconds')
+active_projects = project_logic.get_active_all_project_keys()
 
-assignees, reporters = project_logic.get_inactive_assignees_and_reporters_in_project('XPRT')
-print(assignees, reporters)
+t1 = time.perf_counter()
+
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    executor.map(project_logic.reassign_inactive_users, active_projects)
+
+t2 = time.perf_counter()
+
+print(f'Finished in {t2 - t1} seconds')
