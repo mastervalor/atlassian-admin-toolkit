@@ -248,3 +248,7 @@ class Tickets:
             max_results += 1000
 
         return ticket_list
+
+    def get_ticket_by_key(self, key):
+        ticket = self.tickets.get_ticket(key)
+        return ticket
