@@ -14,7 +14,7 @@ for key in query['issues']:
 
 for key in keys:
     new_description = ''
-    ticket = tickets.get_ticket(key)
+    ticket = ticket_logic.get_ticket_by_key(key)
     print(key)
     if ticket['fields']['description']:
         new_description += ticket['fields']['description']
