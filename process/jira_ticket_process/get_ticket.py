@@ -1,9 +1,9 @@
 import json
-from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
+from logic.jira_logic.ticket_logic import Tickets
 
-tickets = TicketsJiraCalls()
+ticket_logic = Tickets()
 
-response = tickets.get_ticket("BRM-163")
+response = ticket_logic.get_ticket_by_key("BRM-163")
 
 # owner = response['fields']['status']['name']
 # res = response['fields']['resolution']['name']
