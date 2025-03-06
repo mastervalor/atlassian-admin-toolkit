@@ -1,7 +1,6 @@
-import json
-from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
+from logic.jira_logic.ticket_logic import Tickets
 
-tickets = TicketsJiraCalls()
+ticket_logic = Tickets()
 
 jql = ('project in (POL,LTSS,FINTECH,CRP,MDG,PROCURETEC,OPSTECH,PTT,CUSTTECH,DCOPS,EAI,EIAM,ENTNET,ITAPP,ITCPE,ITINF,'
        'ITOPS,ITAM,APPSEC,SECOPS,CORPSEC,TRUST,AVSEC,PLATAUTH,SCS1,THREAT,PRIVACY,SECRETS) and ("Business '
@@ -29,5 +28,5 @@ for key in keys:
             'description': new_description
         }
     }
-    edit = tickets.edit_ticket(key, payload)
+    edit = ticket_logic.set_fields(key, payload)
     print(edit)
