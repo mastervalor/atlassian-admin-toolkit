@@ -6,7 +6,7 @@ jql = ('project in (POL,LTSS,FINTECH,CRP,MDG,PROCURETEC,OPSTECH,PTT,CUSTTECH,DCO
        'ITOPS,ITAM,APPSEC,SECOPS,CORPSEC,TRUST,AVSEC,PLATAUTH,SCS1,THREAT,PRIVACY,SECRETS) and ("Business '
        'Justification" is not EMPTY or "Value Proposition" is not EMPTY) AND issuetype = Epic and description is EMPTY')
 
-query = tickets.jql('?startAt=0&maxResults=1000', jql)
+query = ticket_logic.get_tickets_from_jql(jql)
 
 keys = []
 for key in query['issues']:
