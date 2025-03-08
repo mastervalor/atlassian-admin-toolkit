@@ -4,6 +4,7 @@ from calls.jira_api_calls.jira_api_tickets import TicketsJiraCalls
 from logic.jira_logic.group_logic import Groups
 from logic.jira_logic.user_logic import Users
 from logic.jira_logic.ticket_logic import Tickets
+from datetime import datetime
 
 
 class Projects:
@@ -289,3 +290,50 @@ class Projects:
                 self.ticket_logic.assign_reporter_ticket(issue_key, manager_id)
             else:
                 print(f"The Reporter in {issue_key} does not have a listed manager.")
+
+    def project_metric(key):
+        url = f"https://jira.robot.car/rest/api/2/search?maxResults=1"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        query = {
+            'jql': f'project = {key} ORDER BY created DESC'
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=auth
+        ).text)
+
+        try:
+            total = response['total']
+        except KeyError:
+            return 0, "Project not used"
+        if total == 0:
+            return 0, "Project not used"
+        date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
+        lastTicketDate = date.strftime('%B %Y')
+        lastTicket = response['issues'][0]['key']
+
+        query = {
+            'jql': f'project = {key} ORDER BY created ASC'
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query,
+            auth=auth
+        ).text)
+
+        date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
+        firstTicketDate = date.strftime('%B %Y')
+        firstTicket = response['issues'][0]['key']
+
+        return total, lastTicket, lastTicketDate, firstTicket, firstTicketDate
