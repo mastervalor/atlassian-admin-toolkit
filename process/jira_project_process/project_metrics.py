@@ -4,11 +4,11 @@ from logic.jira_logic.project_logic import Projects
 
 newFile = 'Projects metrics'
 project_logic = Projects()
-response = call('project', 'get')
+all_projects = project_logic.get_active_projects()
 projects = {}
 
-for i in response:
-    projects[i['key']] = [i['name'], i['projectTypeKey'], i['id']]
+for project in all_projects:
+    projects[project['key']] = [project['name'], project['projectTypeKey'], project['id']]
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mode='w') as new_csv:
     writer = csv.writer(new_csv)
