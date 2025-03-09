@@ -305,8 +305,8 @@ class Projects:
         if total == 0:
             return 0, "Project not used"
         date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
-        lastTicketDate = date.strftime('%B %Y')
-        lastTicket = response['issues'][0]['key']
+        last_ticket_date = date.strftime('%B %Y')
+        last_ticket = response['issues'][0]['key']
 
         query = {
             'jql': f'project = {key} ORDER BY created ASC'
