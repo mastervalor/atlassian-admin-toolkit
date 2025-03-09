@@ -1,9 +1,9 @@
 import csv
 import os
-from
-from call import call, project_metric
+from logic.jira_logic.project_logic import Projects
 
 newFile = 'Projects metrics'
+project_logic = Projects()
 response = call('project', 'get')
 projects = {}
 
@@ -17,7 +17,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newFile), mo
          'Earliest ticket', "Earliest ticket creation date"])
 
     for key in projects:
-        project = project_metric(key)
+        project = project_logic.project_metric(key)
         for l in project:
             projects[key].append(l)
         if projects[key][3] == 0:
