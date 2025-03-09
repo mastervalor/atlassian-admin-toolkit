@@ -291,24 +291,12 @@ class Projects:
             else:
                 print(f"The Reporter in {issue_key} does not have a listed manager.")
 
-    def project_metric(key):
-        url = f"https://jira.robot.car/rest/api/2/search?maxResults=1"
-
-        headers = {
-            "Accept": "application/json"
-        }
-
+    def project_metric(self, key):
         query = {
             'jql': f'project = {key} ORDER BY created DESC'
         }
 
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=auth
-        ).text)
+        response = self.jira_tickets.jql('', query)
 
         try:
             total = response['total']
