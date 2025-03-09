@@ -315,7 +315,7 @@ class Projects:
         response = self.jira_tickets.jql('', query)
 
         date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
-        firstTicketDate = date.strftime('%B %Y')
-        firstTicket = response['issues'][0]['key']
+        first_ticket_date = date.strftime('%B %Y')
+        first_ticket = response['issues'][0]['key']
 
-        return total, lastTicket, lastTicketDate, firstTicket, firstTicketDate
+        return total, last_ticket, last_ticket_date, first_ticket, first_ticket_date
