@@ -312,13 +312,7 @@ class Projects:
             'jql': f'project = {key} ORDER BY created ASC'
         }
 
-        response = json.loads(requests.request(
-            "GET",
-            url,
-            headers=headers,
-            params=query,
-            auth=auth
-        ).text)
+        response = self.jira_tickets.jql('', query)
 
         date = datetime.strptime(response['issues'][0]['fields']['created'], '%Y-%m-%dT%H:%M:%S.%f%z')
         firstTicketDate = date.strftime('%B %Y')
