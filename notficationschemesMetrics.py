@@ -1,5 +1,7 @@
 from call import call
+from logic.jira_logic.system_logic import JiraSystemsLogic
 
+jira_system = JiraSystemsLogic()
 
 response = call('permissionscheme', 'get')
 
