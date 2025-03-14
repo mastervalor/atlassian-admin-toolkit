@@ -1,4 +1,3 @@
-from call import call
 from logic.jira_logic.system_logic import JiraSystemsLogic
 from logic.jira_logic.ticket_logic import Tickets
 import csv
@@ -15,7 +14,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), page), mode=
     issue_types = jira_system.get_all_issue_types()
     for issue_type in issue_types:
         encoded = urllib.parse.quote(issue_type['name'])
-        search = call(f'issuetype="{encoded}"', 'search')
+        search = ticket_logic.get_tickets_from_jql(f'issuetype="{encoded}"')
         try:
             total = search['total']
             print(issue_type['name'], total)
