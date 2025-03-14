@@ -1,11 +1,13 @@
 from call import call
 from logic.jira_logic.system_logic import JiraSystemsLogic
+from logic.jira_logic.ticket_logic import Tickets
 import csv
 import os
 import urllib.parse
 
 page = "issue types"
 jira_system = JiraSystemsLogic()
+ticket_logic = Tickets()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), page), mode='w') as new_csv:
     writer = csv.writer(new_csv)
