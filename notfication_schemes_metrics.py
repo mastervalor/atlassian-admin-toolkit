@@ -4,7 +4,6 @@ jira_system = JiraSystemsLogic()
 
 permission_schemes = jira_system.get_all_permission_schemes()
 
-
 for permission_scheme in permission_schemes['permissionSchemes']:
     print(permission_scheme['name'])
 
