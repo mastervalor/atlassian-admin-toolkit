@@ -1,7 +1,7 @@
 from calls.jira_api_calls.jira_api_system import SystemJiraCalls
 
 
-class Systems:
+class JiraSystemsLogic:
     def __init__(self):
         self.jira_system = SystemJiraCalls()
 
