@@ -38,3 +38,18 @@ class SystemJiraCalls:
         ).text)
 
         return response
+
+    def permission_schemes(self):
+        url = self.jira + 'permissionSchemes'
+
+        headers = {
+            "Accept": "application/json",
+        }
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=self.token
+        ).text)
+
+        return response
