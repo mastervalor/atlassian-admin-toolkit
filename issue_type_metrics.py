@@ -12,16 +12,16 @@ ticket_logic = Tickets()
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), page), mode='w') as new_csv:
     writer = csv.writer(new_csv)
     writer.writerow(['Name', 'Ticket count'])
-    results = jira_system.get_all_issue_types()
-    for i in results:
-        encoded = urllib.parse.quote(i['name'])
+    issue_types = jira_system.get_all_issue_types()
+    for issue_type in issue_types:
+        encoded = urllib.parse.quote(issue_type['name'])
         search = call(f'issuetype="{encoded}"', 'search')
         try:
             total = search['total']
-            print(i['name'], total)
-            writer.writerow([i['name'], total])
+            print(issue_type['name'], total)
+            writer.writerow([issue_type['name'], total])
         except KeyError:
-            print(i['name'])
-            writer.writerow([i['name'], 'Sub-Task', 0])
+            print(issue_type['name'])
+            writer.writerow([issue_type['name'], 'Sub-Task', 0])
 
 # print(json.dumps(results, sort_keys=True, indent=4, separators=(",", ": ")))
