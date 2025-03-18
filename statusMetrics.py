@@ -1,8 +1,6 @@
-import csv
-import os
+from logic.jira_logic.system_logic import JiraSystemsLogic
 import json
-from call import status_metrics
 
-statuses = status_metrics()
+statuses = JiraSystemsLogic()
 
 print(json.dumps(statuses, sort_keys=True, indent=4, separators=(",", ": ")))
