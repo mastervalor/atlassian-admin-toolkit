@@ -1,9 +1,10 @@
-from call import call
 import csv
 import os
 import urllib.parse
+from logic.jira_logic.ticket_logic import Tickets
 
 res = 'Resolutions - Sheet copy'
+ticket_logic = Tickets()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='r+') as new_csv:
     reader = csv.DictReader(new_csv)
@@ -12,7 +13,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='
 
     for i in reader:
         encoded = urllib.parse.quote(i['Name'])
-        results = call(f'resolution="{encoded}"', 'search')
+        results = ticket_logic.get_tickets_from_jql(f'resolution="{encoded}"')
         try:
             i['Tickets'] = results['total']
             rows.append(i)
