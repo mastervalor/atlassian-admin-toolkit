@@ -53,3 +53,19 @@ class SystemJiraCalls:
         ).text)
 
         return response
+
+    def status_metrics(self):
+        url = self.jira + "status"
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
