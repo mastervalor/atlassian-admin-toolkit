@@ -12,3 +12,7 @@ class JiraSystemsLogic:
     def get_all_permission_schemes(self):
         permission_schemes = self.jira_system.permission_schemes()
         return permission_schemes
+
+    def get_all_status(self):
+        status = self.jira_system.status_metrics()
+        return status
