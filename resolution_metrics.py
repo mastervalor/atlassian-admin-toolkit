@@ -11,16 +11,14 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), res), mode='
     writer = csv.DictWriter(new_csv, fieldnames=reader.fieldnames)
     rows = []
 
-    for i in reader:
-        encoded = urllib.parse.quote(i['Name'])
+    for name in reader:
+        encoded = urllib.parse.quote(name['Name'])
         results = ticket_logic.get_tickets_from_jql(f'resolution="{encoded}"')
         try:
-            i['Tickets'] = results['total']
-            rows.append(i)
-            print(i)
+            name['Tickets'] = results['total']
+            rows.append(name)
         except KeyError:
-            print(i['Name'])
-            rows.append(i)
+            rows.append(name)
 
     new_csv.seek(0)
     writer.writeheader()
