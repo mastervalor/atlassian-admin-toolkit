@@ -1,5 +1,4 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
-from calls import call
 import csv
 import os
 import concurrent.futures
