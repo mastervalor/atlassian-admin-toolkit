@@ -2,7 +2,7 @@ import json
 import os
 import csv
 import getpass
-from logic.confluence_logic.user_logic import ConfGroupLogic
+from logic.confluence_logic.user_logic import ConfUserLogic
 
 newFile = "Jira Group Match"
 openFile = "app-jira members"
@@ -10,7 +10,7 @@ fileName = "app-jira-group-memberships-20230712"
 
 # Get the current username
 username = getpass.getuser()
-conf_user = ConfGroupLogic()
+conf_user = ConfUserLogic()
 
 # Specify the file path
 file_path = '/Users/{}/Desktop/{}.json'.format(username, fileName)
