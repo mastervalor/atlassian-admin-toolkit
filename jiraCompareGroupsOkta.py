@@ -12,7 +12,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     writer = csv.writer(new_csv)
     writer.writerow(['Email', 'App-jira in'])
     group = group_logic.group_members('app-jira')
-    for member in group['values']:
+    for member in group:
         user = okta_users.get_user_id(member['emailAddress'])
         if user is False:
             writer.writerow([f"Failed on {member['emailAddress']} because not groups"])
