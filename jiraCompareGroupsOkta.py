@@ -13,16 +13,16 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     writer.writerow(['Email', 'App-jira in'])
     group = group_logic.group_members('app-jira')
     for member in group:
-        user = okta_users.get_user_id(member['emailAddress'])
+        user = okta_users.get_user_id(member)
         if user is False:
-            writer.writerow([f"Failed on {member['emailAddress']} because not groups"])
-            print(f"Failed on {member['emailAddress']} because not groups")
+            writer.writerow([f"Failed on {member} because not groups"])
+            print(f"Failed on {member} because not groups")
             continue
         groups = OktaUsers.user_groups(user)
         if "app-jira" in groups:
-            writer.writerow([member['emailAddress'], "Okta"])
-            print(member['emailAddress'], "Okta")
+            writer.writerow([member, "Okta"])
+            print(member, "Okta")
         else:
-            writer.writerow([member['emailAddress'], "Jira"])
-            print(member['emailAddress'], "Jira")
+            writer.writerow([member, "Jira"])
+            print(member, "Jira")
     total = group['total']
