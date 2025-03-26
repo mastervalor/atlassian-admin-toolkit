@@ -1,9 +1,11 @@
 from logic.okta_logic.okta_user_logic import OktaUsers
+from logic.jira_logic.group_logic import Groups
 import csv
 import os
 import concurrent.futures
 
 okta_users = OktaUsers()
+group_logic = Groups()
 newfile = "App-jira members 3"
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mode='w') as new_csv:
@@ -13,7 +15,7 @@ with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), newfile), mo
     start = 0
     total = 50
     while start <= total:
-        group = call(f'group/member?startAt={start}', 'members', 'app-jira')
+        group = group_logic.group_members('app-jira')
         for member in group['values']:
             user = okta_users.get_user_id(member['emailAddress'])
             if user is False:
