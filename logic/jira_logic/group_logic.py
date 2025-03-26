@@ -77,6 +77,25 @@ class Groups:
             # print(startAt, maxResults)
         return members_list
 
+    def get_group_member_emails(self, group):
+        start_at = 0
+        max_results = 50
+        total = 51
+        members_list = []
+
+        while total >= max_results:
+            members = self.jira_groups.get_group(f'?includeInactiveUsers=false&startAt={start_at}'
+                                                 f'&maxResults={max_results}', group)
+
+            for member in members['values']:
+                members_list.append(member['emailAddress'])
+
+            total = members['total']
+            start_at += 50
+            max_results += 50
+            # print(startAt, maxResults)
+        return members_list
+
     def get_all_groups(self):
         min = 0
         max = 100
