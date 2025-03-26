@@ -1,5 +1,3 @@
-# This code sample uses the 'requests' library:
-# http://docs.python-requests.org
 import requests
 from datetime import date
 from requests.auth import HTTPBasicAuth
@@ -7,7 +5,6 @@ import json
 import operator
 
 url = "https://lucidmotors.atlassian.net/rest/api/2/project/DR/properties"
-#url = "https://lucidmotors-sandbox-693.atlassian.net/rest/api/2/project/DR/properties"
 
 auth = HTTPBasicAuth("mouradmarzouk@lucidmotors.com", "10U1uDLf8VHUU6EYb8m3CE0E")
 
