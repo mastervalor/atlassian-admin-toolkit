@@ -1,6 +1,4 @@
 import json
-import os
-import csv
 import getpass
 
 fileName = "app-jira-group-memberships-20230712"
