@@ -324,4 +324,22 @@ class Projects:
         components = self.jira_projects.get_all_components(project_key)
         return components
 
-    
+    def move_components_between_projects(self, project_one_key, project_two_key):
+        components = self.get_project_components(project_one_key)
+        responses = []
+
+        for component in components:
+            payload = {
+                "name": component['name'],
+                "description": component['description'] if 'description' in component else "",
+                "leadUserName": component['lead']['displayName'] if 'lead' in component else "",
+                "assigneeType": component['assigneeType'],
+                "isAssigneeTypeValid": component['isAssigneeTypeValid'],
+                "project": project_two_key,
+                # "projectId":
+            }
+
+            responses.append(self.jira_projects.move_components(payload))
+
+        return responses
+            
