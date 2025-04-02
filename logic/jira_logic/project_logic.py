@@ -342,4 +342,3 @@ class Projects:
             responses.append(self.jira_projects.move_components(payload))
 
         return responses
-            
