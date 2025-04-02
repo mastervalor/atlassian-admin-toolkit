@@ -312,3 +312,22 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def move_components(self, payload):
+        url = self.jira + 'component'
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        payload = json.dumps(payload)
+
+        response = json.loads(requests.request(
+            "POST",
+            url,
+            data=payload,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
