@@ -319,3 +319,9 @@ class Projects:
         first_ticket = response['issues'][0]['key']
 
         return total, last_ticket, last_ticket_date, first_ticket, first_ticket_date
+
+    def get_project_components(self, project_key):
+        components = self.jira_projects.get_all_components(project_key)
+        return components
+
+    
