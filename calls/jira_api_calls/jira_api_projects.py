@@ -296,3 +296,19 @@ class ProjectJiraCalls:
         ).text)
 
         return response
+
+    def get_all_components(self, project_key):
+        url = self.jira + f'project/{project_key}/components'
+
+        headers = {
+            "Accept": "application/json"
+        }
+
+        response = json.loads(requests.request(
+            "GET",
+            url,
+            headers=headers,
+            auth=auth
+        ).text)
+
+        return response
