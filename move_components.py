@@ -1,21 +1,9 @@
 import json
-from call import call, staging_call
+from logic.jira_logic.project_logic import Projects
 
 
-components = call('project/SEC/components', 'get')
+project_logic = Projects()
 
+move = project_logic.move_components_between_projects('SEC', "THREAT")
 
-for component in components:
-    payload = json.dumps({
-        "name": component['name'],
-        "description": component['description'] if 'description' in component else "",
-        "leadUserName": component['lead']['displayName'] if 'lead' in component else "",
-        "assigneeType": component['assigneeType'],
-        "isAssigneeTypeValid": component['isAssigneeTypeValid'],
-        "project": "THREAT",
-        "projectId": 26904
-    })
-    call('component', 'post', payload)
-
-
-print(json.dumps(components, sort_keys=True, indent=4, separators=(",", ": ")))
+print(json.dumps(move, sort_keys=True, indent=4, separators=(",", ": ")))
