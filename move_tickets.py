@@ -2,7 +2,6 @@ import csv
 import os
 import json
 import requests
-from os import path
 from auth import auth, password
 from os import path
 from configparser import ConfigParser
