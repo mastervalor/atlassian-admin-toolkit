@@ -1,11 +1,9 @@
 import csv
 import os
-from call import Jira
 
 project = 'Projects metrics 2'
 names = []
 word_counts = {}
-jira = Jira()
 
 with open('/Users/{}/Desktop/{}.csv'.format(os.environ.get('USER'), project), mode='r') as new_file:
     csv_reader = csv.DictReader(new_file)
