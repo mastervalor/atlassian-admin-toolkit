@@ -1,6 +1,5 @@
 import csv
 import os
-import json
 from call import Jira
 
 project = 'Projects metrics 2'
