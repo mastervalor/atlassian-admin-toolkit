@@ -1,10 +1,10 @@
 from logic.jira_logic.project_logic import Projects
-from logic.jira_logic.group_logic import GroupsUsers
+from logic.jira_logic.group_logic import Groups
 from logic.jira_logic.user_logic import Users
 import csv, os
 
 projects = Projects()
-groups = GroupsUsers()
+groups = Groups()
 users = Users()
 results = projects.get_archived_projects()
 jsm_projects_keys = []
