@@ -1,5 +1,5 @@
 from logic.confluence_logic.page_logic import Pages
-from project_info_with_owners_and_groups import project_info
+from process.jira_project_process.project_info_with_owners_and_groups import project_info
 import html
 
 page = Pages()
