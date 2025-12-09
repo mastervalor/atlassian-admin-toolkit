@@ -1,4 +1,6 @@
-auth.py
+# Note: auth.py and config.py are now included in the repo as templates with empty values
+# Users should fill in their own values. Be careful not to commit your actual secrets!
+# If you want to keep your secrets local, create a .env file or use environment variables instead.
+
 data.txt
 test.py
-config.py

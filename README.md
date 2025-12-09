@@ -40,12 +40,17 @@ python3 -m pip install -e .
 ```
 
 ### 3. Set up your secrets 🔑
-Some scripts require API tokens or config files (like `auth.py` and `config.py`). These are **not** included for security reasons. Check the scripts in `calls/` and `process/` for what you need, and create these files in the root directory.
+Template files `auth.py` and `config.py` are included in the repository with empty values. You need to fill in your actual credentials and URLs.
 
-- `auth.py` – Store your API tokens and email here. **Important:** You must define an `email` variable in this file (e.g., `email = "your-email@example.com"`). All API classes now use HTTPBasicAuth with email and token for cloud API authentication.
-- `config.py` – Store your instance URLs and other config.
+**Important:** 
+- Open `auth.py` and fill in all the required variables (especially `email` and your API tokens)
+- Open `config.py` and fill in all your instance URLs
+- The `email` variable is **required** - all API classes use HTTPBasicAuth with email and token for cloud API authentication
 
-**Pro tip:** Never commit your secrets! `.gitignore` already helps with that.
+**Security Note:** 
+- The template files are in the repo with empty strings
+- **Never commit your actual secrets!** If you accidentally fill in real values, they won't be committed if you're careful, but it's better to use environment variables or a `.env` file for production use
+- Consider using a `.env` file or environment variables for sensitive values in production environments
 
 #### Cloud API Authentication
 All API calls have been updated to support Atlassian Cloud APIs using HTTPBasicAuth. Each API class now:
@@ -109,12 +114,12 @@ If you already have this repository cloned on another machine and want to pull t
    ```
    (Replace `main` with your branch name if different, e.g., `master`)
 
-4. **Update your `auth.py` file:**
-   After pulling, make sure your `auth.py` file includes the `email` variable required for cloud API authentication:
-   ```python
-   email = "your-email@example.com"
-   ```
-   If you don't have this variable, add it to your `auth.py` file.
+4. **Update your `auth.py` and `config.py` files:**
+   The template files are now included in the repo. After pulling:
+   - If you already had these files, you may need to merge your values with the new template structure
+   - Make sure your `auth.py` file includes the `email` variable (it's in the template)
+   - Fill in any new variables that were added to the templates
+   - If you get merge conflicts, keep your actual values (not the empty template values)
 
 5. **Reinstall the package (if needed):**
    If you made any changes to `setup.py` or dependencies, reinstall:
