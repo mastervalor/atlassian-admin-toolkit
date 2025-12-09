@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/YOUR_USERNAME/atlassian-admin-toolkit",
-    packages=find_packages(),
+    packages=find_packages(exclude=("tests", "tests.*")),
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: System Administrators",
@@ -41,13 +41,4 @@ setup(
             "flake8>=3.8",
         ],
     },
-    entry_points={
-        "console_scripts": [
-            "atlassian-admin=atlassian_admin_toolkit.cli:main",
-        ],
-    },
-    include_package_data=True,
-    package_data={
-        "atlassian_admin_toolkit": ["templates/*.json", "config/*.yaml"],
-    },
-) 
+)
