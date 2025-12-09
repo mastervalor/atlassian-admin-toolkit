@@ -42,10 +42,22 @@ python3 -m pip install -e .
 ### 3. Set up your secrets 🔑
 Some scripts require API tokens or config files (like `auth.py` and `config.py`). These are **not** included for security reasons. Check the scripts in `calls/` and `process/` for what you need, and create these files in the root directory.
 
-- `auth.py` – Store your API tokens here (see code for variable names).
+- `auth.py` – Store your API tokens and email here. **Important:** You must define an `email` variable in this file (e.g., `email = "your-email@example.com"`). All API classes now use HTTPBasicAuth with email and token for cloud API authentication.
 - `config.py` – Store your instance URLs and other config.
 
 **Pro tip:** Never commit your secrets! `.gitignore` already helps with that.
+
+#### Cloud API Authentication
+All API calls have been updated to support Atlassian Cloud APIs using HTTPBasicAuth. Each API class now:
+- Imports `email` from `auth.py`
+- Sets up `self.auth = HTTPBasicAuth(email, self.token)` in the `__init__` method
+- Uses `auth=self.auth` in all `requests.request()` calls
+
+Make sure your `auth.py` file includes the `email` variable:
+```python
+email = "your-email@example.com"
+# ... your other tokens
+```
 
 ### 4. Use from your own scripts
 After installing, you can import modules directly. Remember your `auth.py` / `config.py` must be on the Python path (placing them next to your script or in the project root both work).
@@ -72,6 +84,53 @@ Or run a specific test file:
 ```bash
 python tests/jira_logic_tests/ticket_logic_test.py
 ```
+
+---
+
+## 🔄 Updating on Another Machine
+
+If you already have this repository cloned on another machine and want to pull the latest changes:
+
+### Quick Update Steps
+
+1. **Navigate to the repository directory:**
+   ```bash
+   cd /path/to/atlassian-admin-toolkit
+   ```
+
+2. **Fetch the latest changes from the remote repository:**
+   ```bash
+   git fetch origin
+   ```
+
+3. **Pull the latest changes:**
+   ```bash
+   git pull origin main
+   ```
+   (Replace `main` with your branch name if different, e.g., `master`)
+
+4. **Update your `auth.py` file:**
+   After pulling, make sure your `auth.py` file includes the `email` variable required for cloud API authentication:
+   ```python
+   email = "your-email@example.com"
+   ```
+   If you don't have this variable, add it to your `auth.py` file.
+
+5. **Reinstall the package (if needed):**
+   If you made any changes to `setup.py` or dependencies, reinstall:
+   ```bash
+   python3 -m pip install -e .
+   ```
+
+### What Changed?
+- All API call files now use HTTPBasicAuth with email and token for cloud API support
+- 14 API files were updated across Jira, Confluence, and Atlassian Admin APIs
+- The `email` variable is now required in `auth.py`
+
+### Troubleshooting
+- If you get import errors about `email`, make sure it's defined in your `auth.py` file
+- If API calls fail, verify your `email` and token values are correct in `auth.py`
+- If you have merge conflicts, resolve them manually or use `git stash` to save your local changes first
 
 ---
 
