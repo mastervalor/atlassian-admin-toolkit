@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging
 
@@ -8,6 +9,7 @@ class ProjectJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def get_project(self, key):
         url = self.jira + 'project/' + key
@@ -20,7 +22,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -35,7 +37,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -51,7 +53,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -67,7 +69,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -88,7 +90,7 @@ class ProjectJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -104,7 +106,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -120,7 +122,7 @@ class ProjectJiraCalls:
             "PUT",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -136,7 +138,7 @@ class ProjectJiraCalls:
             "PUT",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -150,7 +152,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         try:
@@ -173,7 +175,7 @@ class ProjectJiraCalls:
             "PUT",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -189,7 +191,7 @@ class ProjectJiraCalls:
             "PUT",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         )
 
         if response.status_code == 200:
@@ -210,7 +212,7 @@ class ProjectJiraCalls:
             "PUT",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         )
 
         if response.status_code == 200:
@@ -235,7 +237,7 @@ class ProjectJiraCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -258,7 +260,7 @@ class ProjectJiraCalls:
             url,
             data=payload,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response
@@ -274,7 +276,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response
@@ -292,7 +294,7 @@ class ProjectJiraCalls:
             url,
             data=data,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response
@@ -308,7 +310,7 @@ class ProjectJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response
@@ -327,7 +329,7 @@ class ProjectJiraCalls:
             url,
             data=payload,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response

@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging, jira_agile, jira_agile_dev
 
@@ -9,6 +10,7 @@ class DashboardsJiraCalls:
         self.token = staging_auth if is_staging else auth
         self.jira_agile = jira_agile_dev if is_staging else jira_agile
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def delete_dashboard(self, dashboard_id):
         url = self.jira + f'dashboard/{dashboard_id}'
@@ -16,7 +18,7 @@ class DashboardsJiraCalls:
         response = requests.request(
             "DELETE",
             url,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -27,7 +29,7 @@ class DashboardsJiraCalls:
         response = json.loads(requests.request(
             "GET",
             url,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -43,7 +45,7 @@ class DashboardsJiraCalls:
             "GET",
             url,
             params=params,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -54,7 +56,7 @@ class DashboardsJiraCalls:
         response = requests.request(
             "DELETE",
             url,
-            auth=self.token
+            auth=self.auth
         )
 
         return response

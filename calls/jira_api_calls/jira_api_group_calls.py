@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging
 
@@ -8,6 +9,7 @@ class GroupJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def remove_group_member(self, group, user):
         url = self.jira + 'group/user'
@@ -21,7 +23,7 @@ class GroupJiraCalls:
             "DELETE",
             url,
             params=query,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -40,7 +42,7 @@ class GroupJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -56,7 +58,7 @@ class GroupJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=auth
+            auth=self.auth
         ).text)
 
         return response
@@ -83,7 +85,7 @@ class GroupJiraCalls:
             data=payload,
             headers=headers,
             params=query,
-            auth=auth
+            auth=self.auth
         )
 
         return response

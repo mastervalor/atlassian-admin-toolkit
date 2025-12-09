@@ -1,5 +1,6 @@
 import requests
-from auth import conf_cloud_dev_token
+from requests.auth import HTTPBasicAuth
+from auth import conf_cloud_dev_token, email
 import json
 from config import conf_cloud_v1, conf_cloud_v2, conf_cloud_v1_dev, conf_cloud_v2_dev
 
@@ -9,6 +10,7 @@ class ConfluencePageCalls:
         self.cloud_v1 = conf_cloud_v1_dev if is_staging else conf_cloud_v1
         self.cloud_v2 = conf_cloud_v2_dev if is_staging else conf_cloud_v2
         self.token = conf_cloud_dev_token
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def add_restrictions_to_page(self, page_id, operation_key, account_id):
         url = f"{self.cloud_v1}/content/{page_id}/restriction"
@@ -39,7 +41,7 @@ class ConfluencePageCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -61,7 +63,7 @@ class ConfluencePageCalls:
             url,
             headers=headers,
             json=data,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -82,7 +84,7 @@ class ConfluencePageCalls:
             url,
             headers=headers,
             json=data,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -97,7 +99,7 @@ class ConfluencePageCalls:
         response = requests.get(
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         )
 
         if response.status_code != 200:
@@ -119,6 +121,7 @@ class ConfluencePageCalls:
             "GET",
             url,
             headers=headers,
+            auth=self.auth
         ).text)
 
         pages = response["results"]
@@ -161,7 +164,8 @@ class ConfluencePageCalls:
             "PUT",
             url,
             data=payload,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         ).text)
 
         return response
@@ -194,7 +198,8 @@ class ConfluencePageCalls:
             "POST",
             url,
             data=payload,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         ).text)
 
         return response
@@ -224,7 +229,8 @@ class ConfluencePageCalls:
             "PUT",
             url,
             data=payload,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         ).text)
 
         if response.status_code == 200:
@@ -245,7 +251,8 @@ class ConfluencePageCalls:
         response = requests.request(
             "GET",
             url,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         )
 
         if response.status_code == 200:
@@ -267,7 +274,8 @@ class ConfluencePageCalls:
         response = json.loads(requests.request(
             "DELETE",
             url,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         ).text)
 
         if response.status_code == 200:

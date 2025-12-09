@@ -1,5 +1,6 @@
 import requests
-from auth import atlassian_admin_Bearer_token
+from requests.auth import HTTPBasicAuth
+from auth import atlassian_admin_Bearer_token, email
 import json
 from config import atlassian_admin_v1
 
@@ -9,6 +10,7 @@ class AtlassianAuthPolicies:
         self.token = atlassian_admin_Bearer_token
         self.admin_url = atlassian_admin_v1
         self.org_id = 'd816j2aj-j881-10a8-7c2c-10c7736ca181'
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def add_users_to_policy(self, users, policy_id):
         url = self.admin_url + f"{self.org_id}/auth-policy/{policy_id}/add-users"
@@ -27,7 +29,8 @@ class AtlassianAuthPolicies:
             "POST",
             url,
             data=payload,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         ).text)
 
         return response
@@ -43,7 +46,8 @@ class AtlassianAuthPolicies:
         response = requests.request(
             "GET",
             url,
-            headers=headers
+            headers=headers,
+            auth=self.auth
         )
 
         return response

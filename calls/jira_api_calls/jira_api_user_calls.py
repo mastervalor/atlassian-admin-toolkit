@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging
 
@@ -8,6 +9,7 @@ class UserJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def get_user(self, query, pref=''):
         url = self.jira + 'user' + pref
@@ -21,7 +23,7 @@ class UserJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -37,7 +39,7 @@ class UserJiraCalls:
             "DELETE",
             url,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text
 
         return response
@@ -57,7 +59,7 @@ class UserJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -72,7 +74,7 @@ class UserJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -96,7 +98,7 @@ class UserJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return users

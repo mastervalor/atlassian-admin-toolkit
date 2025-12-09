@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging, jira_agile, jira_agile_dev
 
@@ -9,6 +10,7 @@ class WorkflowJiraCalls:
         self.token = staging_auth if is_staging else auth
         self.jira_agile = jira_agile_dev if is_staging else jira_agile
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def get_workflows(self):
         url = self.jira + "workflow"
@@ -21,7 +23,7 @@ class WorkflowJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -37,7 +39,7 @@ class WorkflowJiraCalls:
             "DELETE",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -52,7 +54,7 @@ class WorkflowJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response

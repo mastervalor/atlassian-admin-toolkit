@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging
 
@@ -8,6 +9,7 @@ class TicketsJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def create_ticket(self, ticket):
         url = self.jira + 'issue'
@@ -23,7 +25,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             data=payload,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -42,7 +44,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             params=query,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -58,7 +60,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -73,7 +75,7 @@ class TicketsJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -100,7 +102,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         )
         return response
 
@@ -120,7 +122,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -141,7 +143,7 @@ class TicketsJiraCalls:
             url,
             headers=headers,
             json=payload,
-            auth=self.token
+            auth=self.auth
         )
 
         return response
@@ -156,7 +158,7 @@ class TicketsJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -171,7 +173,7 @@ class TicketsJiraCalls:
             "DELETE",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text
 
         return response

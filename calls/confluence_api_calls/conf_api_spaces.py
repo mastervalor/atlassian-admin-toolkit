@@ -1,5 +1,6 @@
 import requests
-from auth import conf_cloud_dev_token
+from requests.auth import HTTPBasicAuth
+from auth import conf_cloud_dev_token, email
 import json
 from config import conf_cloud_v1, conf_cloud_v2, conf_cloud_v1_dev, conf_cloud_v2_dev
 
@@ -9,6 +10,7 @@ class ConfluenceSpaceCalls:
         self.cloud_v1 = conf_cloud_v1_dev if is_staging else conf_cloud_v1
         self.cloud_v2 = conf_cloud_v2_dev if is_staging else conf_cloud_v2
         self.token = conf_cloud_dev_token
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def get_spaces(self, limit=250, cursor=None):
         url = self.cloud_v2 + 'spaces'
@@ -30,7 +32,7 @@ class ConfluenceSpaceCalls:
             url,
             headers=headers,
             params=params,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -53,7 +55,7 @@ class ConfluenceSpaceCalls:
                 url,
                 headers=headers,
                 params=params,
-                auth=self.token
+                auth=self.auth
             )
 
             # Check if the request was successful (status code 200)
@@ -87,7 +89,7 @@ class ConfluenceSpaceCalls:
             url,
             data=payload,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -104,7 +106,7 @@ class ConfluenceSpaceCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -120,7 +122,7 @@ class ConfluenceSpaceCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response

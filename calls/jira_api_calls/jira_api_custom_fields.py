@@ -1,5 +1,6 @@
 import requests
-from auth import auth, staging_auth
+from requests.auth import HTTPBasicAuth
+from auth import auth, staging_auth, email
 import json
 from config import jira, jira_staging
 
@@ -8,6 +9,7 @@ class CustomFieldsJiraCalls:
     def __init__(self, is_staging=False):
         self.token = staging_auth if is_staging else auth
         self.jira = jira_staging if is_staging else jira
+        self.auth = HTTPBasicAuth(email, self.token)
 
     def get_custom_field_context(self, fieldId, contextId):
         url = self.jira + f'customFields/{fieldId}/context/{contextId}'
@@ -20,7 +22,7 @@ class CustomFieldsJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
@@ -36,7 +38,7 @@ class CustomFieldsJiraCalls:
             "GET",
             url,
             headers=headers,
-            auth=self.token
+            auth=self.auth
         ).text)
 
         return response
