@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include atlassian_admin_toolkit *.json
+recursive-include atlassian_admin_toolkit *.yaml
+recursive-include atlassian_admin_toolkit *.yml
+recursive-include atlassian_admin_toolkit *.txt
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co] 
