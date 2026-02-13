@@ -80,6 +80,10 @@ class UserJiraCalls:
         return response
 
     def find_users_by_string(self, string, max_result, start_at):
+        """
+        Search for users by query string.
+        Cloud uses 'query' parameter, on-prem uses 'username' parameter.
+        """
         url = self.jira + 'user/search'
 
         headers = {
@@ -87,19 +91,35 @@ class UserJiraCalls:
             "Content-Type": "application/json"
         }
 
+        # Cloud uses 'query' parameter, on-prem uses 'username'
         query = {
-            'username': string,
+            'query': string,
             "startAt": start_at,
             'maxResults': max_result
         }
 
-        users = json.loads(requests.request(
+        response = requests.request(
             "GET",
             url,
             headers=headers,
             params=query,
             auth=self.auth
-        ).text)
+        )
+        
+        # If query fails, try username for on-prem compatibility
+        if response.status_code == 400:
+            query = {
+                'username': string,
+                "startAt": start_at,
+                'maxResults': max_result
+            }
+            response = requests.request(
+                "GET",
+                url,
+                headers=headers,
+                params=query,
+                auth=self.auth
+            )
 
-        return users
+        return json.loads(response.text)
 
